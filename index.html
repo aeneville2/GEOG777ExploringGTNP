@@ -15,36 +15,34 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid" style="background-color:green;">
                 <div class="navbar-header">
-                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>-->
                     <a class="navbar-brand" href="#">Exploring GTNP</a>
                 </div>
-                <!--<div class="collapse navbar-collapse" id="menu">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Directions</a></li>
-                        <li><a href="#">Filter Features</a></li>
-                        <li><a href="#">Submit Ranking</a></li>
-                        <li><a href="#">Ranking Chart</a></li>
-                    </ul>
-                </div>-->
-                <!-- https://www.codecademy.com/article/bootstrap-menus-navbar-modals -->
-                <div id="menu">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret">Menu</span></a></li>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Directions</a></li>
-                                <li><a href="#">Filter Features</a></li>
-                                <li><a href="#">Submit Ranking</a></li>
-                                <li><a href="#">Ranking Chart</a></li>
-                            </ul>
+                <!-- https://getbootstrap.com/docs/5.0/components/dropdowns/-->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                        <li><button id="directions-btn">Directions</button></li>
+                        <li><button id="filter-btn">Filter Features</button></li>
+                        <li><button id="user-input-btn">Submit Ranking</button></li>
+                        <li><button id="chart-btn">Ranking Chart</button></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="container-fluid" id="directions-container" style="display:none;">
+            <div id="directions-form"></div>
+        </div>
+        <div class="container-fluid" id="filter-container" style="display:none;">
+            <div id="filter-form"></div>
+        </div>
+        <div class="container-fluid" id="user-input-container" style="display:none;">
+            <div id="user-input-form"></div>
+        </div>
+        <div class="container-fluid" id="chart-container" style="display:none;">
+            <div id="chart-form"></div>
+        </div>
         <div class="container-fluid" style="width:100%;height:100vh;">
             <div class="row" id="map-row" style="width:100%;height:100vh;">
                 <div class="col-12" id="map"></div>

@@ -159,3 +159,53 @@ const geolocate = new mapboxgl.GeolocateControl({
 map.addControl(
     geolocate
 );
+
+//https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
+const directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    unit: 'imperial',
+    profile: 'mapbox/driving',
+    alternatives: false,
+    geometries: 'geojson',
+    controls: {instructions: true},
+    flyTo: true
+})
+//map.addControl(directions,'top-right');
+document.getElementById("directions-form").appendChild(directions.onAdd(map));
+map.scrollZoom.enable();
+
+document.getElementById("directions-btn").addEventListener("click",function(){
+    var x = document.getElementById("directions-container");
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+})
+
+document.getElementById("filter-btn").addEventListener("click",function(){
+    var x = document.getElementById("filter-container");
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+})
+
+document.getElementById("user-input-btn").addEventListener("click",function(){
+    var x = document.getElementById("user-input-container");
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+})
+
+document.getElementById("chart-btn").addEventListener("click",function(){
+    var x = document.getElementById("chart-container");
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+})
