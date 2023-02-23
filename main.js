@@ -87,7 +87,7 @@ map.on('load', ()=>{
         }
     });
 
-    map.addLayer({
+    /*map.addLayer({
         id: 'Rankings',
         type: 'circle',
         source: {
@@ -99,10 +99,10 @@ map.on('load', ()=>{
             'circle-radius': 20,
             'circle-color': '#eff542'
         }
-    });
+    });*/
 
     addRankings();
-    //getPOIs();
+    getPOIs();
 
 });
 
@@ -113,19 +113,39 @@ async function addRankings(){
     );
     const data = await rankings.json();
     Promise.all([rankings,data]).then(()=>{
+        map.addSource('rankingSource',{
+            type: 'geojson',
+            data: data
+        });
         map.addLayer({
-            id: 'Rankings2',
+            id: 'Rankings',
             type: 'circle',
-            source: {
-                type: 'geojson',
-                data: data
-            },
+            source: 'rankingSource',
             paint: {
                 'circle-color':'#fff',
                 'circle-radius':20
             }
         });
     });
+};
+
+async function getPOIs(){
+    const pois = await fetch(
+        'https://api.mapbox.com/datasets/v1/aeneville2/cledcynu8086025quruopxym2/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw',
+        { method: 'GET'}
+    )
+    const data = await pois.json();
+    const features = data.features;
+    
+    for (var i=0;i<features.length;i++){
+        const name = features[i].properties["Point Name"];
+        const geometry = features[i].geometry.coordinates;
+        //poiDict[name] = geometry;
+        const selectPoi = document.getElementById('poi-select')
+        let newOption = new Option(name,geometry);
+        selectPoi.add(newOption,undefined);
+    }
+    //console.log(poiDict);
 };
 
 ////https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/#add-the-geocoder 
@@ -161,6 +181,7 @@ map.addControl(
 );
 
 //https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
+// HOW TO DISACTIVATE THIS UNTIL IT IS SHOWN IN THE DISPLAY (currently activiates on user click even when not showing)
 const directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
     unit: 'imperial',
@@ -173,6 +194,56 @@ const directions = new MapboxDirections({
 //map.addControl(directions,'top-right');
 document.getElementById("directions-form").appendChild(directions.onAdd(map));
 map.scrollZoom.enable();
+
+//Add points to a map part 3: interactivity
+map.on('click',(event)=>{
+    const features = map.queryRenderedFeatures(event.point, {
+        layers: ['Services','POIs','Trails','Park Boundary','Rankings']
+    });
+
+    if(!features.length){
+        return;
+    }
+    const feature = features[0];
+    console.log("Feature: ",feature)
+
+    const popup = new mapboxgl.Popup({offset: [0,-15]})
+    //.setLngLat(feature.geometry.coordinates)
+    .setLngLat(event.lngLat)
+
+    if (feature.sourceLayer == 'Services'){
+        popup.setHTML(
+            `<h3>${feature.properties['Point Name']}</h3>`
+        )
+        .addTo(map);
+    } else if (feature.sourceLayer == 'POIs' && feature.properties.URL != null){
+        popup.setHTML(
+            `<h3>${feature.properties['Point Name']}</h3><a href='${feature.properties.URL}'>More Info</a>`
+        )
+        .addTo(map);
+    } else if (feature.sourceLayer == 'POIs' && feature.properties.URL == null){
+        popup.setHTML(
+            `<h3>${feature.properties['Point Name']}</h3>`
+        )
+        .addTo(map);
+    }
+    else if (feature.sourceLayer == 'Trails_FeaturesToJSON_v3-1c2nmj'){
+        popup.setHTML(
+            `<h3>${feature.properties['Name']}</h3>`
+        )
+        .addTo(map);
+    } else if (feature.sourceLayer == 'ParkBoundary_FeaturesToJSON_v-4oyzb4'){
+        popup.setHTML(
+            `<h3>Grand Teton National Park</h3>`
+        )
+        .addTo(map);
+    } else if (feature.source == 'rankingSource') {
+        popup.setHTML(
+            `<h3>${feature.properties["Name"]}</h3><p>${feature.properties['Ranking']}</p><p>${feature.properties["Comment"]}</p>`
+        )
+        .addTo(map);
+    }
+});
 
 document.getElementById("directions-btn").addEventListener("click",function(){
     var x = document.getElementById("directions-container");
@@ -208,4 +279,64 @@ document.getElementById("chart-btn").addEventListener("click",function(){
     } else {
         x.style.display = "none";
     }
-})
+});
+
+let featureId = 1;
+
+async function featureIdIncrement(){
+    featureId++;
+    return featureId;
+};
+
+const submitBtn = document.getElementById("submit-btn")
+submitBtn.addEventListener("click",async function(event){
+    event.preventDefault();
+
+    const rankingVal = document.getElementById("ranking").value;
+    const commentVal = document.getElementById("comment").value;
+    const selectForm = document.getElementById("poi-select")
+    const coord = selectForm.options[selectForm.selectedIndex].value;
+    const coordSplit = coord.split(",");
+    const poiLon = parseFloat(coordSplit[0]);
+    const poiLat = parseFloat(coordSplit[1]);
+    const poiName = selectForm.options[selectForm.selectedIndex].textContent;
+
+    const featureid = await featureIdIncrement();
+
+    const feature = {
+        "id": `${featureid}`,
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [poiLon,poiLat]
+        },
+        "properties": {
+            "Ranking": rankingVal,
+            "Comment": commentVal,
+            "Name": poiName
+        }
+    }
+
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(feature)
+    }
+
+    const response = await fetch(
+        `https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features/${featureid}?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw`,
+        requestOptions
+    )
+    //Promise.all([response]).then(deleteTiles);
+
+    const data = await response.json();
+    console.log(data);
+
+    //DOES THIS OCCUR LATE ENOUGH THAT IT ACTUALLY UPDATES IN THE MAP?
+    map.removeLayer('Rankings');
+    map.removeSource('rankingSource');
+    const form = document.getElementById('user-ranking-form');
+    form.reset();
+    
+    addRankings();
+});

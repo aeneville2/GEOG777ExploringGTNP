@@ -38,7 +38,16 @@
             <div id="filter-form"></div>
         </div>
         <div class="container-fluid" id="user-input-container" style="display:none;">
-            <div id="user-input-form"></div>
+            <div id="user-input-form">
+                <form id="user-ranking-form">
+                    <select id="poi-select">
+                        <option id="default-poi-select">Select a POI</option>
+                    </select>
+                    <input type="number" id="ranking" placeholder="Input ranking number..."><label for="ranking">Ranking</label>
+                    <input type="text" id="comment"><label for="comment">Comment</label>
+                    <button id="submit-btn">Submit</button>
+                </form>
+            </div>
         </div>
         <div class="container-fluid" id="chart-container" style="display:none;">
             <div id="chart-form"></div>
