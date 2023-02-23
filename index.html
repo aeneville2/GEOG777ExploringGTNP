@@ -11,7 +11,27 @@
         
     </head>
     <body>
-        <navbar></navbar>
+        <!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid" style="background-color:green;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Exploring GTNP</a>
+                </div>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Directions</a></li>
+                        <li><a href="#">Filter Features</a></li>
+                        <li><a href="#">Submit Ranking</a></li>
+                        <li><a href="#">Ranking Chart</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container-fluid" style="width:100%;height:100vh;">
             <div class="row" id="map-row" style="width:100%;height:100vh;">
                 <div class="col-12" id="map"></div>

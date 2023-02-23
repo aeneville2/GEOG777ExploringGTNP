@@ -1,9 +1,8 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVjemNsMDIwMjE4M3JwOXRham13bzQ3In0.sdW72uvBX2AoOOnDIJxOPg'
-//mapboxgl.accessToken = 'sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw'
+
 
 const map = new mapboxgl.Map({
     container: 'map',
-    //style: 'mapbox://styles/aeneville2/cleditt39001201nxj2kum5zk',
     style: 'mapbox://styles/mapbox/outdoors-v12',
     center: [-110.6818,43.7904],
     zoom: 8
@@ -128,3 +127,22 @@ async function addRankings(){
         });
     });
 };
+
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    placeholder: 'Search for places in Grand Teton National Park',
+    mapboxgl: mapboxgl,
+    marker: false,
+    bbox: [-111.00480, 43.41594, -110.32914, 44.18901],
+    proximity: {
+        longitude: -110.6818,
+        latitude: 43.7904
+    }
+});
+map.addControl(geocoder);
+
+geocoder.on('result',(event)=>{
+    map.getSource('single-point').setData(event.result.geometry);
+    //const end = event.result.geometry.coordinates;
+    //getRoute(end);
+});

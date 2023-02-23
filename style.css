@@ -2,12 +2,15 @@ body {
     margin: 0; 
     padding: 0; 
 }
+
+nav {
+    background-color: green;
+}
             
 #map { 
     top: 0; 
     bottom: 0; 
     height: 100vh;
-    background-color: yellow;
     position: absolute;
     width: 100%; 
 }
