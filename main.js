@@ -128,6 +128,7 @@ async function addRankings(){
     });
 };
 
+////https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/#add-the-geocoder 
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     placeholder: 'Search for places in Grand Teton National Park',
@@ -146,3 +147,15 @@ geocoder.on('result',(event)=>{
     //const end = event.result.geometry.coordinates;
     //getRoute(end);
 });
+
+//https://docs.mapbox.com/mapbox-gl-js/example/locate-user
+const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+            enableHighAccuracy: true
+    },
+    trackUserLocation: true,
+    showUserHeading: true
+})
+map.addControl(
+    geolocate
+);
