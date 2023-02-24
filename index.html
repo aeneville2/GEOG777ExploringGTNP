@@ -32,10 +32,48 @@
             </div>
         </nav>
         <div class="container-fluid" id="directions-container" style="display:none;">
-            <div id="directions-form"></div>
+            <div id="directions-form">
+            </div>
         </div>
         <div class="container-fluid" id="filter-container" style="display:none;">
-            <div id="filter-form"></div>
+            <div id="filter-form">
+                <form id="filter-form-input">
+                    <select id="filter-select-poi">
+                        <option value="Label">Select a Point of Interest Type</option>
+                        <option value="Amphitheater">Amphitheater</option>
+                        <option value="Campground">Campground</option>
+                        <option value="Entrance Station">Entrance Station</option>
+                        <option value="Ferry Terminal">Ferry Terminal</option>
+                        <option value="Lodging">Lodging</option>
+                        <option value="Overlook">Overlook</option>
+                        <option value="Picnic Area">Picnic Area</option>
+                        <option value="Trailhead">Trailhead</option>
+                        <option value="Turnout">Turnout</option>
+                        <option value="Visitor Center">Visitor Center</option>
+                        <option value="Water Access">Water Access</option>
+                    </select>
+                    <select id="filter-select-services">
+                        <option value="Label">Select a Services Type</option>
+                        <option value="First Aid Station">First Aid Station</option>
+                        <option value="Food Service">Food Service</option>
+                        <option value="Gas Station">Gas Station</option>
+                        <option value="Headquarters">Headquarters</option>
+                        <option value="Parking">Parking</option>
+                        <option value="Pay Phone">Pay Phone</option>
+                        <option value="Post Office">Post Office</option>
+                        <option value="Ranger Station">Ranger Station</option>
+                        <option value="Restroom">Restroom</option>
+                        <option value="Showers">Showers</option>
+                        <option value="Store">Store</option>
+                    </select>
+                    <select id="filter-select-trails-use">
+                        <option value="Label">Select a Trail Use</option>
+                        <option value="Hiker/Pedestrian | Pack and Saddle">Hikers & Equestrian</option>
+                        <option value="Hiker/Pedestrian">Hikers Only</option>
+                        <option value="Hiker/Pedestrian|Bicycle">Hikers & Bikers</option>
+                    </select>
+                </form>
+            </div>
         </div>
         <div class="container-fluid" id="user-input-container" style="display:none;">
             <div id="user-input-form">

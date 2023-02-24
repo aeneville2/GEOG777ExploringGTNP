@@ -245,39 +245,111 @@ map.on('click',(event)=>{
     }
 });
 
+var directionContainer = document.getElementById("directions-container");
+var filterContainer = document.getElementById("filter-container");
+var userContainer = document.getElementById("user-input-container");
+var chartContainer = document.getElementById("chart-container");
+
 document.getElementById("directions-btn").addEventListener("click",function(){
-    var x = document.getElementById("directions-container");
-    if (x.style.display === "none"){
-        x.style.display = "block";
+    if(filterContainer.style.display === "block"){
+        filterContainer.style.display = "none"
+    }
+    if (userContainer.style.display === "block"){
+        userContainer.style.display = "none"
+    }
+    if (chartContainer.style.display === "block"){
+        chartContainer.style.display = "none"
+    }
+
+    if (directionContainer.style.display === "none"){
+        directionContainer.style.display = "block";
     } else {
-        x.style.display = "none";
+        directionContainer.style.display = "none";
     }
 })
 
 document.getElementById("filter-btn").addEventListener("click",function(){
-    var x = document.getElementById("filter-container");
-    if (x.style.display === "none"){
-        x.style.display = "block";
+    if(directionContainer.style.display === "block"){
+        directionContainer.style.display = "none"
+    }
+    if (userContainer.style.display === "block"){
+        userContainer.style.display = "none"
+    }
+    if (chartContainer.style.display === "block"){
+        chartContainer.style.display = "none"
+    }
+
+    if (filterContainer.style.display === "none"){
+        filterContainer.style.display = "block";
     } else {
-        x.style.display = "none";
+        filterContainer.style.display = "none";
     }
 })
 
 document.getElementById("user-input-btn").addEventListener("click",function(){
-    var x = document.getElementById("user-input-container");
-    if (x.style.display === "none"){
-        x.style.display = "block";
+    if(filterContainer.style.display === "block"){
+        filterContainer.style.display = "none"
+    }
+    if (directionContainer.style.display === "block"){
+        directionContainer.style.display = "none"
+    }
+    if (chartContainer.style.display === "block"){
+        chartContainer.style.display = "none"
+    }
+
+    if (userContainer.style.display === "none"){
+        userContainer.style.display = "block";
     } else {
-        x.style.display = "none";
+        userContainer.style.display = "none";
     }
 })
 
 document.getElementById("chart-btn").addEventListener("click",function(){
-    var x = document.getElementById("chart-container");
-    if (x.style.display === "none"){
-        x.style.display = "block";
+    if(filterContainer.style.display === "block"){
+        filterContainer.style.display = "none"
+    }
+    if (userContainer.style.display === "block"){
+        userContainer.style.display = "none"
+    }
+    if (directionContainer.style.display === "block"){
+        directionContainer.style.display = "none"
+    }
+    if (chartContainer.style.display === "none"){
+        chartContainer.style.display = "block";
     } else {
-        x.style.display = "none";
+        chartContainer.style.display = "none";
+    }
+});
+
+const filterPOIs = document.getElementById("filter-select-poi");
+filterPOIs.addEventListener("change",function(){
+    const val = filterPOIs.options[filterPOIs.selectedIndex].value;
+    if (val != "Label"){
+        map.setFilter('POIs',['==',['get','Point Type'],val]);
+    } else if (val == "Label"){
+        map.setFilter('POIs',null);
+    }
+});
+
+const filterServices = document.getElementById("filter-select-services");
+filterServices.addEventListener("change",function(){
+    const val = filterServices.options[filterServices.selectedIndex].value;
+    if (val != "Label"){
+        map.setFilter('Services',['==',['get','Point Type'],val]);
+    } else if (val == "Label"){
+        map.setFilter('Services',null);
+    }
+});
+
+const filterTrails = document.getElementById("filter-select-trails-use");
+filterTrails.addEventListener("change",function(){
+    const val = filterTrails.options[filterTrails.selectedIndex].value;
+    if (val != "Label" && val != "Hiker/Pedestrian|Bicycle"){
+        map.setFilter('Trails',['==',['get','Trail Use'],val]);
+    } else if (val == "Hiker/Pedestrian|Bicycle") {
+        map.setFilter('Trails',['any',['==',['get','Trail Use'],val],['==',['get','Trail Use'],'Hiker/Pedestrian | Bicycle']])
+    } else if (val == "Label"){
+        map.setFilter('Trails',null)
     }
 });
 
@@ -326,17 +398,32 @@ submitBtn.addEventListener("click",async function(event){
     const response = await fetch(
         `https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features/${featureid}?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw`,
         requestOptions
-    )
-    //Promise.all([response]).then(deleteTiles);
+    );
 
     const data = await response.json();
     console.log(data);
 
+    //FIGURE OUT THE LAG IN THE DATASET UPDATING (even when refresh map, it still shows previous point locations)
+    Promise.all([data]).then(async ()=>{
+        const removeLayer = map.removeLayer('Rankings');
+        const removeSource = await map.removeSource('rankingSource');
+        const form = document.getElementById('user-ranking-form');
+        form.reset();
+        Promise.all([removeLayer,removeSource,form]).then(()=>{
+            addRankings();
+        });
+    })
+
     //DOES THIS OCCUR LATE ENOUGH THAT IT ACTUALLY UPDATES IN THE MAP?
-    map.removeLayer('Rankings');
+    /*map.removeLayer('Rankings');
     map.removeSource('rankingSource');
     const form = document.getElementById('user-ranking-form');
-    form.reset();
+    form.reset();*/
     
-    addRankings();
+    //addRankings();
 });
+
+window.addEventListener("load",(function(){
+    this.document.getElementById("filter-form-input").reset();
+    this.document.getElementById("user-ranking-form").reset();
+}));
