@@ -89,22 +89,98 @@ map.on('load', ()=>{
 
     map.loadImage('./red-icon.png',(error,image)=>{
         if(error) throw error;
-        map.addImage('red-icon',image);
-        map.addLayer({
-            'id':'POIs',
-            'type':'symbol',
-            'source':{
-                'type': 'vector',
-                'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
-            },
-            'source-layer': 'POIs',
-            'layout': {
-                'icon-image': 'red-icon',
-                'icon-size': 0.5
-            }
-        });
-    })
+        map.addImage('red-icon',image);    
+    });
 
+    map.loadImage('./boat-tour-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('boat-tour',image);
+    });
+
+    map.loadImage('./trailhead-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('trailhead',image);
+    });
+
+    map.loadImage('./beach-access-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('beach-access',image)
+    });
+
+    map.loadImage('./campground-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('campground',image)
+    });
+
+    map.loadImage('./entrance-station-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('entrance-station',image)
+    });
+
+    map.loadImage('./lodging-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('lodging',image)
+    });
+
+    map.loadImage('./picnic-area-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('picnic-area',image)
+    });
+
+    map.loadImage('./scenic-viewpoint-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('scenic-viewpoint',image)
+    });
+
+    map.loadImage('./theater-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('theater',image)
+    });
+
+    map.loadImage('./visitor-center-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('visitor-center',image)
+    });
+
+    map.addLayer({
+        'id':'POIs',
+        'type':'symbol',
+        'source':{
+            'type': 'vector',
+            'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
+        },
+        'source-layer': 'POIs',
+        'layout': {
+            'icon-image': [
+                'match',
+                ['get','Point Type'],
+                'Trailhead',
+                'trailhead',
+                'Ferry Terminal',
+                'boat-tour',
+                'Visitor Center',
+                'visitor-center',
+                'Campground',
+                'campground',
+                'Entrance Station',
+                'entrance-station',
+                'Amphitheater',
+                'theater',
+                'Water Access',
+                'beach-access',
+                'Picnic Area',
+                'picnic-area',
+                'Turnout',
+                'scenic-viewpoint',
+                'Overlook',
+                'scenic-viewpoint',
+                'Lodging',
+                'lodging',
+                'red-icon'
+            ],
+            'icon-size': 0.25
+        }
+    });
 
     map.addSource('single-point',{
         type: 'geojson',
