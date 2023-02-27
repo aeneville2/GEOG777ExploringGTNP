@@ -1,3 +1,5 @@
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVjemNsMDIwMjE4M3JwOXRham13bzQ3In0.sdW72uvBX2AoOOnDIJxOPg'
 
 
@@ -7,6 +9,7 @@ const map = new mapboxgl.Map({
     center: [-110.6818,43.7904],
     zoom: 8
 });
+
 
 map.on('load', ()=>{
 
@@ -76,8 +79,10 @@ map.on('load', ()=>{
         }
     });*/
 
+    
     map.loadImage('https://www.nps.gov/maps/tools/symbol-library/assets/img/trailhead-black-22.svg',(error,image)=>{
         if (error) throw error;
+
 
         map.addImage('trailhead',image);
     })
