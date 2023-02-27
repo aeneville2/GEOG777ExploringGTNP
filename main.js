@@ -38,7 +38,8 @@ map.on('load', ()=>{
         'source-layer': 'Trails_FeaturesToJSON_v3-1c2nmj',
         'paint': {
             'line-width': 2,
-            'line-color': '#004b8d'
+            'line-color': '#6e3802',
+            'line-dasharray': [3,2]
         }
     });
 
@@ -79,14 +80,7 @@ map.on('load', ()=>{
         }
     });*/
 
-    
-    /*map.loadImage('https://www.nps.gov/maps/tools/symbol-library/assets/img/trailhead-black-22.svg',(error,image)=>{
-        if (error) throw error;
-
-
-        map.addImage('trailhead',image);
-    })*/
-
+    //https://www.nps.gov/maps/tools/symbol-library/index.html 
     map.loadImage('./red-icon.png',(error,image)=>{
         if(error) throw error;
         map.addImage('red-icon',image);    
@@ -294,7 +288,6 @@ map.addControl(
 );
 
 //https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
-// HOW TO DISACTIVATE THIS UNTIL IT IS SHOWN IN THE DISPLAY (currently activiates on user click even when not showing)
 const directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
     unit: 'imperial',
@@ -321,39 +314,39 @@ map.on('click',(event)=>{
     const feature = features[0];
     console.log("Feature: ",feature)
 
-    const popup = new mapboxgl.Popup({offset: [0,-15]})
+    const popup = new mapboxgl.Popup({offset: [0,0]})
     //.setLngLat(feature.geometry.coordinates)
     .setLngLat(event.lngLat)
 
     if (feature.sourceLayer == 'Services'){
         popup.setHTML(
-            `<h3>${feature.properties['Point Name']}</h3>`
+            `<h6>${feature.properties['Point Name']}</h6>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL != null){
         popup.setHTML(
-            `<h3>${feature.properties['Point Name']}</h3><a href='${feature.properties.URL}'>More Info</a>`
+            `<h6>${feature.properties['Point Name']}</h6><a href='${feature.properties.URL}' target='_blank'>More Info</a>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL == null){
         popup.setHTML(
-            `<h3>${feature.properties['Point Name']}</h3>`
+            `<h6>${feature.properties['Point Name']}</h6>`
         )
         .addTo(map);
     }
     else if (feature.sourceLayer == 'Trails_FeaturesToJSON_v3-1c2nmj'){
         popup.setHTML(
-            `<h3>${feature.properties['Name']}</h3>`
+            `<h6>${feature.properties['Name']}</h6>`
         )
         .addTo(map);
-    } else if (feature.sourceLayer == 'ParkBoundary_FeaturesToJSON_v-4oyzb4'){
+    } /*else if (feature.sourceLayer == 'ParkBoundary_FeaturesToJSON_v-4oyzb4'){
         popup.setHTML(
             `<h3>Grand Teton National Park</h3>`
         )
         .addTo(map);
-    } else if (feature.source == 'rankingSource') {
+    }*/ else if (feature.source == 'rankingSource') {
         popup.setHTML(
-            `<h3>${feature.properties["Name"]}</h3><p>${feature.properties['Ranking']}</p><p>${feature.properties["Comment"]}</p>`
+            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Ranking: ${feature.properties['Ranking']}</p><p>Comment: ${feature.properties["Comment"]}</p>`
         )
         .addTo(map);
     }
