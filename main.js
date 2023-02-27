@@ -117,9 +117,9 @@ map.on('load', ()=>{
         map.addImage('entrance-station',image)
     });
 
-    map.loadImage('./lodging-black-22.png',(error,image)=>{
+    map.loadImage('./lodging-black-22-v2.png',(error,image)=>{
         if (error) throw error;
-        map.addImage('lodging',image)
+        map.addImage('lodging-v2',image)
     });
 
     map.loadImage('./picnic-area-black-22.png',(error,image)=>{
@@ -172,10 +172,10 @@ map.on('load', ()=>{
                 'picnic-area',
                 'Turnout',
                 'scenic-viewpoint',
+                'Lodging',
+                'lodging-v2',
                 'Overlook',
                 'scenic-viewpoint',
-                'Lodging',
-                'lodging',
                 'red-icon'
             ],
             'icon-size': 0.25
@@ -302,10 +302,11 @@ const directions = new MapboxDirections({
     alternatives: false,
     geometries: 'geojson',
     controls: {instructions: true},
-    flyTo: true
-})
+    flyTo: true,
+    interactive: true
+});
 //map.addControl(directions,'top-right');
-document.getElementById("directions-form").appendChild(directions.onAdd(map));
+//document.getElementById("directions-form").appendChild(directions.onAdd(map));
 map.scrollZoom.enable();
 
 //Add points to a map part 3: interactivity
@@ -376,14 +377,17 @@ document.getElementById("directions-btn").addEventListener("click",function(){
 
     if (directionContainer.style.display === "none"){
         directionContainer.style.display = "block";
+        document.getElementById("directions-form").appendChild(directions.onAdd(map));
     } else {
         directionContainer.style.display = "none";
+        map.removeControl(directions);
     }
 })
 
 document.getElementById("filter-btn").addEventListener("click",function(){
     if(directionContainer.style.display === "block"){
-        directionContainer.style.display = "none"
+        directionContainer.style.display = "none";
+        map.removeControl(directions);
     }
     if (userContainer.style.display === "block"){
         userContainer.style.display = "none"
@@ -404,7 +408,8 @@ document.getElementById("user-input-btn").addEventListener("click",function(){
         filterContainer.style.display = "none"
     }
     if (directionContainer.style.display === "block"){
-        directionContainer.style.display = "none"
+        directionContainer.style.display = "none";
+        map.removeControl(directions);
     }
     if (chartContainer.style.display === "block"){
         chartContainer.style.display = "none"
@@ -425,7 +430,8 @@ document.getElementById("chart-btn").addEventListener("click",function(){
         userContainer.style.display = "none"
     }
     if (directionContainer.style.display === "block"){
-        directionContainer.style.display = "none"
+        directionContainer.style.display = "none";
+        map.removeControl(directions);
     }
     if (chartContainer.style.display === "none"){
         chartContainer.style.display = "block";
