@@ -54,7 +54,7 @@ map.on('load', ()=>{
         }
     });
 
-    map.addLayer({
+    /*map.addLayer({
         'id':'POIs',
         'type':'circle',
         'source':{
@@ -65,9 +65,46 @@ map.on('load', ()=>{
         'paint': {
             'circle-radius': 10,
             'circle-opacity': 0.8,
-            'circle-color': 'rgb(60,120,30)'
+            //'circle-color': 'rgb(60,120,30)'
+            'circle-color': [
+                'match',
+                ['get','Point Type'],
+                'Overlook',
+                '#004b8d',
+                '#008000'
+            ]
         }
-    });
+    });*/
+
+    map.loadImage('https://www.nps.gov/maps/tools/symbol-library/assets/img/trailhead-black-22.svg',(error,image)=>{
+        if (error) throw error;
+
+        map.addImage('trailhead',image);
+    })
+
+    //map.addImage('trailhead','trailhead-black-22.svg');
+    map.addImage('boat-tour','boat-tour-black-22.svg');
+
+    map.addLayer({
+        'id': 'POIs',
+        'type': 'symbol',
+        'source': {
+            'type': 'vector',
+            'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
+        },
+        'source-layer': 'POIs',
+        'layout': {
+            'icon-image': [
+                'match',
+                ['get', 'Point Type'],
+                'Ferry Terminal',
+                'boat-tour',
+                'Trailhead',
+                'trailhead.svg',
+                'boat-tour.svg'
+            ]
+        }
+    })
 
     map.addSource('single-point',{
         type: 'geojson',
