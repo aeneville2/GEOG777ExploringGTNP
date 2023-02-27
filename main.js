@@ -80,36 +80,31 @@ map.on('load', ()=>{
     });*/
 
     
-    map.loadImage('https://www.nps.gov/maps/tools/symbol-library/assets/img/trailhead-black-22.svg',(error,image)=>{
+    /*map.loadImage('https://www.nps.gov/maps/tools/symbol-library/assets/img/trailhead-black-22.svg',(error,image)=>{
         if (error) throw error;
 
 
         map.addImage('trailhead',image);
+    })*/
+
+    map.loadImage('./red-icon.png',(error,image)=>{
+        if(error) throw error;
+        map.addImage('red-icon',image);
+        map.addLayer({
+            'id':'POIs',
+            'type':'symbol',
+            'source':{
+                'type': 'vector',
+                'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
+            },
+            'source-layer': 'POIs',
+            'layout': {
+                'icon-image': 'red-icon',
+                'icon-size': 0.5
+            }
+        });
     })
 
-    //map.addImage('trailhead','trailhead-black-22.svg');
-    map.addImage('boat-tour','boat-tour-black-22.svg');
-
-    map.addLayer({
-        'id': 'POIs',
-        'type': 'symbol',
-        'source': {
-            'type': 'vector',
-            'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
-        },
-        'source-layer': 'POIs',
-        'layout': {
-            'icon-image': [
-                'match',
-                ['get', 'Point Type'],
-                'Ferry Terminal',
-                'boat-tour',
-                'Trailhead',
-                'trailhead.svg',
-                'boat-tour.svg'
-            ]
-        }
-    })
 
     map.addSource('single-point',{
         type: 'geojson',
