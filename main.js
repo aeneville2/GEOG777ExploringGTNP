@@ -181,7 +181,7 @@ map.on('load', ()=>{
         map.addImage('souvenir-shop',image)
     });
 
-    map.loadImage('./volume-control-telephone-black-22.png',(error,image)=>{
+    map.loadImage('./telephone-black-22.png',(error,image)=>{
         if (error) throw error;
         map.addImage('pay-phone',image)
     });
@@ -310,17 +310,21 @@ async function addRankings(){
     );
     const data = await rankings.json();
     Promise.all([rankings,data]).then(()=>{
+        map.loadImage('./Star.png',(error,image)=>{
+            if (error) throw error;
+            map.addImage('star',image)
+        });
         map.addSource('rankingSource',{
             type: 'geojson',
             data: data
         });
         map.addLayer({
             id: 'Rankings',
-            type: 'circle',
+            type: 'symbol',
             source: 'rankingSource',
-            paint: {
-                'circle-color':'#fff',
-                'circle-radius':20
+            layout: {
+                'icon-image': 'star',
+                'icon-size': 0.15
             }
         });
     });
