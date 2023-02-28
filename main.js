@@ -311,6 +311,8 @@ map.on('load', ()=>{
 
 });
 
+//var poiCounter = [];
+
 async function addRankings(){
     const rankings = await fetch(
         'https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw',
@@ -336,38 +338,45 @@ async function addRankings(){
                 'visibility': 'visible'
             }
         });
-        const counterFinished = await counterLoop();
-        //let poiCounter = {};
 
-        async function counterLoop(){
-            const features = data.features;
-        
-            const poiArray = [];
-            for (var i=0; i<features.length; i++){
-                const poiName = features[i].properties["Name"];
-    
-                poiArray.push(poiName);
-            };
-    
-            let poiCounter = {};
-    
-            //https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array
-            for (poi of poiArray.flat()){
-                if (poiCounter[poi]) {
-                    poiCounter[poi] += 1
-                } else {
-                    poiCounter[poi] = 1
-                }
-            };
-            return poiCounter;
-        }
+        const features = data.features;
+        var poiCounter = [];
 
-        Promise.all([counterFinished]).then(()=>{
-            document.getElementById("chart-list").innerText = poiCounter;
+        const waitArray = await counterLoop(features,poiCounter);
+        console.log(waitArray)
+        Promise.all([waitArray]).then(()=>{
+            document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
+            for (var i=0; i<waitArray.length; i++){
+                console.log("Wait Array",waitArray[i]);
+                document.getElementById("chart-form").innerHTML += "<p>" + waitArray[i] + "</p>";
+            }
         })
         
     });
 };
+
+async function counterLoop(features,poiCounter){
+    //const features = data.features;
+
+    const poiArray = [];
+    for (var i=0; i<features.length; i++){
+        const poiName = features[i].properties["Name"];
+
+        poiArray.push(poiName);
+    };
+
+    //let poiCounter = {};
+
+    //https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array
+    for (poi of poiArray.flat()){
+        if (poiCounter[poi]) {
+            poiCounter[poi] += 1
+        } else {
+            poiCounter[poi] = 1
+        }
+    };
+    return poiCounter;
+}
 
 async function getPOIs(){
     const pois = await fetch(
