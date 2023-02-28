@@ -317,7 +317,7 @@ async function addRankings(){
         { method: 'GET'}
     );
     const data = await rankings.json();
-    Promise.all([rankings,data]).then(()=>{
+    Promise.all([rankings,data]).then(async () =>{
         map.loadImage('./Star.png',(error,image)=>{
             if (error) throw error;
             map.addImage('star',image)
@@ -336,6 +336,36 @@ async function addRankings(){
                 'visibility': 'visible'
             }
         });
+        const counterFinished = await counterLoop();
+        //let poiCounter = {};
+
+        async function counterLoop(){
+            const features = data.features;
+        
+            const poiArray = [];
+            for (var i=0; i<features.length; i++){
+                const poiName = features[i].properties["Name"];
+    
+                poiArray.push(poiName);
+            };
+    
+            let poiCounter = {};
+    
+            //https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array
+            for (poi of poiArray.flat()){
+                if (poiCounter[poi]) {
+                    poiCounter[poi] += 1
+                } else {
+                    poiCounter[poi] = 1
+                }
+            };
+            return poiCounter;
+        }
+
+        Promise.all([counterFinished]).then(()=>{
+            document.getElementById("chart-list").innerText = poiCounter;
+        })
+        
     });
 };
 
@@ -640,7 +670,7 @@ const submitBtn = document.getElementById("submit-btn")
 submitBtn.addEventListener("click",async function(event){
     event.preventDefault();
 
-    const rankingVal = document.getElementById("ranking").value;
+    //const rankingVal = document.getElementById("ranking").value;
     const commentVal = document.getElementById("comment").value;
     const selectForm = document.getElementById("poi-select")
     const coord = selectForm.options[selectForm.selectedIndex].value;
@@ -659,7 +689,7 @@ submitBtn.addEventListener("click",async function(event){
             "coordinates": [poiLon,poiLat]
         },
         "properties": {
-            "Ranking": rankingVal,
+            "Ranking": 1,
             "Comment": commentVal,
             "Name": poiName
         }
@@ -683,9 +713,10 @@ submitBtn.addEventListener("click",async function(event){
     Promise.all([data]).then(async ()=>{
         const removeLayer = map.removeLayer('Rankings');
         const removeSource = await map.removeSource('rankingSource');
+        const removeImage = await map.removeImage('star');
         const form = document.getElementById('user-ranking-form');
         form.reset();
-        Promise.all([removeLayer,removeSource,form]).then(()=>{
+        Promise.all([removeLayer,removeSource,removeImage,form]).then(()=>{
             addRankings();
         });
     })
