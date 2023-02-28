@@ -43,7 +43,7 @@ map.on('load', ()=>{
         }
     });
 
-    map.addLayer({
+    /*map.addLayer({
         'id':'Services',
         'type':'circle',
         'source':{
@@ -56,7 +56,7 @@ map.on('load', ()=>{
             'circle-opacity': 0.8,
             'circle-color': 'rgb(171,72,33)'
         }
-    });
+    });*/
 
     /*map.addLayer({
         'id':'POIs',
@@ -134,6 +134,96 @@ map.on('load', ()=>{
     map.loadImage('./visitor-center-black-22.png',(error,image)=>{
         if (error) throw error;
         map.addImage('visitor-center',image)
+    });
+
+    map.loadImage('./first-aid-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('first-aid',image)
+    });
+
+    map.loadImage('./food-service-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('food-service',image)
+    });
+
+    map.loadImage('./gas-station-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('gas-station',image)
+    });
+
+    map.loadImage('./parking-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('parking-2',image)
+    });
+
+    map.loadImage('./post-office-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('post-office',image)
+    });
+
+    map.loadImage('./ranger-station-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('ranger-station-2',image)
+    });
+
+    map.loadImage('./restrooms-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('restrooms',image)
+    });
+
+    map.loadImage('./showers-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('showers-2',image)
+    });
+
+    map.loadImage('./souvenir-shop-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('souvenir-shop',image)
+    });
+
+    map.loadImage('./volume-control-telephone-black-22.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('pay-phone',image)
+    });
+
+    map.addLayer({
+        'id':'Services',
+        'type':'symbol',
+        'source':{
+            'type': 'vector',
+            'url': 'mapbox://aeneville2.cledcz6zz06n723tb7tsrk9n4-6mr32'
+        },
+        'source-layer': 'Services',
+        'layout': {
+            'icon-image': [
+                'match',
+                ['get','Point Type'],
+                'First Aid Station',
+                'first-aid',
+                'Store',
+                'souvenir-shop',
+                'Headquarters',
+                'ranger-station-2',
+                'Showers',
+                'showers-2',
+                'Ranger Station',
+                'ranger-station-2',
+                'Gas Station',
+                'gas-station',
+                'Restroom',
+                'restrooms',
+                'Food Service',
+                'food-service',
+                'Pay Phone',
+                'pay-phone',
+                'Parking',
+                'parking-2',
+                'Post Office',
+                'post-office',
+                'red-icon'
+            ],
+            'icon-size': 0.25
+        }
     });
 
     map.addLayer({
@@ -446,8 +536,10 @@ filterPOIs.addEventListener("change",function(){
 const filterServices = document.getElementById("filter-select-services");
 filterServices.addEventListener("change",function(){
     const val = filterServices.options[filterServices.selectedIndex].value;
-    if (val != "Label"){
+    if (val != "Label" && val != "Ranger Station"){
         map.setFilter('Services',['==',['get','Point Type'],val]);
+    } else if (val == "Ranger Station") {
+        map.setFilter('Services',['any',['==',['get','Point Type'],val],['==',['get','Point Type'],'Headquarters']])
     } else if (val == "Label"){
         map.setFilter('Services',null);
     }
