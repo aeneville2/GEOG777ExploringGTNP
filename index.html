@@ -38,6 +38,7 @@
         <div class="container-fluid" id="filter-container" style="display:none;">
             <div id="filter-form">
                 <form id="filter-form-input">
+                    <label>Filter Features on the Map</label>
                     <select id="filter-select-poi">
                         <option value="Label">Select a Point of Interest Type</option>
                         <option value="Amphitheater">Amphitheater</option>
@@ -71,6 +72,18 @@
                         <option value="Hiker/Pedestrian">Hikers Only</option>
                         <option value="Hiker/Pedestrian|Bicycle">Hikers & Bikers</option>
                     </select>
+                    <label>Turn Layers On/Off</label>
+                    <input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" checked>
+                    <label for="ranking-checkbox">User Rankings</label>
+                    <input type="checkbox" id="pois-checkbox" name="pois-checkbox" checked>
+                    <label for="pois-checkbox">POIs</label>
+                    <input type="checkbox" id="services-checkbox" name="services-checkbox" checked>
+                    <label for="services-checkbox">Services</label>
+                    <input type="checkbox" id="trails-checkbox" name="trails-checkbox" checked>
+                    <label for="trails-checkbox">Trails</label>
+                    <input type="checkbox" id="boundary-checkbox" name="boundary-checkbox" checked>
+                    <label for="boundary-checkbox">Grand Teton Park Boundary</label>
+                    <button id="reset-filter">Reset</button>
                 </form>
             </div>
         </div>

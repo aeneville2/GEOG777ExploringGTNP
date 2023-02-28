@@ -25,6 +25,9 @@ map.on('load', ()=>{
             'fill-outline-color': '#000000',
             'fill-color': '#b6b8ba',
             'fill-opacity': 0.5
+        },
+        'layout': {
+            'visibility': 'visible'
         }
     });
 
@@ -40,6 +43,9 @@ map.on('load', ()=>{
             'line-width': 2,
             'line-color': '#6e3802',
             'line-dasharray': [3,2]
+        },
+        'layout': {
+            'visibility': 'visible'
         }
     });
 
@@ -81,9 +87,9 @@ map.on('load', ()=>{
     });*/
 
     //https://www.nps.gov/maps/tools/symbol-library/index.html 
-    map.loadImage('./red-icon.png',(error,image)=>{
+    map.loadImage('./dot-black-22.png',(error,image)=>{
         if(error) throw error;
-        map.addImage('red-icon',image);    
+        map.addImage('default-dot',image);    
     });
 
     map.loadImage('./boat-tour-black-22.png',(error,image)=>{
@@ -220,9 +226,10 @@ map.on('load', ()=>{
                 'parking-2',
                 'Post Office',
                 'post-office',
-                'red-icon'
+                'default-dot'
             ],
-            'icon-size': 0.25
+            'icon-size': 0.25,
+            'visibility': 'visible'
         }
     });
 
@@ -260,9 +267,10 @@ map.on('load', ()=>{
                 'lodging-v2',
                 'Overlook',
                 'scenic-viewpoint',
-                'red-icon'
+                'default-dot'
             ],
-            'icon-size': 0.25
+            'icon-size': 0.25,
+            'visibility': 'visible'
         }
     });
 
@@ -324,7 +332,8 @@ async function addRankings(){
             source: 'rankingSource',
             layout: {
                 'icon-image': 'star',
-                'icon-size': 0.15
+                'icon-size': 0.15,
+                'visibility': 'visible'
             }
         });
     });
@@ -560,6 +569,65 @@ filterTrails.addEventListener("change",function(){
         map.setFilter('Trails',null)
     }
 });
+
+const poisCheckbox = document.getElementById("pois-checkbox");
+poisCheckbox.addEventListener("change",function(){
+    if (poisCheckbox.checked) {
+        map.setLayoutProperty('POIs','visibility','visible');
+    } else if (!poisCheckbox.checked) {
+        map.setLayoutProperty('POIs','visibility','none');
+    }
+});
+
+const rankingCheckbox = document.getElementById("ranking-checkbox");
+rankingCheckbox.addEventListener("change",function(){
+    if (rankingCheckbox.checked) {
+        map.setLayoutProperty('Rankings','visibility','visible');
+    } else if (!rankingCheckbox.checked) {
+        map.setLayoutProperty('Rankings','visibility','none');
+    }
+});
+
+const servicesCheckbox = document.getElementById("services-checkbox");
+servicesCheckbox.addEventListener("change",function(){
+    if (servicesCheckbox.checked) {
+        map.setLayoutProperty('Services','visibility','visible');
+    } else if (!servicesCheckbox.checked) {
+        map.setLayoutProperty('Services','visibility','none');
+    }
+});
+
+const trailsCheckbox = document.getElementById("trails-checkbox");
+trailsCheckbox.addEventListener("change",function(){
+    if (trailsCheckbox.checked) {
+        map.setLayoutProperty('Trails','visibility','visible');
+    } else if (!trailsCheckbox.checked) {
+        map.setLayoutProperty('Trails','visibility','none');
+    }
+});
+
+const boundaryCheckbox = document.getElementById("boundary-checkbox");
+boundaryCheckbox.addEventListener("change",function(){
+    if (boundaryCheckbox.checked) {
+        map.setLayoutProperty('Park Boundary','visibility','visible');
+    } else if (!boundaryCheckbox.checked) {
+        map.setLayoutProperty('Park Boundary','visibility','none');
+    }
+});
+
+const resetFilterBtn = document.getElementById("reset-filter");
+resetFilterBtn.addEventListener("click",function(){
+    map.setLayoutProperty('Rankings','visibility','visible');
+    map.setLayoutProperty('POIs','visibility','visible');
+    map.setLayoutProperty('Services','visibility','visible');
+    map.setLayoutProperty('Trails','visibility','visible');
+    map.setLayoutProperty('Park Boundary','visibility','visible');
+    map.setFilter('POIs',null);
+    map.setFilter('Services',null);
+    map.setFilter('Trails',null);
+    document.getElementById("filter-form-input").reset();
+
+})
 
 let featureId = 1;
 
