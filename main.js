@@ -350,7 +350,7 @@ async function addRankings(){
 
         const waitArray = await counterLoop(features,poiCounter);
         console.log("wait array",waitArray)
-        document.getElementById("chart-form").innerHTML += "<h6>Top Rankings by POI</h6>";
+        document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
         
         Promise.all([waitArray]).then(async()=>{
             //https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
