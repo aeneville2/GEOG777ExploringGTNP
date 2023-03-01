@@ -32,8 +32,10 @@
             </div>
         </nav>
         <div class="container-fluid" id="directions-container" style="display:none;">
+            <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
             <div id="directions-form">
             </div>
+            <button id="close-directions">Close Directions Panel</button>
         </div>
         <div class="container-fluid" id="filter-container" style="display:none;">
             <div id="filter-form">
@@ -86,18 +88,21 @@
                     <button id="reset-filter">Reset</button>
                 </form>
             </div>
+            <button id="close-filter">Close Filter Features Panel</button>
         </div>
         <div class="container-fluid" id="user-input-container" style="display:none;">
             <div id="user-input-form">
                 <form id="user-ranking-form">
+                    <h6>Select your favorite POI and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
                     <select id="poi-select">
                         <option id="default-poi-select">Select a POI</option>
                     </select>
                     <!--<input type="number" id="ranking" placeholder="Input ranking number..."><label for="ranking">Ranking</label>-->
-                    <input type="text" id="comment"><label for="comment">Comment</label>
+                    <input type="text" id="comment" name="comment"><label for="comment">Comment</label>
                     <button id="submit-btn">Submit</button>
                 </form>
             </div>
+            <button id="close-user-input">Close Submit Ranking Form</button>
         </div>
         <div class="container-fluid" id="chart-container" style="display:none;">
             <div id="chart-form">
@@ -109,6 +114,7 @@
                 </select>-->
                 
             </div>
+            <button id="close-ranking-list">Close Ranking Chart Panel</button>
         </div>
         <div class="container-fluid" style="width:100%;height:100vh;">
             <div class="row" id="map-row" style="width:100%;height:100vh;">

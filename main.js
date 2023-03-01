@@ -573,6 +573,11 @@ document.getElementById("directions-btn").addEventListener("click",function(){
         directionContainer.style.display = "none";
         map.removeControl(directions);
     }
+});
+
+document.getElementById("close-directions").addEventListener("click",function(){
+    directionContainer.style.display = "none";
+    map.removeControl(directions);
 })
 
 document.getElementById("filter-btn").addEventListener("click",function(){
@@ -594,6 +599,10 @@ document.getElementById("filter-btn").addEventListener("click",function(){
     }
 })
 
+document.getElementById("close-filter").addEventListener("click",function(){
+    filterContainer.style.display = "none";
+});
+
 document.getElementById("user-input-btn").addEventListener("click",function(){
     if(filterContainer.style.display === "block"){
         filterContainer.style.display = "none"
@@ -611,7 +620,11 @@ document.getElementById("user-input-btn").addEventListener("click",function(){
     } else {
         userContainer.style.display = "none";
     }
-})
+});
+
+document.getElementById("close-user-input").addEventListener("click",function(){
+    userContainer.style.display = "none";
+});
 
 document.getElementById("chart-btn").addEventListener("click",function(){
     if(filterContainer.style.display === "block"){
@@ -629,6 +642,10 @@ document.getElementById("chart-btn").addEventListener("click",function(){
     } else {
         chartContainer.style.display = "none";
     }
+});
+
+document.getElementById("close-ranking-list").addEventListener("click",function(){
+    chartContainer.style.display = "none";
 });
 
 const filterPOIs = document.getElementById("filter-select-poi");
