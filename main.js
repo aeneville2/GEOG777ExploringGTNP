@@ -343,13 +343,22 @@ async function addRankings(){
         var poiCounter = [];
 
         const waitArray = await counterLoop(features,poiCounter);
-        console.log(waitArray)
-        Promise.all([waitArray]).then(()=>{
-            document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
-            for (var i=0; i<waitArray.length; i++){
-                console.log("Wait Array",waitArray[i]);
-                document.getElementById("chart-form").innerHTML += "<p>" + waitArray[i] + "</p>";
-            }
+        console.log("wait array",waitArray)
+        document.getElementById("chart-form").innerHTML += "<h6>Top Rankings by POI</h6>";
+        
+        Promise.all([waitArray]).then(async()=>{
+            //https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
+            /*let waitArrayArray = Object.entries(waitArray);
+            for (array of waitArrayArray){
+                document.getElementById("chart-form").innerHTML += "<p>" + array + "</p>";
+            }*/
+
+            // LAYER NOT UPDATING IN TIME SO THIS IS NOT UPDATING: FIGURE OUT WHY DATASET NOT UPDATING!
+            let waitArrayKeys = Object.keys(waitArray);
+            let sortedArray = waitArrayKeys.sort()
+            sortedArray.forEach((key)=>{
+                document.getElementById("chart-form").innerHTML += "<p>" + key + ": " + waitArray[key] + "</p>";
+            })
         })
         
     });
@@ -375,6 +384,7 @@ async function counterLoop(features,poiCounter){
             poiCounter[poi] = 1
         }
     };
+
     return poiCounter;
 }
 
@@ -385,16 +395,27 @@ async function getPOIs(){
     )
     const data = await pois.json();
     const features = data.features;
+
+    const sortedFeatures = features.sort();
+    console.log("features type: ",typeof features)
     
+    let poiArray = [];
     for (var i=0;i<features.length;i++){
         const name = features[i].properties["Point Name"];
         const geometry = features[i].geometry.coordinates;
-        //poiDict[name] = geometry;
-        const selectPoi = document.getElementById('poi-select')
+        poiArray.push([name,geometry]);
+        /*const selectPoi = document.getElementById('poi-select')
         let newOption = new Option(name,geometry);
-        selectPoi.add(newOption,undefined);
+        selectPoi.add(newOption,undefined);*/
     }
     //console.log(poiDict);
+    let poiArraySort = poiArray.sort();
+    const selectPoi = document.getElementById("poi-select");
+    for (var i=0; i<poiArraySort.length; i++){
+        let newOption = new Option(poiArraySort[i][0],poiArraySort[i][1]);
+        console.log("New Option: ",newOption);
+        selectPoi.add(newOption,undefined);
+    }
 };
 
 ////https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/#add-the-geocoder 
