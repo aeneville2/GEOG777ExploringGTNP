@@ -306,6 +306,29 @@ map.on('load', ()=>{
         }
     });*/
 
+    map.loadImage('./Star.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('star',image)
+    });
+    map.addSource('rankingSource',{
+        type: 'geojson',
+        data: {
+            type: 'FeatureCollection',
+            features: []
+        }
+    });
+
+    map.addLayer({
+        id: 'Rankings',
+        type: 'symbol',
+        source: 'rankingSource',
+        layout: {
+            'icon-image': 'star',
+            'icon-size': 0.15,
+            'visibility': 'visible'
+        }
+    });
+
     addRankings();
     getPOIs();
 
@@ -314,13 +337,14 @@ map.on('load', ()=>{
 //var poiCounter = [];
 
 async function addRankings(){
+    // https://stackoverflow.com/questions/57624873/mapbox-api-styles-v1-username-doesnt-reflect-latest-style-data for help with updating the data
     const rankings = await fetch(
-        'https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw',
+        'https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw&fresh=true',
         { method: 'GET'}
     );
     const data = await rankings.json();
     Promise.all([rankings,data]).then(async () =>{
-        map.loadImage('./Star.png',(error,image)=>{
+        /*map.loadImage('./Star.png',(error,image)=>{
             if (error) throw error;
             map.addImage('star',image)
         });
@@ -330,10 +354,15 @@ async function addRankings(){
                 type: 'FeatureCollection',
                 features: []
             }
-        });
+        });*/
         const rankingSource = map.getSource('rankingSource');
-        rankingSource.setData(data);
-        console.log('Ranking Source', rankingSource)
+        rankingSource.setData({
+            type: 'FeatureCollection',
+            features: []
+        });
+        const rankingSource2 = map.getSource('rankingSource')
+        rankingSource2.setData(data);
+        /*console.log('Ranking Source', rankingSource)
         map.addLayer({
             id: 'Rankings',
             type: 'symbol',
@@ -343,7 +372,7 @@ async function addRankings(){
                 'icon-size': 0.15,
                 'visibility': 'visible'
             }
-        });
+        });*/
 
         const features = data.features;
         var poiCounter = [];
@@ -745,12 +774,12 @@ submitBtn.addEventListener("click",async function(event){
     console.log(data);
 
     Promise.all([data]).then(async ()=>{
-        const removeLayer = map.removeLayer('Rankings');
-        const removeSource = await map.removeSource('rankingSource');
-        const removeImage = await map.removeImage('star');
+        //const removeLayer = map.removeLayer('Rankings');
+        //const removeSource = await map.removeSource('rankingSource');
+        //const removeImage = await map.removeImage('star');
         const form = document.getElementById('user-ranking-form');
         form.reset();
-        Promise.all([removeLayer,removeSource,removeImage,form]).then(()=>{
+        Promise.all([form]).then(()=>{    
             window.location.reload();
             addRankings();
         });
