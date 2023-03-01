@@ -87,6 +87,11 @@ map.on('load', ()=>{
     });*/
 
     //https://www.nps.gov/maps/tools/symbol-library/index.html 
+    map.loadImage('./red-icon.png',(error,image)=>{
+        if (error) throw error;
+        map.addImage('red-icon',image);
+    });
+
     map.loadImage('./dot-black-22.png',(error,image)=>{
         if(error) throw error;
         map.addImage('default-dot',image);    
@@ -274,24 +279,6 @@ map.on('load', ()=>{
         }
     });
 
-    map.addSource('single-point',{
-        type: 'geojson',
-        data: {
-            type: 'FeatureCollection',
-            features: []
-        }
-    });
-
-    map.addLayer({
-        id: 'point',
-        source: 'single-point',
-        type: 'circle',
-        paint: {
-            'circle-radius': 10,
-            'circle-color': '#448eef'
-        }
-    });
-
     /*map.addLayer({
         id: 'Rankings',
         type: 'circle',
@@ -326,6 +313,24 @@ map.on('load', ()=>{
             'icon-image': 'star',
             'icon-size': 0.15,
             'visibility': 'visible'
+        }
+    });
+
+    map.addSource('single-point',{
+        type: 'geojson',
+        data: {
+            type: 'FeatureCollection',
+            features: []
+        }
+    });
+
+    map.addLayer({
+        id: 'point',
+        source: 'single-point',
+        type: 'symbol',
+        layout: {
+            'icon-image': 'red-icon',
+            'icon-size': 0.15
         }
     });
 
