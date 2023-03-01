@@ -326,8 +326,14 @@ async function addRankings(){
         });
         map.addSource('rankingSource',{
             type: 'geojson',
-            data: data
+            data: {
+                type: 'FeatureCollection',
+                features: []
+            }
         });
+        const rankingSource = map.getSource('rankingSource');
+        rankingSource.setData(data);
+        console.log('Ranking Source', rankingSource)
         map.addLayer({
             id: 'Rankings',
             type: 'symbol',
@@ -700,7 +706,6 @@ const submitBtn = document.getElementById("submit-btn")
 submitBtn.addEventListener("click",async function(event){
     event.preventDefault();
 
-    //const rankingVal = document.getElementById("ranking").value;
     const commentVal = document.getElementById("comment").value;
     const selectForm = document.getElementById("poi-select")
     const coord = selectForm.options[selectForm.selectedIndex].value;
@@ -739,7 +744,6 @@ submitBtn.addEventListener("click",async function(event){
     const data = await response.json();
     console.log(data);
 
-    //FIGURE OUT THE LAG IN THE DATASET UPDATING (even when refresh map, it still shows previous point locations)
     Promise.all([data]).then(async ()=>{
         const removeLayer = map.removeLayer('Rankings');
         const removeSource = await map.removeSource('rankingSource');
@@ -747,17 +751,10 @@ submitBtn.addEventListener("click",async function(event){
         const form = document.getElementById('user-ranking-form');
         form.reset();
         Promise.all([removeLayer,removeSource,removeImage,form]).then(()=>{
+            window.location.reload();
             addRankings();
         });
     })
-
-    //DOES THIS OCCUR LATE ENOUGH THAT IT ACTUALLY UPDATES IN THE MAP?
-    /*map.removeLayer('Rankings');
-    map.removeSource('rankingSource');
-    const form = document.getElementById('user-ranking-form');
-    form.reset();*/
-    
-    //addRankings();
 });
 
 window.addEventListener("load",(function(){
