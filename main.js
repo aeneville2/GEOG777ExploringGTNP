@@ -339,7 +339,7 @@ map.on('load', ()=>{
 
 });
 
-//var poiCounter = [];
+var rankingId;
 
 async function addRankings(){
     // https://stackoverflow.com/questions/57624873/mapbox-api-styles-v1-username-doesnt-reflect-latest-style-data for help with updating the data
@@ -360,11 +360,11 @@ async function addRankings(){
                 features: []
             }
         });*/
-        const rankingSource = map.getSource('rankingSource');
+        /*const rankingSource = map.getSource('rankingSource');
         rankingSource.setData({
             type: 'FeatureCollection',
             features: []
-        });
+        });*/
         const rankingSource2 = map.getSource('rankingSource')
         rankingSource2.setData(data);
         /*console.log('Ranking Source', rankingSource)
