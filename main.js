@@ -575,136 +575,177 @@ var filterContainer = document.getElementById("filter-container");
 var userContainer = document.getElementById("user-input-container");
 var chartContainer = document.getElementById("chart-container");
 
-document.getElementById("info-btn").addEventListener("click",function(){
+var infoBtn = document.getElementById("info-btn");
+var directionsBtn = document.getElementById("directions-btn");
+var filterBtn = document.getElementById("filter-btn");
+var userInputBtn = document.getElementById("user-input-btn");
+var chartBtn = document.getElementById("chart-btn");
+
+infoBtn.addEventListener("click",function(){
     if(directionContainer.style.display === "block"){
         directionContainer.style.display = "none";
         map.removeControl(directions);
+        directionsBtn.style.backgroundColor = "white";
     }
     if (userContainer.style.display === "block"){
         userContainer.style.display = "none"
+        userInputBtn.style.backgroundColor = "white";
     }
     if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none"
+        chartContainer.style.display = "none";
+        chartBtn.style.backgroundColor = "white";
     }
 
     if (filterContainer.style.display === "block"){
         filterContainer.style.display = "none";
+        filterBtn.style.backgroundColor = "white";
     }
 
     if(infoContainer.style.display === "none"){
         infoContainer.style.display = "block";
+        infoBtn.style.backgroundColor = "green";
     } else {
         infoContainer.style.display = "none"
+        infoBtn.style.backgroundColor = "white";
     }
 })
 
 document.getElementById("close-info").addEventListener("click",function(){
     infoContainer.style.display = "none";
+    infoBtn.style.backgroundColor = "white";
 });
 
-document.getElementById("directions-btn").addEventListener("click",function(){
+directionsBtn.addEventListener("click",function(){
     if(infoContainer.style.display === "block"){
+        infoBtn.style.backgroundColor = "white";
         infoContainer.style.display = "none"
     }
     if(filterContainer.style.display === "block"){
+        filterBtn.style.backgroundColor = "white";
         filterContainer.style.display = "none"
     }
     if (userContainer.style.display === "block"){
-        userContainer.style.display = "none"
+        userContainer.style.display = "none";
+        userInputBtn.style.backgroundColor = "white";
     }
     if (chartContainer.style.display === "block"){
+        chartBtn.style.backgroundColor = "white";
         chartContainer.style.display = "none"
     }
 
     if (directionContainer.style.display === "none"){
         directionContainer.style.display = "block";
         document.getElementById("directions-form").appendChild(directions.onAdd(map));
+        directionsBtn.style.backgroundColor = "green";
     } else {
         directionContainer.style.display = "none";
         map.removeControl(directions);
+        directionsBtn.style.backgroundColor = "white";
     }
 });
 
 document.getElementById("close-directions").addEventListener("click",function(){
     directionContainer.style.display = "none";
     map.removeControl(directions);
+    directionsBtn.style.backgroundColor = "white";
 })
 
-document.getElementById("filter-btn").addEventListener("click",function(){
+filterBtn.addEventListener("click",function(){
     if(infoContainer.style.display === "block"){
+        infoBtn.style.backgroundColor = "white";
         infoContainer.style.display = "none"
     }
     if(directionContainer.style.display === "block"){
         directionContainer.style.display = "none";
         map.removeControl(directions);
+        directionsBtn.style.backgroundColor = "white";
     }
     if (userContainer.style.display === "block"){
-        userContainer.style.display = "none"
+        userContainer.style.display = "none";
+        userInputBtn.style.backgroundColor = "white";
     }
     if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none"
+        chartContainer.style.display = "none";
+        chartBtn.style.backgroundColor = "white";
     }
 
     if (filterContainer.style.display === "none"){
         filterContainer.style.display = "block";
+        filterBtn.style.backgroundColor = "green";
     } else {
         filterContainer.style.display = "none";
+        filterBtn.style.backgroundColor = "white";
     }
 })
 
 document.getElementById("close-filter").addEventListener("click",function(){
     filterContainer.style.display = "none";
+    filterBtn.style.backgroundColor = "white";
 });
 
-document.getElementById("user-input-btn").addEventListener("click",function(){
+userInputBtn.addEventListener("click",function(){
     if(infoContainer.style.display === "block"){
-        infoContainer.style.display = "none"
+        infoContainer.style.display = "none";
+        infoBtn.style.backgroundColor = "white";
     }
     if(filterContainer.style.display === "block"){
-        filterContainer.style.display = "none"
+        filterContainer.style.display = "none";
+        filterBtn.style.backgroundColor = "white";
     }
     if (directionContainer.style.display === "block"){
         directionContainer.style.display = "none";
         map.removeControl(directions);
+        directionsBtn.style.backgroundColor = "white";
     }
     if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none"
+        chartContainer.style.display = "none";
+        chartBtn.style.backgroundColor = "white";
     }
 
     if (userContainer.style.display === "none"){
         userContainer.style.display = "block";
+        userInputBtn.style.backgroundColor = "green";
     } else {
         userContainer.style.display = "none";
+        userInputBtn.style.backgroundColor = "white";
     }
 });
 
 document.getElementById("close-user-input").addEventListener("click",function(){
     userContainer.style.display = "none";
+    userInputBtn.style.backgroundColor = "white";
 });
 
-document.getElementById("chart-btn").addEventListener("click",function(){
+chartBtn.addEventListener("click",function(){
     if(infoContainer.style.display === "block"){
-        infoContainer.style.display = "none"
+        infoContainer.style.display = "none";
+        infoBtn.style.backgroundColor = "white";
     }
     if(filterContainer.style.display === "block"){
-        filterContainer.style.display = "none"
+        filterContainer.style.display = "none";
+        filterBtn.style.backgroundColor = "white";
     }
     if (userContainer.style.display === "block"){
-        userContainer.style.display = "none"
+        userContainer.style.display = "none";
+        userInputBtn.style.backgroundColor = "white";
     }
     if (directionContainer.style.display === "block"){
         directionContainer.style.display = "none";
         map.removeControl(directions);
+        directionsBtn.style.backgroundColor = "white";
     }
     if (chartContainer.style.display === "none"){
         chartContainer.style.display = "block";
+        chartBtn.style.backgroundColor = "green";
     } else {
         chartContainer.style.display = "none";
+        chartBtn.style.backgroundColor = "white";
     }
 });
 
 document.getElementById("close-ranking-list").addEventListener("click",function(){
     chartContainer.style.display = "none";
+    chartBtn.style.backgroundColor = "white";
 });
 
 const filterPOIs = document.getElementById("filter-select-poi");
