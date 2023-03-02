@@ -312,7 +312,7 @@ map.on('load', ()=>{
         layout: {
             'icon-image': 'star',
             'icon-size': 0.15,
-            'visibility': 'visible'
+            'visibility': 'none'
         }
     });
 

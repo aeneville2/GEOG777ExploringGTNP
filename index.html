@@ -23,10 +23,10 @@
                         Menu
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                        <li><button id="directions-btn">Directions</button></li>
-                        <li><button id="filter-btn">Filter Features</button></li>
-                        <li><button id="user-input-btn">Submit Ranking</button></li>
-                        <li><button id="chart-btn">Ranking Chart</button></li>
+                        <li><button id="directions-btn" class="menu-btn">Directions</button></li>
+                        <li><button id="filter-btn" class="menu-btn">Filter Features</button></li>
+                        <li><button id="user-input-btn" class="menu-btn">Submit Ranking</button></li>
+                        <li><button id="chart-btn" class="menu-btn">Ranking Chart</button></li>
                     </ul>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
             <div id="directions-form">
             </div>
-            <button id="close-directions">Close Directions Panel</button>
+            <button id="close-directions" class="close-btn">Close Directions Panel</button>
         </div>
         <div class="container-fluid" id="filter-container" style="display:none;">
             <div id="filter-form">
@@ -75,7 +75,7 @@
                         <option value="Hiker/Pedestrian|Bicycle">Hikers & Bikers</option>
                     </select>
                     <label>Turn Layers On/Off</label>
-                    <input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" checked>
+                    <input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" >
                     <label for="ranking-checkbox">User Rankings</label>
                     <input type="checkbox" id="pois-checkbox" name="pois-checkbox" checked>
                     <label for="pois-checkbox">POIs</label>
@@ -88,7 +88,7 @@
                     <button id="reset-filter">Reset</button>
                 </form>
             </div>
-            <button id="close-filter">Close Filter Features Panel</button>
+            <button id="close-filter" class="close-btn">Close Filter Features Panel</button>
         </div>
         <div class="container-fluid" id="user-input-container" style="display:none;">
             <div id="user-input-form">
@@ -102,7 +102,7 @@
                     <button id="submit-btn">Submit</button>
                 </form>
             </div>
-            <button id="close-user-input">Close Submit Ranking Form</button>
+            <button id="close-user-input" class="close-btn">Close Submit Ranking Form</button>
         </div>
         <div class="container-fluid" id="chart-container" style="display:none;">
             <div id="chart-form">
@@ -114,7 +114,7 @@
                 </select>-->
                 
             </div>
-            <button id="close-ranking-list">Close Ranking Chart Panel</button>
+            <button id="close-ranking-list" class="close-btn">Close Ranking Chart Panel</button>
         </div>
         <div class="container-fluid" style="width:100%;height:100vh;">
             <div class="row" id="map-row" style="width:100%;height:100vh;">
