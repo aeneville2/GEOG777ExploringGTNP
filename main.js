@@ -384,7 +384,7 @@ async function addRankings(){
 
         const waitArray = await counterLoop(features,poiCounter);
         console.log("wait array",waitArray)
-        document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
+        //document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
         
         Promise.all([waitArray]).then(async()=>{
             //https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
@@ -397,7 +397,13 @@ async function addRankings(){
             let waitArrayKeys = Object.keys(waitArray);
             let sortedArray = waitArrayKeys.sort()
             sortedArray.forEach((key)=>{
-                document.getElementById("chart-form").innerHTML += "<p>" + key + ": " + waitArray[key] + "</p>";
+                //document.getElementById("chart-form").innerHTML += "<p>" + key + ": " + waitArray[key] + "</p>";
+                var table = document.getElementById("ranking-table");
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0)
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = key;
+                cell2.innerHTML = waitArray[key];
             })
         })
         
@@ -799,12 +805,21 @@ submitBtn.addEventListener("click",async function(event){
         //const removeLayer = map.removeLayer('Rankings');
         //const removeSource = await map.removeSource('rankingSource');
         //const removeImage = await map.removeImage('star');
+        alert("Ranking submitted succesfully!");
         const form = document.getElementById('user-ranking-form');
         form.reset();
-        Promise.all([form]).then(()=>{    
+        const rankingTable = document.getElementById("ranking-table");
+        // https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
+        var rowCount = rankingTable.rows.length;
+        for (var i=rowCount-1; i>0; i--){
+            rankingTable.deleteRow(i);
+        }
+        //window.location.reload();
+        addRankings();
+        /*Promise.all([form]).then(()=>{    
             window.location.reload();
             addRankings();
-        });
+        });*/
     })
 });
 
