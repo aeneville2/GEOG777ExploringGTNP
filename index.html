@@ -23,14 +23,27 @@
                         Menu
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                        <li><button id="info-btn" class="menu-btn">App Information</button></li>
                         <li><button id="directions-btn" class="menu-btn">Directions</button></li>
                         <li><button id="filter-btn" class="menu-btn">Filter Features</button></li>
                         <li><button id="user-input-btn" class="menu-btn">Submit Ranking</button></li>
-                        <li><button id="chart-btn" class="menu-btn">Ranking Chart</button></li>
+                        <li><button id="chart-btn" class="menu-btn">Ranking Table</button></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="container-fluid" id="info-container" style="display:none;">
+            <h6>App Information</h6>
+            <p>The map displays POIs (Points of Interest), Services, Trails, and the Grand Teton Park Boundary.
+                Click on any feature in the map to see more information. To search for a location, use the search box.
+                To get your current location, use the button below the search box. In the menu, go to "Directions" to
+                get directions between two locations. Go to "Filter Features" to filter the POIs, Services, and Trails
+                in the map or turn on/off map layers, including turning on the user top-ranked POIs layer. 
+                Go to "Submit Rankings" to vote for your favorite POI with a comment that will then be added to the map.
+                Got to "Ranking Table" to see a list of all POIs that have been voted on for a favorite with their vote (ranking) count.
+            </p>
+            <button id="close-info" class="close-btn">Close Information Panel</button>
+        </div>
         <div class="container-fluid" id="directions-container" style="display:none;">
             <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
             <div id="directions-form">

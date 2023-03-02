@@ -383,7 +383,6 @@ async function addRankings(){
         var poiCounter = [];
 
         const waitArray = await counterLoop(features,poiCounter);
-        console.log("wait array",waitArray)
         //document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
         
         Promise.all([waitArray]).then(async()=>{
@@ -443,7 +442,6 @@ async function getPOIs(){
     const features = data.features;
 
     const sortedFeatures = features.sort();
-    console.log("features type: ",typeof features)
     
     let poiArray = [];
     for (var i=0;i<features.length;i++){
@@ -459,7 +457,6 @@ async function getPOIs(){
     const selectPoi = document.getElementById("poi-select");
     for (var i=0; i<poiArraySort.length; i++){
         let newOption = new Option(poiArraySort[i][0],poiArraySort[i][1]);
-        console.log("New Option: ",newOption);
         selectPoi.add(newOption,undefined);
     }
 };
@@ -561,12 +558,43 @@ map.on('click',(event)=>{
     }
 });
 
+var infoContainer = document.getElementById("info-container");
 var directionContainer = document.getElementById("directions-container");
 var filterContainer = document.getElementById("filter-container");
 var userContainer = document.getElementById("user-input-container");
 var chartContainer = document.getElementById("chart-container");
 
+document.getElementById("info-btn").addEventListener("click",function(){
+    if(directionContainer.style.display === "block"){
+        directionContainer.style.display = "none";
+        map.removeControl(directions);
+    }
+    if (userContainer.style.display === "block"){
+        userContainer.style.display = "none"
+    }
+    if (chartContainer.style.display === "block"){
+        chartContainer.style.display = "none"
+    }
+
+    if (filterContainer.style.display === "block"){
+        filterContainer.style.display = "none";
+    }
+
+    if(infoContainer.style.display === "none"){
+        infoContainer.style.display = "block";
+    } else {
+        infoContainer.style.display = "none"
+    }
+})
+
+document.getElementById("close-info").addEventListener("click",function(){
+    infoContainer.style.display = "none";
+});
+
 document.getElementById("directions-btn").addEventListener("click",function(){
+    if(infoContainer.style.display === "block"){
+        infoContainer.style.display = "none"
+    }
     if(filterContainer.style.display === "block"){
         filterContainer.style.display = "none"
     }
@@ -592,6 +620,9 @@ document.getElementById("close-directions").addEventListener("click",function(){
 })
 
 document.getElementById("filter-btn").addEventListener("click",function(){
+    if(infoContainer.style.display === "block"){
+        infoContainer.style.display = "none"
+    }
     if(directionContainer.style.display === "block"){
         directionContainer.style.display = "none";
         map.removeControl(directions);
@@ -615,6 +646,9 @@ document.getElementById("close-filter").addEventListener("click",function(){
 });
 
 document.getElementById("user-input-btn").addEventListener("click",function(){
+    if(infoContainer.style.display === "block"){
+        infoContainer.style.display = "none"
+    }
     if(filterContainer.style.display === "block"){
         filterContainer.style.display = "none"
     }
@@ -638,6 +672,9 @@ document.getElementById("close-user-input").addEventListener("click",function(){
 });
 
 document.getElementById("chart-btn").addEventListener("click",function(){
+    if(infoContainer.style.display === "block"){
+        infoContainer.style.display = "none"
+    }
     if(filterContainer.style.display === "block"){
         filterContainer.style.display = "none"
     }
@@ -740,7 +777,7 @@ boundaryCheckbox.addEventListener("change",function(){
 
 const resetFilterBtn = document.getElementById("reset-filter");
 resetFilterBtn.addEventListener("click",function(){
-    map.setLayoutProperty('Rankings','visibility','visible');
+    map.setLayoutProperty('Rankings','visibility','none');
     map.setLayoutProperty('POIs','visibility','visible');
     map.setLayoutProperty('Services','visibility','visible');
     map.setLayoutProperty('Trails','visibility','visible');
@@ -799,7 +836,6 @@ submitBtn.addEventListener("click",async function(event){
     );
 
     const data = await response.json();
-    console.log(data);
 
     Promise.all([data]).then(async ()=>{
         //const removeLayer = map.removeLayer('Rankings');
