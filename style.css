@@ -46,8 +46,9 @@ h6 {
 .close-btn {
     font-size: 8pt;
     padding: 2;
-    background-color: #b6b8ba;
+    background-color: #fff;
     float: right;
+    border: 1px solid black;
 }
 
 #ranking-table {
