@@ -380,6 +380,17 @@ async function addRankings(){
         });*/
 
         const features = data.features;
+        console.log("Features",features);
+
+        var featureidArray = [];
+        for (var i=0; i<features.length; i++){
+            var id = features[i].id;
+            featureidArray.push(id);
+        }
+        console.log("FeatureIDArray: ",featureidArray);
+        rankingId = Math.max(...featureidArray);
+        console.log("Ranking ID Type: ",typeof rankingId);
+
         var poiCounter = [];
 
         const waitArray = await counterLoop(features,poiCounter);
@@ -808,7 +819,9 @@ submitBtn.addEventListener("click",async function(event){
     const poiLat = parseFloat(coordSplit[1]);
     const poiName = selectForm.options[selectForm.selectedIndex].textContent;
 
-    const featureid = await featureIdIncrement();
+    //const featureid = await featureIdIncrement();
+    const rankingIdUse = rankingId + 1
+    const featureid = rankingIdUse.toString();
 
     const feature = {
         "id": `${featureid}`,
