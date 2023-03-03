@@ -33,6 +33,7 @@
             </div>
         </nav>
         <div class="container-fluid" id="info-container" style="display:none;">
+            <button class="close-btn" id="close-info"><img src="Close_v2.png" style="width:15px;"></a></button>
             <h6>App Information</h6>
             <p>The map displays POIs (Points of Interest), Services, Trails, and the Grand Teton Park Boundary.
                 Click on any feature in the map to see more information. To search for a location, use the search box.
@@ -42,20 +43,18 @@
                 Go to "Submit Rankings" to vote for your favorite POI with a comment that will then be added to the map.
                 Got to "Ranking Table" to see a list of all POIs that have been voted on for a favorite with their vote (ranking) count.
             </p>
-            <!--<button id="close-info" class="close-btn">Close Information Panel</button>-->
-            <button class="close-btn" id="close-info"><img src="Close.png" style="width:10px;"></a></button>
         </div>
         <div class="container-fluid" id="directions-container" style="display:none;">
+            <button class="close-btn" id="close-directions"><img src="Close_v2.png" style="width:15px;"></a></button>
             <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
             <div id="directions-form">
             </div>
-            <!--<button id="close-directions" class="close-btn">Close Directions Panel</button>-->
-            <button class="close-btn" id="close-directions"><img src="Close.png" style="width:10px;"></a></button>
         </div>
         <div class="container-fluid" id="filter-container" style="display:none;">
             <div id="filter-form">
+                <button class="close-btn" id="close-filter"><img src="Close_v2.png" style="width:15px;"></a></button>
                 <form id="filter-form-input">
-                    <label>Filter Features on the Map</label>
+                    <h6>Filter Features on the Map</h6>
                     <select id="filter-select-poi">
                         <option value="Label">Select a Point of Interest Type</option>
                         <option value="Amphitheater">Amphitheater</option>
@@ -89,50 +88,48 @@
                         <option value="Hiker/Pedestrian">Hikers Only</option>
                         <option value="Hiker/Pedestrian|Bicycle">Hikers & Bikers</option>
                     </select>
-                    <label>Turn Layers On/Off</label>
-                    <input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" >
-                    <label for="ranking-checkbox">User Rankings</label>
-                    <input type="checkbox" id="pois-checkbox" name="pois-checkbox" checked>
-                    <label for="pois-checkbox">POIs</label>
-                    <input type="checkbox" id="services-checkbox" name="services-checkbox" checked>
-                    <label for="services-checkbox">Services</label>
-                    <input type="checkbox" id="trails-checkbox" name="trails-checkbox" checked>
-                    <label for="trails-checkbox">Trails</label>
-                    <input type="checkbox" id="boundary-checkbox" name="boundary-checkbox" checked>
-                    <label for="boundary-checkbox">Grand Teton Park Boundary</label>
+                    <h6 style="margin-top:10px;">Turn Layers On/Off</h6>
+                    <ul style="list-style-type: none;">
+                        <li><input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" >
+                            <label for="ranking-checkbox">User Rankings</label></li>
+                        <li><input type="checkbox" id="pois-checkbox" name="pois-checkbox" checked>
+                            <label for="pois-checkbox">Points of Interest</label></li>
+                        <li><input type="checkbox" id="services-checkbox" name="services-checkbox" checked>
+                            <label for="services-checkbox">Services</label></li>
+                        <li><input type="checkbox" id="trails-checkbox" name="trails-checkbox" checked>
+                            <label for="trails-checkbox">Trails</label></li>
+                        <li><input type="checkbox" id="boundary-checkbox" name="boundary-checkbox" checked>
+                            <label for="boundary-checkbox">Grand Teton Park Boundary</label></li>
+                    </ul>
+                    <h6 style="margin-top: 10px;">Reset the form and map.</h6>
                     <button id="reset-filter">Reset</button>
                 </form>
             </div>
-            <!--<button id="close-filter" class="close-btn">Close Filter Features Panel</button>-->
-            <button class="close-btn" id="close-filter"><img src="Close.png" style="width:10px;"></a></button>
         </div>
         <div class="container-fluid" id="user-input-container" style="display:none;">
             <div id="user-input-form">
+                <button class="close-btn" id="close-user-input"><img src="Close_v2.png" style="width:15px;"></a></button>
                 <form id="user-ranking-form">
                     <h6>Select your favorite POI and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
                     <select id="poi-select">
                         <option id="default-poi-select">Select a POI</option>
                     </select>
-                    <!--<input type="number" id="ranking" placeholder="Input ranking number..."><label for="ranking">Ranking</label>-->
-                    <input type="text" id="comment" name="comment"><label for="comment">Comment</label>
+                    <label for="comment">Comment</label><input type="text" id="comment" name="comment">
                     <button id="submit-btn">Submit</button>
                 </form>
             </div>
-            <!--<button id="close-user-input" class="close-btn">Close Submit Ranking Form</button>-->
-            <button class="close-btn" id="close-user-input"><img src="Close.png" style="width:10px;"></a></button>
         </div>
         <div class="container-fluid" id="chart-container" style="display:none;">
             <div id="chart-form">
-                <h6>POIs with Rankings</h6>
+                <button class="close-btn" id="close-ranking-list"><img src="Close_v2.png" style="width:15px;"></a></button>
+                <h6>Points of Interest with Number of User Rankings (sorted alphabetically)</h6>
                 <table id="ranking-table">
                     <tr>
-                        <th>POI</th>
+                        <th>Point of Interest</th>
                         <th>Number of Rankings</th>
                     </tr>
                 </table>
             </div>
-            <!--<button id="close-ranking-list" class="close-btn">Close Ranking Chart Panel</button>-->
-            <button class="close-btn" id="close-ranking-list"><img src="Close.png" style="width:10px;"></a></button>
         </div>
         <div class="container-fluid" style="width:100%;height:100vh;">
             <div class="row" id="map-row" style="width:100%;height:100vh;">

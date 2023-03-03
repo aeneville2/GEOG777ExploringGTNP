@@ -312,7 +312,8 @@ map.on('load', ()=>{
         layout: {
             'icon-image': 'star',
             'icon-size': 0.15,
-            'visibility': 'none'
+            'visibility': 'none',
+            'icon-allow-overlap': true
         }
     });
 
@@ -522,12 +523,13 @@ map.scrollZoom.enable();
 //Add points to a map part 3: interactivity
 map.on('click',(event)=>{
     const features = map.queryRenderedFeatures(event.point, {
-        layers: ['Services','POIs','Trails','Park Boundary','Rankings']
+        layers: ['Services','POIs','Trails']
     });
 
     if(!features.length){
         return;
     }
+    
     const feature = features[0];
     console.log("Feature: ",feature)
 
@@ -553,7 +555,7 @@ map.on('click',(event)=>{
     }
     else if (feature.sourceLayer == 'Trails_FeaturesToJSON_v3-1c2nmj'){
         popup.setHTML(
-            `<h6>${feature.properties['Name']}</h6>`
+            `<h6>Trail: ${feature.properties['Name']}</h6>`
         )
         .addTo(map);
     } /*else if (feature.sourceLayer == 'ParkBoundary_FeaturesToJSON_v-4oyzb4'){
@@ -561,12 +563,71 @@ map.on('click',(event)=>{
             `<h3>Grand Teton National Park</h3>`
         )
         .addTo(map);
-    }*/ else if (feature.source == 'rankingSource') {
+    } */else if (feature.source == 'rankingSource') {
         popup.setHTML(
-            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Ranking: ${feature.properties['Ranking']}</p><p>Comment: ${feature.properties["Comment"]}</p>`
+            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Comment: ${feature.properties["Comment"]}</p>`
         )
         .addTo(map);
     }
+});
+
+//Add points to a map part 3: interactivity
+map.on('click',(event)=>{
+    const features = map.queryRenderedFeatures(event.point, {
+        layers: ['Rankings']
+    });
+
+    if(!features.length){
+        return;
+    }
+
+    for (var i=0; i<features.length; i++){
+        const feature = features[i];
+        console.log("Feature: ",feature)
+    
+        const popup = new mapboxgl.Popup({offset: [0,0]})
+        //.setLngLat(feature.geometry.coordinates)
+        .setLngLat(event.lngLat);
+
+        popup.setHTML(
+            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Comment: ${feature.properties["Comment"]}</p>`
+        )
+        .addTo(map);
+    }
+    
+});
+
+//https://stackoverflow.com/questions/55560489/mapbox-gl-on-mouse-hover-on-layers-change-cursor-pointer-style
+map.on("mouseenter", "POIs", () => {
+    map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "POIs", () => {
+    map.getCanvas().style.cursor = "grab";
+});
+
+map.on("mouseenter", "Services", () => {
+    map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "Services", () => {
+    map.getCanvas().style.cursor = "grab";
+});
+
+map.on("mouseenter", "Trails", () => {
+    map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "Trails", () => {
+    map.getCanvas().style.cursor = "grab";
+});
+
+map.on("mouseenter", "Rankings", () => {
+    map.getCanvas().style.cursor = "pointer";
+});
+
+map.on("mouseleave", "Rankings", () => {
+    map.getCanvas().style.cursor = "grab";
 });
 
 var infoContainer = document.getElementById("info-container");
