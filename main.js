@@ -583,7 +583,7 @@ map.on('click',(event)=>{
 
     for (var i=0; i<features.length; i++){
         const feature = features[i];
-        console.log("Feature: ",feature)
+        //console.log("Feature: ",feature)
     
         const popup = new mapboxgl.Popup({offset: [0,0]})
         //.setLngLat(feature.geometry.coordinates)
