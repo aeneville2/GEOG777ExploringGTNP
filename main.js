@@ -317,7 +317,7 @@ map.on('load', ()=>{
         }
     });
 
-    map.addSource('single-point',{
+    /*map.addSource('single-point',{
         type: 'geojson',
         data: {
             type: 'FeatureCollection',
@@ -333,7 +333,7 @@ map.on('load', ()=>{
             'icon-image': 'red-icon',
             'icon-size': 0.15
         }
-    });
+    });*/
 
     addRankings();
     getPOIs();
@@ -487,11 +487,11 @@ const geocoder = new MapboxGeocoder({
 });
 map.addControl(geocoder);
 
-geocoder.on('result',(event)=>{
+/*geocoder.on('result',(event)=>{
     map.getSource('single-point').setData(event.result.geometry);
     //const end = event.result.geometry.coordinates;
     //getRoute(end);
-});
+});*/
 
 //https://docs.mapbox.com/mapbox-gl-js/example/locate-user
 const geolocate = new mapboxgl.GeolocateControl({
@@ -916,62 +916,68 @@ submitBtn.addEventListener("click",async function(event){
     const commentVal = document.getElementById("comment").value;
     const selectForm = document.getElementById("poi-select")
     const coord = selectForm.options[selectForm.selectedIndex].value;
-    const coordSplit = coord.split(",");
-    const poiLon = parseFloat(coordSplit[0]);
-    const poiLat = parseFloat(coordSplit[1]);
-    const poiName = selectForm.options[selectForm.selectedIndex].textContent;
-
-    //const featureid = await featureIdIncrement();
-    const rankingIdUse = rankingId + 1
-    const featureid = rankingIdUse.toString();
-
-    const feature = {
-        "id": `${featureid}`,
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [poiLon,poiLat]
-        },
-        "properties": {
-            "Ranking": 1,
-            "Comment": commentVal,
-            "Name": poiName
+    // Verify that the user selected a point of interest in the form before submission
+    if (coord == 'default'){
+        alert("Please select a point of interest")
+    } else {
+        const coordSplit = coord.split(",");
+        const poiLon = parseFloat(coordSplit[0]);
+        const poiLat = parseFloat(coordSplit[1]);
+        const poiName = selectForm.options[selectForm.selectedIndex].textContent;
+    
+        //const featureid = await featureIdIncrement();
+        const rankingIdUse = rankingId + 1
+        const featureid = rankingIdUse.toString();
+    
+        const feature = {
+            "id": `${featureid}`,
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [poiLon,poiLat]
+            },
+            "properties": {
+                "Ranking": 1,
+                "Comment": commentVal,
+                "Name": poiName
+            }
         }
-    }
-
-    const requestOptions = {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(feature)
-    }
-
-    const response = await fetch(
-        `https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features/${featureid}?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw`,
-        requestOptions
-    );
-
-    const data = await response.json();
-
-    Promise.all([data]).then(async ()=>{
-        //const removeLayer = map.removeLayer('Rankings');
-        //const removeSource = await map.removeSource('rankingSource');
-        //const removeImage = await map.removeImage('star');
-        alert("Ranking submitted succesfully!");
-        const form = document.getElementById('user-ranking-form');
-        form.reset();
-        const rankingTable = document.getElementById("ranking-table");
-        // https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
-        var rowCount = rankingTable.rows.length;
-        for (var i=rowCount-1; i>0; i--){
-            rankingTable.deleteRow(i);
+    
+        const requestOptions = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(feature)
         }
-        //window.location.reload();
-        addRankings();
-        /*Promise.all([form]).then(()=>{    
-            window.location.reload();
+    
+        const response = await fetch(
+            `https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features/${featureid}?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw`,
+            requestOptions
+        );
+    
+        const data = await response.json();
+    
+        Promise.all([data]).then(async ()=>{
+            //const removeLayer = map.removeLayer('Rankings');
+            //const removeSource = await map.removeSource('rankingSource');
+            //const removeImage = await map.removeImage('star');
+            alert("Ranking submitted succesfully!");
+            const form = document.getElementById('user-ranking-form');
+            form.reset();
+            const rankingTable = document.getElementById("ranking-table");
+            // https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
+            var rowCount = rankingTable.rows.length;
+            for (var i=rowCount-1; i>0; i--){
+                rankingTable.deleteRow(i);
+            }
+            //window.location.reload();
             addRankings();
-        });*/
-    })
+            /*Promise.all([form]).then(()=>{    
+                window.location.reload();
+                addRankings();
+            });*/
+        })
+    }
+    
 });
 
 window.addEventListener("load",(function(){
