@@ -36,7 +36,8 @@ h6 {
     bottom: 0; */
     height: 100vh;
     position: absolute;
-    width: 100vw; 
+    width: 100vw;
+    overflow-y: scroll; 
 }
 
 .mapboxgl-ctrl-geocoder--input {
