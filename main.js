@@ -381,35 +381,35 @@ async function addRankings(){
         });*/
 
         const features = data.features;
-        console.log("Features",features);
+        console.log('Features',features);
 
         var featureidArray = [];
         for (var i=0; i<features.length; i++){
             var id = features[i].id;
             featureidArray.push(id);
         }
-        console.log("FeatureIDArray: ",featureidArray);
+        console.log('FeatureIDArray: ',featureidArray);
         rankingId = Math.max(...featureidArray);
-        console.log("Ranking ID Type: ",typeof rankingId);
+        console.log('Ranking ID Type: ',typeof rankingId);
 
         var poiCounter = [];
 
         const waitArray = await counterLoop(features,poiCounter);
-        //document.getElementById("chart-form").innerHTML = "<h6>Top Rankings by POI</h6>";
+        //document.getElementById('chart-form').innerHTML = '<h6>Top Rankings by POI</h6>';
         
         Promise.all([waitArray]).then(async()=>{
             //https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
             /*let waitArrayArray = Object.entries(waitArray);
             for (array of waitArrayArray){
-                document.getElementById("chart-form").innerHTML += "<p>" + array + "</p>";
+                document.getElementById('chart-form').innerHTML += '<p>' + array + '</p>';
             }*/
 
             // LAYER NOT UPDATING IN TIME SO THIS IS NOT UPDATING: FIGURE OUT WHY DATASET NOT UPDATING!
             let waitArrayKeys = Object.keys(waitArray);
             let sortedArray = waitArrayKeys.sort()
             sortedArray.forEach((key)=>{
-                //document.getElementById("chart-form").innerHTML += "<p>" + key + ": " + waitArray[key] + "</p>";
-                var table = document.getElementById("ranking-table");
+                //document.getElementById('chart-form').innerHTML += '<p>' + key + ': ' + waitArray[key] + '</p>';
+                var table = document.getElementById('ranking-table');
                 var row = table.insertRow();
                 var cell1 = row.insertCell(0)
                 var cell2 = row.insertCell(1);
@@ -426,7 +426,7 @@ async function counterLoop(features,poiCounter){
 
     const poiArray = [];
     for (var i=0; i<features.length; i++){
-        const poiName = features[i].properties["Name"];
+        const poiName = features[i].properties['Name'];
 
         poiArray.push(poiName);
     };
@@ -457,7 +457,7 @@ async function getPOIs(){
     
     let poiArray = [];
     for (var i=0;i<features.length;i++){
-        const name = features[i].properties["Point Name"];
+        const name = features[i].properties['Point Name'];
         const geometry = features[i].geometry.coordinates;
         poiArray.push([name,geometry]);
         /*const selectPoi = document.getElementById('poi-select')
@@ -466,7 +466,7 @@ async function getPOIs(){
     }
     //console.log(poiDict);
     let poiArraySort = poiArray.sort();
-    const selectPoi = document.getElementById("poi-select");
+    const selectPoi = document.getElementById('poi-select');
     for (var i=0; i<poiArraySort.length; i++){
         let newOption = new Option(poiArraySort[i][0],poiArraySort[i][1]);
         selectPoi.add(newOption,undefined);
@@ -517,7 +517,7 @@ const directions = new MapboxDirections({
     interactive: true
 });
 //map.addControl(directions,'top-right');
-//document.getElementById("directions-form").appendChild(directions.onAdd(map));
+//document.getElementById('directions-form').appendChild(directions.onAdd(map));
 map.scrollZoom.enable();
 
 //Add points to a map part 3: interactivity
@@ -531,7 +531,7 @@ map.on('click',(event)=>{
     }
     
     const feature = features[0];
-    console.log("Feature: ",feature)
+    console.log('Feature: ',feature)
 
     const popup = new mapboxgl.Popup({offset: [0,0]})
     //.setLngLat(feature.geometry.coordinates)
@@ -565,7 +565,7 @@ map.on('click',(event)=>{
         .addTo(map);
     } */else if (feature.source == 'rankingSource') {
         popup.setHTML(
-            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Comment: ${feature.properties["Comment"]}</p>`
+            `<h6>User Ranking For: ${feature.properties['Name']}</h6><p>Comment: ${feature.properties['Comment']}</p>`
         )
         .addTo(map);
     }
@@ -583,14 +583,14 @@ map.on('click',(event)=>{
 
     for (var i=0; i<features.length; i++){
         const feature = features[i];
-        //console.log("Feature: ",feature)
+        //console.log('Feature: ',feature)
     
         const popup = new mapboxgl.Popup({offset: [0,0]})
         //.setLngLat(feature.geometry.coordinates)
         .setLngLat(event.lngLat);
 
         popup.setHTML(
-            `<h6>User Ranking For: ${feature.properties["Name"]}</h6><p>Comment: ${feature.properties["Comment"]}</p>`
+            `<h6>User Ranking For: ${feature.properties['Name']}</h6><p>Comment: ${feature.properties['Comment']}</p>`
         )
         .addTo(map);
     }
@@ -598,253 +598,253 @@ map.on('click',(event)=>{
 });
 
 //https://stackoverflow.com/questions/55560489/mapbox-gl-on-mouse-hover-on-layers-change-cursor-pointer-style
-map.on("mouseenter", "POIs", () => {
-    map.getCanvas().style.cursor = "pointer";
+map.on('mouseenter', 'POIs', () => {
+    map.getCanvas().style.cursor = 'pointer';
 });
 
-map.on("mouseleave", "POIs", () => {
-    map.getCanvas().style.cursor = "grab";
+map.on('mouseleave', 'POIs', () => {
+    map.getCanvas().style.cursor = 'grab';
 });
 
-map.on("mouseenter", "Services", () => {
-    map.getCanvas().style.cursor = "pointer";
+map.on('mouseenter', 'Services', () => {
+    map.getCanvas().style.cursor = 'pointer';
 });
 
-map.on("mouseleave", "Services", () => {
-    map.getCanvas().style.cursor = "grab";
+map.on('mouseleave', 'Services', () => {
+    map.getCanvas().style.cursor = 'grab';
 });
 
-map.on("mouseenter", "Trails", () => {
-    map.getCanvas().style.cursor = "pointer";
+map.on('mouseenter', 'Trails', () => {
+    map.getCanvas().style.cursor = 'pointer';
 });
 
-map.on("mouseleave", "Trails", () => {
-    map.getCanvas().style.cursor = "grab";
+map.on('mouseleave', 'Trails', () => {
+    map.getCanvas().style.cursor = 'grab';
 });
 
-map.on("mouseenter", "Rankings", () => {
-    map.getCanvas().style.cursor = "pointer";
+map.on('mouseenter', 'Rankings', () => {
+    map.getCanvas().style.cursor = 'pointer';
 });
 
-map.on("mouseleave", "Rankings", () => {
-    map.getCanvas().style.cursor = "grab";
+map.on('mouseleave', 'Rankings', () => {
+    map.getCanvas().style.cursor = 'grab';
 });
 
-var infoContainer = document.getElementById("info-container");
-var directionContainer = document.getElementById("directions-container");
-var filterContainer = document.getElementById("filter-container");
-var userContainer = document.getElementById("user-input-container");
-var chartContainer = document.getElementById("chart-container");
+var infoContainer = document.getElementById('info-container');
+var directionContainer = document.getElementById('directions-container');
+var filterContainer = document.getElementById('filter-container');
+var userContainer = document.getElementById('user-input-container');
+var chartContainer = document.getElementById('chart-container');
 
-var infoBtn = document.getElementById("info-btn");
-var directionsBtn = document.getElementById("directions-btn");
-var filterBtn = document.getElementById("filter-btn");
-var userInputBtn = document.getElementById("user-input-btn");
-var chartBtn = document.getElementById("chart-btn");
+var infoBtn = document.getElementById('info-btn');
+var directionsBtn = document.getElementById('directions-btn');
+var filterBtn = document.getElementById('filter-btn');
+var userInputBtn = document.getElementById('user-input-btn');
+var chartBtn = document.getElementById('chart-btn');
 
-infoBtn.addEventListener("click",function(){
-    if(directionContainer.style.display === "block"){
-        directionContainer.style.display = "none";
+infoBtn.addEventListener('click',function(){
+    if(directionContainer.style.display === 'block'){
+        directionContainer.style.display = 'none';
         map.removeControl(directions);
-        directionsBtn.style.backgroundColor = "white";
+        directionsBtn.style.backgroundColor = 'white';
     }
-    if (userContainer.style.display === "block"){
-        userContainer.style.display = "none"
-        userInputBtn.style.backgroundColor = "white";
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none'
+        userInputBtn.style.backgroundColor = 'white';
     }
-    if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none";
-        chartBtn.style.backgroundColor = "white";
-    }
-
-    if (filterContainer.style.display === "block"){
-        filterContainer.style.display = "none";
-        filterBtn.style.backgroundColor = "white";
+    if (chartContainer.style.display === 'block'){
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
     }
 
-    if(infoContainer.style.display === "none"){
-        infoContainer.style.display = "block";
-        infoBtn.style.backgroundColor = "green";
+    if (filterContainer.style.display === 'block'){
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
+    }
+
+    if(infoContainer.style.display === 'none'){
+        infoContainer.style.display = 'block';
+        infoBtn.style.backgroundColor = 'green';
     } else {
-        infoContainer.style.display = "none"
-        infoBtn.style.backgroundColor = "white";
+        infoContainer.style.display = 'none'
+        infoBtn.style.backgroundColor = 'white';
     }
 })
 
-document.getElementById("close-info").addEventListener("click",function(){
-    infoContainer.style.display = "none";
-    infoBtn.style.backgroundColor = "white";
+document.getElementById('close-info').addEventListener('click',function(){
+    infoContainer.style.display = 'none';
+    infoBtn.style.backgroundColor = 'white';
 });
 
-directionsBtn.addEventListener("click",function(){
-    if(infoContainer.style.display === "block"){
-        infoBtn.style.backgroundColor = "white";
-        infoContainer.style.display = "none"
+directionsBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoBtn.style.backgroundColor = 'white';
+        infoContainer.style.display = 'none'
     }
-    if(filterContainer.style.display === "block"){
-        filterBtn.style.backgroundColor = "white";
-        filterContainer.style.display = "none"
+    if(filterContainer.style.display === 'block'){
+        filterBtn.style.backgroundColor = 'white';
+        filterContainer.style.display = 'none'
     }
-    if (userContainer.style.display === "block"){
-        userContainer.style.display = "none";
-        userInputBtn.style.backgroundColor = "white";
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none';
+        userInputBtn.style.backgroundColor = 'white';
     }
-    if (chartContainer.style.display === "block"){
-        chartBtn.style.backgroundColor = "white";
-        chartContainer.style.display = "none"
+    if (chartContainer.style.display === 'block'){
+        chartBtn.style.backgroundColor = 'white';
+        chartContainer.style.display = 'none'
     }
 
-    if (directionContainer.style.display === "none"){
-        directionContainer.style.display = "block";
-        document.getElementById("directions-form").appendChild(directions.onAdd(map));
-        directionsBtn.style.backgroundColor = "green";
+    if (directionContainer.style.display === 'none'){
+        directionContainer.style.display = 'block';
+        document.getElementById('directions-form').appendChild(directions.onAdd(map));
+        directionsBtn.style.backgroundColor = 'green';
     } else {
-        directionContainer.style.display = "none";
+        directionContainer.style.display = 'none';
         map.removeControl(directions);
-        directionsBtn.style.backgroundColor = "white";
+        directionsBtn.style.backgroundColor = 'white';
     }
 });
 
-document.getElementById("close-directions").addEventListener("click",function(){
-    directionContainer.style.display = "none";
+document.getElementById('close-directions').addEventListener('click',function(){
+    directionContainer.style.display = 'none';
     map.removeControl(directions);
-    directionsBtn.style.backgroundColor = "white";
+    directionsBtn.style.backgroundColor = 'white';
 })
 
-filterBtn.addEventListener("click",function(){
-    if(infoContainer.style.display === "block"){
-        infoBtn.style.backgroundColor = "white";
-        infoContainer.style.display = "none"
+filterBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoBtn.style.backgroundColor = 'white';
+        infoContainer.style.display = 'none'
     }
-    if(directionContainer.style.display === "block"){
-        directionContainer.style.display = "none";
+    if(directionContainer.style.display === 'block'){
+        directionContainer.style.display = 'none';
         map.removeControl(directions);
-        directionsBtn.style.backgroundColor = "white";
+        directionsBtn.style.backgroundColor = 'white';
     }
-    if (userContainer.style.display === "block"){
-        userContainer.style.display = "none";
-        userInputBtn.style.backgroundColor = "white";
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none';
+        userInputBtn.style.backgroundColor = 'white';
     }
-    if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none";
-        chartBtn.style.backgroundColor = "white";
+    if (chartContainer.style.display === 'block'){
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
     }
 
-    if (filterContainer.style.display === "none"){
-        filterContainer.style.display = "block";
-        filterBtn.style.backgroundColor = "green";
+    if (filterContainer.style.display === 'none'){
+        filterContainer.style.display = 'block';
+        filterBtn.style.backgroundColor = 'green';
     } else {
-        filterContainer.style.display = "none";
-        filterBtn.style.backgroundColor = "white";
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
     }
 })
 
-document.getElementById("close-filter").addEventListener("click",function(){
-    filterContainer.style.display = "none";
-    filterBtn.style.backgroundColor = "white";
+document.getElementById('close-filter').addEventListener('click',function(){
+    filterContainer.style.display = 'none';
+    filterBtn.style.backgroundColor = 'white';
 });
 
-userInputBtn.addEventListener("click",function(){
-    if(infoContainer.style.display === "block"){
-        infoContainer.style.display = "none";
-        infoBtn.style.backgroundColor = "white";
+userInputBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoContainer.style.display = 'none';
+        infoBtn.style.backgroundColor = 'white';
     }
-    if(filterContainer.style.display === "block"){
-        filterContainer.style.display = "none";
-        filterBtn.style.backgroundColor = "white";
+    if(filterContainer.style.display === 'block'){
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
     }
-    if (directionContainer.style.display === "block"){
-        directionContainer.style.display = "none";
+    if (directionContainer.style.display === 'block'){
+        directionContainer.style.display = 'none';
         map.removeControl(directions);
-        directionsBtn.style.backgroundColor = "white";
+        directionsBtn.style.backgroundColor = 'white';
     }
-    if (chartContainer.style.display === "block"){
-        chartContainer.style.display = "none";
-        chartBtn.style.backgroundColor = "white";
+    if (chartContainer.style.display === 'block'){
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
     }
 
-    if (userContainer.style.display === "none"){
-        userContainer.style.display = "block";
-        userInputBtn.style.backgroundColor = "green";
+    if (userContainer.style.display === 'none'){
+        userContainer.style.display = 'block';
+        userInputBtn.style.backgroundColor = 'green';
     } else {
-        userContainer.style.display = "none";
-        userInputBtn.style.backgroundColor = "white";
+        userContainer.style.display = 'none';
+        userInputBtn.style.backgroundColor = 'white';
     }
 });
 
-document.getElementById("close-user-input").addEventListener("click",function(){
-    userContainer.style.display = "none";
-    userInputBtn.style.backgroundColor = "white";
+document.getElementById('close-user-input').addEventListener('click',function(){
+    userContainer.style.display = 'none';
+    userInputBtn.style.backgroundColor = 'white';
 });
 
-chartBtn.addEventListener("click",function(){
-    if(infoContainer.style.display === "block"){
-        infoContainer.style.display = "none";
-        infoBtn.style.backgroundColor = "white";
+chartBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoContainer.style.display = 'none';
+        infoBtn.style.backgroundColor = 'white';
     }
-    if(filterContainer.style.display === "block"){
-        filterContainer.style.display = "none";
-        filterBtn.style.backgroundColor = "white";
+    if(filterContainer.style.display === 'block'){
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
     }
-    if (userContainer.style.display === "block"){
-        userContainer.style.display = "none";
-        userInputBtn.style.backgroundColor = "white";
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none';
+        userInputBtn.style.backgroundColor = 'white';
     }
-    if (directionContainer.style.display === "block"){
-        directionContainer.style.display = "none";
+    if (directionContainer.style.display === 'block'){
+        directionContainer.style.display = 'none';
         map.removeControl(directions);
-        directionsBtn.style.backgroundColor = "white";
+        directionsBtn.style.backgroundColor = 'white';
     }
-    if (chartContainer.style.display === "none"){
-        chartContainer.style.display = "block";
-        chartBtn.style.backgroundColor = "green";
+    if (chartContainer.style.display === 'none'){
+        chartContainer.style.display = 'block';
+        chartBtn.style.backgroundColor = 'green';
     } else {
-        chartContainer.style.display = "none";
-        chartBtn.style.backgroundColor = "white";
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
     }
 });
 
-document.getElementById("close-ranking-list").addEventListener("click",function(){
-    chartContainer.style.display = "none";
-    chartBtn.style.backgroundColor = "white";
+document.getElementById('close-ranking-list').addEventListener('click',function(){
+    chartContainer.style.display = 'none';
+    chartBtn.style.backgroundColor = 'white';
 });
 
-const filterPOIs = document.getElementById("filter-select-poi");
-filterPOIs.addEventListener("change",function(){
+const filterPOIs = document.getElementById('filter-select-poi');
+filterPOIs.addEventListener('change',function(){
     const val = filterPOIs.options[filterPOIs.selectedIndex].value;
-    if (val != "Label"){
+    if (val != 'Label'){
         map.setFilter('POIs',['==',['get','Point Type'],val]);
-    } else if (val == "Label"){
+    } else if (val == 'Label'){
         map.setFilter('POIs',null);
     }
 });
 
-const filterServices = document.getElementById("filter-select-services");
-filterServices.addEventListener("change",function(){
+const filterServices = document.getElementById('filter-select-services');
+filterServices.addEventListener('change',function(){
     const val = filterServices.options[filterServices.selectedIndex].value;
-    if (val != "Label" && val != "Ranger Station"){
+    if (val != 'Label' && val != 'Ranger Station'){
         map.setFilter('Services',['==',['get','Point Type'],val]);
-    } else if (val == "Ranger Station") {
+    } else if (val == 'Ranger Station') {
         map.setFilter('Services',['any',['==',['get','Point Type'],val],['==',['get','Point Type'],'Headquarters']])
-    } else if (val == "Label"){
+    } else if (val == 'Label'){
         map.setFilter('Services',null);
     }
 });
 
-const filterTrails = document.getElementById("filter-select-trails-use");
-filterTrails.addEventListener("change",function(){
+const filterTrails = document.getElementById('filter-select-trails-use');
+filterTrails.addEventListener('change',function(){
     const val = filterTrails.options[filterTrails.selectedIndex].value;
-    if (val != "Label" && val != "Hiker/Pedestrian|Bicycle"){
+    if (val != 'Label' && val != 'Hiker/Pedestrian|Bicycle'){
         map.setFilter('Trails',['==',['get','Trail Use'],val]);
-    } else if (val == "Hiker/Pedestrian|Bicycle") {
+    } else if (val == 'Hiker/Pedestrian|Bicycle') {
         map.setFilter('Trails',['any',['==',['get','Trail Use'],val],['==',['get','Trail Use'],'Hiker/Pedestrian | Bicycle']])
-    } else if (val == "Label"){
+    } else if (val == 'Label'){
         map.setFilter('Trails',null)
     }
 });
 
-const poisCheckbox = document.getElementById("pois-checkbox");
-poisCheckbox.addEventListener("change",function(){
+const poisCheckbox = document.getElementById('pois-checkbox');
+poisCheckbox.addEventListener('change',function(){
     if (poisCheckbox.checked) {
         map.setLayoutProperty('POIs','visibility','visible');
     } else if (!poisCheckbox.checked) {
@@ -852,8 +852,8 @@ poisCheckbox.addEventListener("change",function(){
     }
 });
 
-const rankingCheckbox = document.getElementById("ranking-checkbox");
-rankingCheckbox.addEventListener("change",function(){
+const rankingCheckbox = document.getElementById('ranking-checkbox');
+rankingCheckbox.addEventListener('change',function(){
     if (rankingCheckbox.checked) {
         map.setLayoutProperty('Rankings','visibility','visible');
     } else if (!rankingCheckbox.checked) {
@@ -861,8 +861,8 @@ rankingCheckbox.addEventListener("change",function(){
     }
 });
 
-const servicesCheckbox = document.getElementById("services-checkbox");
-servicesCheckbox.addEventListener("change",function(){
+const servicesCheckbox = document.getElementById('services-checkbox');
+servicesCheckbox.addEventListener('change',function(){
     if (servicesCheckbox.checked) {
         map.setLayoutProperty('Services','visibility','visible');
     } else if (!servicesCheckbox.checked) {
@@ -870,8 +870,8 @@ servicesCheckbox.addEventListener("change",function(){
     }
 });
 
-const trailsCheckbox = document.getElementById("trails-checkbox");
-trailsCheckbox.addEventListener("change",function(){
+const trailsCheckbox = document.getElementById('trails-checkbox');
+trailsCheckbox.addEventListener('change',function(){
     if (trailsCheckbox.checked) {
         map.setLayoutProperty('Trails','visibility','visible');
     } else if (!trailsCheckbox.checked) {
@@ -879,8 +879,8 @@ trailsCheckbox.addEventListener("change",function(){
     }
 });
 
-const boundaryCheckbox = document.getElementById("boundary-checkbox");
-boundaryCheckbox.addEventListener("change",function(){
+const boundaryCheckbox = document.getElementById('boundary-checkbox');
+boundaryCheckbox.addEventListener('change',function(){
     if (boundaryCheckbox.checked) {
         map.setLayoutProperty('Park Boundary','visibility','visible');
     } else if (!boundaryCheckbox.checked) {
@@ -888,8 +888,8 @@ boundaryCheckbox.addEventListener("change",function(){
     }
 });
 
-const resetFilterBtn = document.getElementById("reset-filter");
-resetFilterBtn.addEventListener("click",function(){
+const resetFilterBtn = document.getElementById('reset-filter');
+resetFilterBtn.addEventListener('click',function(){
     map.setLayoutProperty('Rankings','visibility','none');
     map.setLayoutProperty('POIs','visibility','visible');
     map.setLayoutProperty('Services','visibility','visible');
@@ -898,7 +898,7 @@ resetFilterBtn.addEventListener("click",function(){
     map.setFilter('POIs',null);
     map.setFilter('Services',null);
     map.setFilter('Trails',null);
-    document.getElementById("filter-form-input").reset();
+    document.getElementById('filter-form-input').reset();
 
 })
 
@@ -909,18 +909,18 @@ async function featureIdIncrement(){
     return featureId;
 };
 
-const submitBtn = document.getElementById("submit-btn")
-submitBtn.addEventListener("click",async function(event){
+const submitBtn = document.getElementById('submit-btn')
+submitBtn.addEventListener('click',async function(event){
     event.preventDefault();
 
-    const commentVal = document.getElementById("comment").value;
-    const selectForm = document.getElementById("poi-select")
+    const commentVal = document.getElementById('comment').value;
+    const selectForm = document.getElementById('poi-select')
     const coord = selectForm.options[selectForm.selectedIndex].value;
     // Verify that the user selected a point of interest in the form before submission
     if (coord == 'default'){
-        alert("Please select a point of interest")
+        alert('Please select a point of interest')
     } else {
-        const coordSplit = coord.split(",");
+        const coordSplit = coord.split(',');
         const poiLon = parseFloat(coordSplit[0]);
         const poiLat = parseFloat(coordSplit[1]);
         const poiName = selectForm.options[selectForm.selectedIndex].textContent;
@@ -930,16 +930,16 @@ submitBtn.addEventListener("click",async function(event){
         const featureid = rankingIdUse.toString();
     
         const feature = {
-            "id": `${featureid}`,
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [poiLon,poiLat]
+            'id': `${featureid}`,
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [poiLon,poiLat]
             },
-            "properties": {
-                "Ranking": 1,
-                "Comment": commentVal,
-                "Name": poiName
+            'properties': {
+                'Ranking': 1,
+                'Comment': commentVal,
+                'Name': poiName
             }
         }
     
@@ -960,10 +960,10 @@ submitBtn.addEventListener("click",async function(event){
             //const removeLayer = map.removeLayer('Rankings');
             //const removeSource = await map.removeSource('rankingSource');
             //const removeImage = await map.removeImage('star');
-            alert("Ranking submitted succesfully!");
+            alert('Ranking submitted succesfully!');
             const form = document.getElementById('user-ranking-form');
             form.reset();
-            const rankingTable = document.getElementById("ranking-table");
+            const rankingTable = document.getElementById('ranking-table');
             // https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
             var rowCount = rankingTable.rows.length;
             for (var i=rowCount-1; i>0; i--){
@@ -980,7 +980,7 @@ submitBtn.addEventListener("click",async function(event){
     
 });
 
-window.addEventListener("load",(function(){
-    this.document.getElementById("filter-form-input").reset();
-    this.document.getElementById("user-ranking-form").reset();
+window.addEventListener('load',(function(){
+    this.document.getElementById('filter-form-input').reset();
+    this.document.getElementById('user-ranking-form').reset();
 }));

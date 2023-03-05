@@ -1,130 +1,130 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta charset='utf-8'>
         <title>Exploring Grand Teton National Park</title>
-        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-        <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet'>
+        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
-        <link rel="stylesheet" href=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css type="text/css" />
-        <link rel="stylesheet" href="style.css">
+        <link rel='stylesheet' href=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css type='text/css' />
+        <link rel='stylesheet' href='style.css'>
     </head>
     <body>
         <!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
-        <nav class="navbar navbar-inverse sticky-top">
-            <div class="container-fluid" style="background-color:green;">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Exploring GTNP</a>
+        <nav class='navbar navbar-inverse sticky-top'>
+            <div class='container-fluid' style='background-color:green;'>
+                <div class='navbar-header'>
+                    <a class='navbar-brand' href='#'>Exploring GTNP</a>
                 </div>
                 <!-- https://getbootstrap.com/docs/5.0/components/dropdowns/-->
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class='dropdown'>
+                    <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenu' data-bs-toggle='dropdown' aria-expanded='false'>
                         Menu
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu" id="dropdownMenuUl">
-                        <li><button id="info-btn" class="menu-btn">App Information</button></li>
-                        <li><button id="directions-btn" class="menu-btn">Directions</button></li>
-                        <li><button id="filter-btn" class="menu-btn">Filter Features</button></li>
-                        <li><button id="user-input-btn" class="menu-btn">Submit Ranking</button></li>
-                        <li><button id="chart-btn" class="menu-btn">Ranking Table</button></li>
+                    <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
+                        <li><button id='info-btn' class='menu-btn'>App Information</button></li>
+                        <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
+                        <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
+                        <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
+                        <li><button id='chart-btn' class='menu-btn'>Ranking Table</button></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="container-fluid" id="info-container" style="display:none;">
-            <button class="close-btn" id="close-info"><img src="Close_v2.png" style="width:15px;"></a></button>
+        <div class='container-fluid' id='info-container' style='display:none;'>
+            <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>App Information</h6>
             <p>The map displays POIs (Points of Interest), Services, Trails, and the Grand Teton Park Boundary.
                 Zoom in and pan around the map through scrolling or pinching fingers and dragging the map.
                 Click on any feature in the map to see more information. To search for a location, use the search box.
-                To get your current location, use the button below the search box. In the menu, go to "Directions" to
-                get directions between two locations. Go to "Filter Features" to filter the POIs, Services, and Trails
+                To get your current location, use the button below the search box. In the menu, go to 'Directions' to
+                get directions between two locations. Go to 'Filter Features' to filter the POIs, Services, and Trails
                 in the map or turn on/off map layers, including turning on the user top-ranked POIs layer. 
-                Go to "Submit Rankings" to vote for your favorite POI with a comment that will then be added to the map.
-                Got to "Ranking Table" to see a list of all POIs that have been voted on for a favorite with their vote (ranking) count.
+                Go to 'Submit Rankings' to vote for your favorite POI with a comment that will then be added to the map.
+                Got to 'Ranking Table' to see a list of all POIs that have been voted on for a favorite with their vote (ranking) count.
             </p>
         </div>
-        <div class="container-fluid" id="directions-container" style="display:none;">
-            <button class="close-btn" id="close-directions"><img src="Close_v2.png" style="width:15px;"></a></button>
+        <div class='container-fluid' id='directions-container' style='display:none;'>
+            <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
-            <div id="directions-form">
+            <div id='directions-form'>
             </div>
         </div>
-        <div class="container-fluid" id="filter-container" style="display:none;">
-            <div id="filter-form">
-                <button class="close-btn" id="close-filter"><img src="Close_v2.png" style="width:15px;"></a></button>
-                <form id="filter-form-input">
+        <div class='container-fluid' id='filter-container' style='display:none;'>
+            <div id='filter-form'>
+                <button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>
+                <form id='filter-form-input'>
                     <h6>Filter Features on the Map</h6>
-                    <select id="filter-select-poi">
-                        <option value="Label">Select a Point of Interest Type</option>
-                        <option value="Amphitheater">Amphitheater</option>
-                        <option value="Campground">Campground</option>
-                        <option value="Entrance Station">Entrance Station</option>
-                        <option value="Ferry Terminal">Ferry Terminal</option>
-                        <option value="Lodging">Lodging</option>
-                        <option value="Overlook">Overlook</option>
-                        <option value="Picnic Area">Picnic Area</option>
-                        <option value="Trailhead">Trailhead</option>
-                        <option value="Turnout">Turnout</option>
-                        <option value="Visitor Center">Visitor Center</option>
-                        <option value="Water Access">Water Access</option>
+                    <select id='filter-select-poi'>
+                        <option value='Label'>Select a Point of Interest Type</option>
+                        <option value='Amphitheater'>Amphitheater</option>
+                        <option value='Campground'>Campground</option>
+                        <option value='Entrance Station'>Entrance Station</option>
+                        <option value='Ferry Terminal'>Ferry Terminal</option>
+                        <option value='Lodging'>Lodging</option>
+                        <option value='Overlook'>Overlook</option>
+                        <option value='Picnic Area'>Picnic Area</option>
+                        <option value='Trailhead'>Trailhead</option>
+                        <option value='Turnout'>Turnout</option>
+                        <option value='Visitor Center'>Visitor Center</option>
+                        <option value='Water Access'>Water Access</option>
                     </select>
-                    <select id="filter-select-services">
-                        <option value="Label">Select a Services Type</option>
-                        <option value="First Aid Station">First Aid Station</option>
-                        <option value="Food Service">Food Service</option>
-                        <option value="Gas Station">Gas Station</option>
-                        <option value="Parking">Parking</option>
-                        <option value="Pay Phone">Pay Phone</option>
-                        <option value="Post Office">Post Office</option>
-                        <option value="Ranger Station">Ranger Station</option>
-                        <option value="Restroom">Restroom</option>
-                        <option value="Showers">Showers</option>
-                        <option value="Store">Store</option>
+                    <select id='filter-select-services'>
+                        <option value='Label'>Select a Services Type</option>
+                        <option value='First Aid Station'>First Aid Station</option>
+                        <option value='Food Service'>Food Service</option>
+                        <option value='Gas Station'>Gas Station</option>
+                        <option value='Parking'>Parking</option>
+                        <option value='Pay Phone'>Pay Phone</option>
+                        <option value='Post Office'>Post Office</option>
+                        <option value='Ranger Station'>Ranger Station</option>
+                        <option value='Restroom'>Restroom</option>
+                        <option value='Showers'>Showers</option>
+                        <option value='Store'>Store</option>
                     </select>
-                    <select id="filter-select-trails-use">
-                        <option value="Label">Select a Trail Use</option>
-                        <option value="Hiker/Pedestrian | Pack and Saddle">Hikers & Equestrian</option>
-                        <option value="Hiker/Pedestrian">Hikers Only</option>
-                        <option value="Hiker/Pedestrian|Bicycle">Hikers & Bikers</option>
+                    <select id='filter-select-trails-use'>
+                        <option value='Label'>Select a Trail Use</option>
+                        <option value='Hiker/Pedestrian | Pack and Saddle'>Hikers & Equestrian</option>
+                        <option value='Hiker/Pedestrian'>Hikers Only</option>
+                        <option value='Hiker/Pedestrian|Bicycle'>Hikers & Bikers</option>
                     </select>
-                    <h6 style="margin-top:10px;">Turn Layers On/Off</h6>
-                    <ul style="list-style-type: none;">
-                        <li><input type="checkbox" id="ranking-checkbox" name="ranking-checkbox" >
-                            <label for="ranking-checkbox">User Rankings</label></li>
-                        <li><input type="checkbox" id="pois-checkbox" name="pois-checkbox" checked>
-                            <label for="pois-checkbox">Points of Interest</label></li>
-                        <li><input type="checkbox" id="services-checkbox" name="services-checkbox" checked>
-                            <label for="services-checkbox">Services</label></li>
-                        <li><input type="checkbox" id="trails-checkbox" name="trails-checkbox" checked>
-                            <label for="trails-checkbox">Trails</label></li>
-                        <li><input type="checkbox" id="boundary-checkbox" name="boundary-checkbox" checked>
-                            <label for="boundary-checkbox">Grand Teton Park Boundary</label></li>
+                    <h6 style='margin-top:10px;'>Turn Layers On/Off</h6>
+                    <ul style='list-style-type: none;'>
+                        <li><input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' >
+                            <label for='ranking-checkbox'>User Rankings</label></li>
+                        <li><input type='checkbox' id='pois-checkbox' name='pois-checkbox' checked>
+                            <label for='pois-checkbox'>Points of Interest</label></li>
+                        <li><input type='checkbox' id='services-checkbox' name='services-checkbox' checked>
+                            <label for='services-checkbox'>Services</label></li>
+                        <li><input type='checkbox' id='trails-checkbox' name='trails-checkbox' checked>
+                            <label for='trails-checkbox'>Trails</label></li>
+                        <li><input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' checked>
+                            <label for='boundary-checkbox'>Grand Teton Park Boundary</label></li>
                     </ul>
-                    <h6 style="margin-top: 10px;">Reset the form and map.</h6>
-                    <button id="reset-filter">Reset</button>
+                    <h6 style='margin-top: 10px;'>Reset the form and map.</h6>
+                    <button id='reset-filter'>Reset</button>
                 </form>
             </div>
         </div>
-        <div class="container-fluid" id="user-input-container" style="display:none;">
-            <div id="user-input-form">
-                <button class="close-btn" id="close-user-input"><img src="Close_v2.png" style="width:15px;"></a></button>
-                <form id="user-ranking-form">
+        <div class='container-fluid' id='user-input-container' style='display:none;'>
+            <div id='user-input-form'>
+                <button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>
+                <form id='user-ranking-form'>
                     <h6>Select your favorite POI and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
-                    <select id="poi-select">
-                        <option id="default-poi-select" value="default">Select a POI</option>
+                    <select id='poi-select'>
+                        <option id='default-poi-select' value='default'>Select a POI</option>
                     </select>
-                    <label for="comment">Comment</label><input type="text" id="comment" name="comment">
-                    <button id="submit-btn">Submit</button>
+                    <label for='comment'>Comment</label><input type='text' id='comment' name='comment'>
+                    <button id='submit-btn'>Submit</button>
                 </form>
             </div>
         </div>
-        <div class="container-fluid" id="chart-container" style="display:none;">
-            <div id="chart-form">
-                <button class="close-btn" id="close-ranking-list"><img src="Close_v2.png" style="width:15px;"></a></button>
+        <div class='container-fluid' id='chart-container' style='display:none;'>
+            <div id='chart-form'>
+                <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>Points of Interest with Number of User Rankings (sorted alphabetically)</h6>
-                <table id="ranking-table">
+                <table id='ranking-table'>
                     <tr>
                         <th>Point of Interest</th>
                         <th>Number of Rankings</th>
@@ -132,15 +132,15 @@
                 </table>
             </div>
         </div>
-        <div class="container-fluid" style="width:100%;height:100vh;">
-            <div class="row" id="map-row" style="width:100%;height:100vh;">
-                <div class="col-12" id="map"></div>
+        <div class='container-fluid' style='width:100%;height:100vh;'>
+            <div class='row' id='map-row' style='width:100%;height:100vh;'>
+                <div class='col-12' id='map'></div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+        <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
         <script src=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js></script>
-        <script src="main.js"></script>
+        <script src='main.js'></script>
     </body>
 </html>
