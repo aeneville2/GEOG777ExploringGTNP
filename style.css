@@ -17,7 +17,7 @@ nav {
 
 .menu-btn {
     background-color: white;
-    font-size: 10px;
+    font-size: 12px;
     border: 1px solid green;
     display: block;
 }
@@ -64,13 +64,20 @@ tr:nth-child(even){
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    -webkit-appearance: none;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
+::-webkit-scrollbar:vertical {
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;  
+    background-color: #ffffff; 
 }
