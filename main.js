@@ -1,8 +1,7 @@
-
-
+// MapBox public access token to use the APIs
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVjemNsMDIwMjE4M3JwOXRham13bzQ3In0.sdW72uvBX2AoOOnDIJxOPg'
 
-
+// MapBox gl js map centered on Grand Teton National Park
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/outdoors-v12',
@@ -10,9 +9,10 @@ const map = new mapboxgl.Map({
     zoom: 8
 });
 
-
+// Event listener function for when the map loads
 map.on('load', ()=>{
 
+    // Add the Park Boundary layer from the tileset hosted in MapBox
     map.addLayer({
         'id':'Park Boundary',
         'type':'fill',
@@ -31,6 +31,7 @@ map.on('load', ()=>{
         }
     });
 
+    // Add the Trails layer from the tileset hosted in MapBox
     map.addLayer({
         'id':'Trails',
         'type':'line',
@@ -86,7 +87,8 @@ map.on('load', ()=>{
         }
     });*/
 
-    //https://www.nps.gov/maps/tools/symbol-library/index.html 
+    // NPS Images came from https://www.nps.gov/maps/tools/symbol-library/index.html 
+    // Load the images to use for the symbol layers and add to the map
     map.loadImage('./red-icon.png',(error,image)=>{
         if (error) throw error;
         map.addImage('red-icon',image);
@@ -197,6 +199,7 @@ map.on('load', ()=>{
         map.addImage('pay-phone',image)
     });
 
+    // Add the Services layer from the tileset hosted in MapBox and style by image icon based on point type
     map.addLayer({
         'id':'Services',
         'type':'symbol',
@@ -238,6 +241,7 @@ map.on('load', ()=>{
         }
     });
 
+    // Add the Points of Interest layer from the tileset hosted in MapBox and style by image icon based on point type
     map.addLayer({
         'id':'POIs',
         'type':'symbol',
@@ -293,10 +297,13 @@ map.on('load', ()=>{
         }
     });*/
 
+    // Load the image for use in the Rankings layer and add to the map
     map.loadImage('./Star.png',(error,image)=>{
         if (error) throw error;
         map.addImage('star',image)
     });
+
+    // Add an empty geoJSON source for the Rankings layer
     map.addSource('rankingSource',{
         type: 'geojson',
         data: {
@@ -305,6 +312,7 @@ map.on('load', ()=>{
         }
     });
 
+    // Add the Rankings layer to the map with the correct image icon
     map.addLayer({
         id: 'Rankings',
         type: 'symbol',
@@ -335,51 +343,33 @@ map.on('load', ()=>{
         }
     });*/
 
+    // Call the functions to retrieve the Rankings geoJSON source data from the hosted MapBox dataset for use in the Rankings layer
+    //  and generating the POI list
     addRankings();
     getPOIs();
 
 });
 
+// Define a ranking id variable for definition later
 var rankingId;
 
 async function addRankings(){
     // https://stackoverflow.com/questions/57624873/mapbox-api-styles-v1-username-doesnt-reflect-latest-style-data for help with updating the data
+    // Use a GET request to access the Rankings dataset from MapBox using the Datasets API with a parameter to use the updated data
     const rankings = await fetch(
         'https://api.mapbox.com/datasets/v1/aeneville2/clef1oq7p043t2qnyrnlnphqg/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw&fresh=true',
         { method: 'GET'}
     );
+    
+    // Get the returned data in json format from the get request
     const data = await rankings.json();
+
+    // Once the data is returned then update the Rankings layer source with the data
     Promise.all([rankings,data]).then(async () =>{
-        /*map.loadImage('./Star.png',(error,image)=>{
-            if (error) throw error;
-            map.addImage('star',image)
-        });
-        map.addSource('rankingSource',{
-            type: 'geojson',
-            data: {
-                type: 'FeatureCollection',
-                features: []
-            }
-        });*/
-        /*const rankingSource = map.getSource('rankingSource');
-        rankingSource.setData({
-            type: 'FeatureCollection',
-            features: []
-        });*/
         const rankingSource2 = map.getSource('rankingSource')
         rankingSource2.setData(data);
-        /*console.log('Ranking Source', rankingSource)
-        map.addLayer({
-            id: 'Rankings',
-            type: 'symbol',
-            source: 'rankingSource',
-            layout: {
-                'icon-image': 'star',
-                'icon-size': 0.15,
-                'visibility': 'visible'
-            }
-        });*/
 
+        // Get the ids of all of the current rankings to determine the highest ranking id for use upon user submission
         const features = data.features;
         console.log('Features',features);
 
@@ -392,23 +382,16 @@ async function addRankings(){
         rankingId = Math.max(...featureidArray);
         console.log('Ranking ID Type: ',typeof rankingId);
 
+        // Call the function to get the counts of number of rankings for each point of interest in the Rankings layer
         var poiCounter = [];
-
         const waitArray = await counterLoop(features,poiCounter);
-        //document.getElementById('chart-form').innerHTML = '<h6>Top Rankings by POI</h6>';
         
+        // Once the array has finished then turn the resulting object into an array, sort, and add to the table with point of interest name (column 1) and count (column 2)
         Promise.all([waitArray]).then(async()=>{
-            //https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
-            /*let waitArrayArray = Object.entries(waitArray);
-            for (array of waitArrayArray){
-                document.getElementById('chart-form').innerHTML += '<p>' + array + '</p>';
-            }*/
-
-            // LAYER NOT UPDATING IN TIME SO THIS IS NOT UPDATING: FIGURE OUT WHY DATASET NOT UPDATING!
+            //Used https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
             let waitArrayKeys = Object.keys(waitArray);
             let sortedArray = waitArrayKeys.sort()
             sortedArray.forEach((key)=>{
-                //document.getElementById('chart-form').innerHTML += '<p>' + key + ': ' + waitArray[key] + '</p>';
                 var table = document.getElementById('ranking-table');
                 var row = table.insertRow();
                 var cell1 = row.insertCell(0)
@@ -421,6 +404,8 @@ async function addRankings(){
     });
 };
 
+// Function to go through the ranking layer and get a count of each time the name appears in the dataset
+// Returns an object containing Point of Interest name and count
 async function counterLoop(features,poiCounter){
     //const features = data.features;
 
@@ -433,7 +418,7 @@ async function counterLoop(features,poiCounter){
 
     //let poiCounter = {};
 
-    //https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array
+    //Used https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array for an example
     for (poi of poiArray.flat()){
         if (poiCounter[poi]) {
             poiCounter[poi] += 1
@@ -445,6 +430,10 @@ async function counterLoop(features,poiCounter){
     return poiCounter;
 }
 
+
+// Function to use a GET request to get the updated Rankings dataset
+//  With the updated data, it loops through the data and adds the point name and coordinates to an array
+//  Each name value pair in the array is added to the options in the user submission form to that the correct names and associated locations are used
 async function getPOIs(){
     const pois = await fetch(
         'https://api.mapbox.com/datasets/v1/aeneville2/cledcynu8086025quruopxym2/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw',
@@ -473,7 +462,8 @@ async function getPOIs(){
     }
 };
 
-////https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/#add-the-geocoder 
+// Used https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/#add-the-geocoder 
+// Add a new geocoder control (search bar) to the map that only returns results within the proximity of Grand Teton National Park
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     placeholder: 'Search for places in Grand Teton National Park',
@@ -493,7 +483,8 @@ map.addControl(geocoder);
     //getRoute(end);
 });*/
 
-//https://docs.mapbox.com/mapbox-gl-js/example/locate-user
+// Used https://docs.mapbox.com/mapbox-gl-js/example/locate-user
+// Add a geolocate control to the map to allow getting the user's current location
 const geolocate = new mapboxgl.GeolocateControl({
     positionOptions: {
             enableHighAccuracy: true
@@ -505,7 +496,8 @@ map.addControl(
     geolocate
 );
 
-//https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
+// Used https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
+// Add a directions control to the directions form to allow the user to get directions between 2 locations
 const directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
     unit: 'imperial',
@@ -520,7 +512,9 @@ const directions = new MapboxDirections({
 //document.getElementById('directions-form').appendChild(directions.onAdd(map));
 map.scrollZoom.enable();
 
-//Add points to a map part 3: interactivity
+// Used the "Add points to a map part 3: interactivity" tutorial on MapBox
+// Add an event listener for when the user clicks on the map
+// If the click was on a feature in the Services, Points of Interest, or Trails layer then add an popup based on layer type
 map.on('click',(event)=>{
     const features = map.queryRenderedFeatures(event.point, {
         layers: ['Services','POIs','Trails']
@@ -571,7 +565,8 @@ map.on('click',(event)=>{
     }
 });
 
-//Add points to a map part 3: interactivity
+// Add another event listener to the map for when the user clicks on a feature in the Rankings layer, add that popup
+// This function allows adding multiple popups for the features since points of interest can have multiple rankings
 map.on('click',(event)=>{
     const features = map.queryRenderedFeatures(event.point, {
         layers: ['Rankings']
@@ -597,7 +592,9 @@ map.on('click',(event)=>{
     
 });
 
-//https://stackoverflow.com/questions/55560489/mapbox-gl-on-mouse-hover-on-layers-change-cursor-pointer-style
+// https://stackoverflow.com/questions/55560489/mapbox-gl-on-mouse-hover-on-layers-change-cursor-pointer-style
+// Add event listeners for the map when the user goes over the features to turn the cursor to a pointer to indicate to the user to click on the feature
+// When the cursor leaves the map feature, return the cursor to the grab to indicate the panning/zooming in the map
 map.on('mouseenter', 'POIs', () => {
     map.getCanvas().style.cursor = 'pointer';
 });
@@ -630,6 +627,9 @@ map.on('mouseleave', 'Rankings', () => {
     map.getCanvas().style.cursor = 'grab';
 });
 
+// Define event listeners for clicking on the menu buttons that will display the appropriate form, hide other forms, and 
+//  change the button colors to the one currently active (open)
+// Additionally, for the directions control, enable the directions capability only when that form is open
 var infoContainer = document.getElementById('info-container');
 var directionContainer = document.getElementById('directions-container');
 var filterContainer = document.getElementById('filter-container');
@@ -809,6 +809,8 @@ document.getElementById('close-ranking-list').addEventListener('click',function(
     chartBtn.style.backgroundColor = 'white';
 });
 
+// Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select
+// Remove the filter when the default select option is currently selected
 const filterPOIs = document.getElementById('filter-select-poi');
 filterPOIs.addEventListener('change',function(){
     const val = filterPOIs.options[filterPOIs.selectedIndex].value;
@@ -843,6 +845,7 @@ filterTrails.addEventListener('change',function(){
     }
 });
 
+// Define event listeners for the layer checkboxes that will set the visibility on the layers in the map based on whether or not the checkbox is checked
 const poisCheckbox = document.getElementById('pois-checkbox');
 poisCheckbox.addEventListener('change',function(){
     if (poisCheckbox.checked) {
@@ -888,6 +891,7 @@ boundaryCheckbox.addEventListener('change',function(){
     }
 });
 
+// Define an event listener for the reset button in the filter form that will remove filters, reset the form, and reset layer visibility
 const resetFilterBtn = document.getElementById('reset-filter');
 resetFilterBtn.addEventListener('click',function(){
     map.setLayoutProperty('Rankings','visibility','none');
@@ -902,21 +906,31 @@ resetFilterBtn.addEventListener('click',function(){
 
 })
 
-let featureId = 1;
+// DO I USE THESE ANYMORE??
+/*let featureId = 1;
 
 async function featureIdIncrement(){
     featureId++;
     return featureId;
-};
+};*/
 
+// Define an event listener for when the user submits the ranking form
 const submitBtn = document.getElementById('submit-btn')
 submitBtn.addEventListener('click',async function(event){
     event.preventDefault();
 
+    // Get the values from the comment box and point of interest select 
     const commentVal = document.getElementById('comment').value;
     const selectForm = document.getElementById('poi-select')
     const coord = selectForm.options[selectForm.selectedIndex].value;
+
     // Verify that the user selected a point of interest in the form before submission
+    // If the user did not select a point of interest, then alert the user
+    // If the user did select the point of interest, take the coordinates from the point of interest selected (the value for the select option)
+    //  and the name of the point of interest selected 
+    // Increment the highest ranking id (determined in an earlier function) by 1
+    // Generate a geoJSON object based on those listed above 
+    // Use a PUT method to update the Rankings layer in the dataset 
     if (coord == 'default'){
         alert('Please select a point of interest')
     } else {
@@ -954,6 +968,8 @@ submitBtn.addEventListener('click',async function(event){
             requestOptions
         );
     
+        // Once the new object has been added to the dataset, alert the user, reset the form, remove the table, 
+        //  and call the addRankings function to update the map and rankings list with the updated data
         const data = await response.json();
     
         Promise.all([data]).then(async ()=>{
@@ -980,6 +996,7 @@ submitBtn.addEventListener('click',async function(event){
     
 });
 
+// Add an event listener so that when the window loads, reset the filter features and submit rankings forms
 window.addEventListener('load',(function(){
     this.document.getElementById('filter-form-input').reset();
     this.document.getElementById('user-ranking-form').reset();
