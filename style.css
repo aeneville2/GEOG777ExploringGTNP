@@ -63,21 +63,20 @@ tr:nth-child(even){
     background-color: #b6b8ba;
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
     -webkit-appearance: none;
 }
 
-::-webkit-scrollbar:vertical {
-    width: 12px;
+body::-webkit-scrollbar:vertical {
+    width: 10px;
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, .5);
-    border-radius: 10px;
-    border: 2px solid #ffffff;
+body::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 8px;
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
     border-radius: 10px;  
-    background-color: #ffffff; 
+    background-color: white; 
 }
