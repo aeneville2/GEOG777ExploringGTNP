@@ -512,6 +512,28 @@ const directions = new MapboxDirections({
 //document.getElementById('directions-form').appendChild(directions.onAdd(map));
 map.scrollZoom.enable();
 
+// Function to add a button to the map that will scroll the page back to the top through creation of a custom class for a custom control
+// Used Steve Bennett's response in https://stackoverflow.com/questions/40162662/mapbox-gl-how-to-create-custom-control 
+function addTopButton(map){
+    class TopButton {
+        onAdd(map) {
+            const div = document.createElement('div');
+            div.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+            div.innerHTML = `<button style='width:100px;'>Back to Top</button>`;
+            div.addEventListener("click", ()=>{
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            })
+            return div;
+        }
+    }
+    const topButton = new TopButton();
+    map.addControl(topButton,"bottom-right");
+}
+
 // Used the "Add points to a map part 3: interactivity" tutorial on MapBox
 // Add an event listener for when the user clicks on the map
 // If the click was on a feature in the Services, Points of Interest, or Trails layer then add an popup based on layer type
@@ -1000,4 +1022,5 @@ submitBtn.addEventListener('click',async function(event){
 window.addEventListener('load',(function(){
     this.document.getElementById('filter-form-input').reset();
     this.document.getElementById('user-ranking-form').reset();
+    addTopButton(map); // Call function to add the 'Back to Top' button
 }));

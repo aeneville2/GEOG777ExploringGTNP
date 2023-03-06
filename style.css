@@ -2,6 +2,7 @@ body {
     margin: 0; 
     padding: 0;
     overflow-y: scroll; 
+    -webkit-overflow-scrolling: touch;
 }
 
 nav {
@@ -34,11 +35,9 @@ h6 {
 #map { 
     /*top: 0; 
     bottom: 0; */
-    height: 100vh;
+    height: 95vh;
     position: absolute;
     width: 100vw;
-    overflow-y: scroll; 
-    -webkit-overflow-scrolling: auto;
 }
 
 .mapboxgl-ctrl-geocoder--input {
