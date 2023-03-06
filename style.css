@@ -38,6 +38,7 @@ h6 {
     position: absolute;
     width: 100vw;
     overflow-y: scroll; 
+    -webkit-overflow-scrolling: auto;
 }
 
 .mapboxgl-ctrl-geocoder--input {
