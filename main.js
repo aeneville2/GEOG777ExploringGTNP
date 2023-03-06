@@ -531,7 +531,7 @@ function addTopButton(map){
         }
     }
     const topButton = new TopButton();
-    map.addControl(topButton,"bottom-right");
+    map.addControl(topButton,"top-right");
 }
 
 // Used the "Add points to a map part 3: interactivity" tutorial on MapBox
