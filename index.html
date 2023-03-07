@@ -35,19 +35,22 @@
         <div class='container-fluid' id='info-container' style='display:none;'>
             <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>App Information</h6>
-            <p>The map displays POIs (Points of Interest), Services, Trails, and the Grand Teton Park Boundary.
-                Zoom in and pan around the map through scrolling or pinching fingers and dragging the map.
+            <p>The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
+                Zoom in and pan around the map through scrolling or pinching fingers and hold to drag the map.
                 Click on any feature in the map to see more information. To search for a location, use the search box.
                 To get your current location, use the button below the search box. In the menu, go to 'Directions' to
-                get directions between two locations. Go to 'Filter Features' to filter the POIs, Services, and Trails
-                in the map or turn on/off map layers, including turning on the user top-ranked POIs layer. 
-                Go to 'Submit Rankings' to vote for your favorite POI with a comment that will then be added to the map.
-                Got to 'Ranking Table' to see a list of all POIs that have been voted on for a favorite with their vote (ranking) count.
+                get directions between two locations. Go to 'Filter Features' to filter the Points of Interest, Services, and Trails
+                in the map or to turn on/off map layers, including turning on the user top-ranked Points of Interest layer (contains
+                stars at all of the Points of Interest that users have voted on for their favorite with a comment in the popup of information). 
+                Go to 'Submit Rankings' to vote for your favorite Point of Interest with a comment.
+                Once you submit your vote, a star in the User Rankings layer will be added to the map with your comment in the popup of information.
+                Go to 'Ranking Table' to see a list of all Points of Interest that have been voted on for a favorite with the count of votes.
+                For any menu form that opens, the map will be below (scroll down to see the map).
             </p>
         </div>
         <div class='container-fluid' id='directions-container' style='display:none;'>
             <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
-            <h6>Type in a starting and ending point or select starting and ending points in the map to receive directions.</h6>
+            <h6>Type in a starting and ending point using the boxes or select starting and ending points by clicking in the map to receive directions.</h6>
             <div id='directions-form'>
             </div>
         </div>
@@ -111,9 +114,9 @@
             <div id='user-input-form'>
                 <button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <form id='user-ranking-form'>
-                    <h6>Select your favorite POI and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
+                    <h6>Select your favorite Point of Interest and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
                     <select id='poi-select'>
-                        <option id='default-poi-select' value='default'>Select a POI</option>
+                        <option id='default-poi-select' value='default'>Select a Point of Interest</option>
                     </select>
                     <label for='comment'>Comment</label><input type='text' id='comment' name='comment'>
                     <button id='submit-btn'>Submit</button>

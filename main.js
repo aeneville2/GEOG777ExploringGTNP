@@ -574,16 +574,6 @@ map.on('click',(event)=>{
             `<h6>Trail: ${feature.properties['Name']}</h6>`
         )
         .addTo(map);
-    } /*else if (feature.sourceLayer == 'ParkBoundary_FeaturesToJSON_v-4oyzb4'){
-        popup.setHTML(
-            `<h3>Grand Teton National Park</h3>`
-        )
-        .addTo(map);
-    } */else if (feature.source == 'rankingSource') {
-        popup.setHTML(
-            `<h6>User Ranking For: ${feature.properties['Name']}</h6><p>Comment: ${feature.properties['Comment']}</p>`
-        )
-        .addTo(map);
     }
 });
 
@@ -669,61 +659,74 @@ infoBtn.addEventListener('click',function(){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none'
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 
     if (filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
 
     if(infoContainer.style.display === 'none'){
         infoContainer.style.display = 'block';
         infoBtn.style.backgroundColor = 'green';
+        infoBtn.style.color = 'white';
     } else {
         infoContainer.style.display = 'none'
         infoBtn.style.backgroundColor = 'white';
+        infoBtn.style.color = 'black';
     }
 })
 
 document.getElementById('close-info').addEventListener('click',function(){
     infoContainer.style.display = 'none';
     infoBtn.style.backgroundColor = 'white';
+    infoBtn.style.color = 'black';
 });
 
 directionsBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoBtn.style.backgroundColor = 'white';
-        infoContainer.style.display = 'none'
+        infoBtn.style.color = 'black';
+        infoContainer.style.display = 'none';
     }
     if(filterContainer.style.display === 'block'){
         filterBtn.style.backgroundColor = 'white';
-        filterContainer.style.display = 'none'
+        filterContainer.style.display = 'none';
+        filterBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartBtn.style.backgroundColor = 'white';
-        chartContainer.style.display = 'none'
+        chartContainer.style.display = 'none';
+        chartBtn.style.color = 'black';
     }
 
     if (directionContainer.style.display === 'none'){
         directionContainer.style.display = 'block';
         document.getElementById('directions-form').appendChild(directions.onAdd(map));
         directionsBtn.style.backgroundColor = 'green';
+        directionsBtn.style.color = 'white';
     } else {
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
 });
 
@@ -731,104 +734,126 @@ document.getElementById('close-directions').addEventListener('click',function(){
     directionContainer.style.display = 'none';
     map.removeControl(directions);
     directionsBtn.style.backgroundColor = 'white';
+    directionsBtn.style.color = 'black';
 })
 
 filterBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoBtn.style.backgroundColor = 'white';
-        infoContainer.style.display = 'none'
+        infoContainer.style.display = 'none';
+        infoBtn.style.color = 'black';
     }
     if(directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 
     if (filterContainer.style.display === 'none'){
         filterContainer.style.display = 'block';
         filterBtn.style.backgroundColor = 'green';
+        filterBtn.style.color = 'white';
     } else {
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
 })
 
 document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
     filterBtn.style.backgroundColor = 'white';
+    filterBtn.style.color = 'black';
 });
 
 userInputBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoContainer.style.display = 'none';
         infoBtn.style.backgroundColor = 'white';
+        infoBtn.style.color = 'black';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
     if (directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 
     if (userContainer.style.display === 'none'){
         userContainer.style.display = 'block';
         userInputBtn.style.backgroundColor = 'green';
+        userInputBtn.style.color = 'white';
     } else {
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
 });
 
 document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
     userInputBtn.style.backgroundColor = 'white';
+    userInputBtn.style.color = 'black';
 });
 
 chartBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoContainer.style.display = 'none';
         infoBtn.style.backgroundColor = 'white';
+        infoBtn.style.color = 'black';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
         chartBtn.style.backgroundColor = 'green';
+        chartBtn.style.color = 'white';
     } else {
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 });
 
 document.getElementById('close-ranking-list').addEventListener('click',function(){
     chartContainer.style.display = 'none';
     chartBtn.style.backgroundColor = 'white';
+    chartBtn.style.color = 'black';
 });
 
 // Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select
