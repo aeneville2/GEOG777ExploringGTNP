@@ -35,7 +35,7 @@
         <div class='container-fluid' id='info-container' style='display:none;'>
             <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>App Information</h6>
-            <p>The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
+            <p id="app-info-text">The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
                 Zoom in and pan around the map through scrolling or pinching fingers and hold to drag the map.
                 Click on any feature in the map to see more information. To search for a location, use the search box.
                 To get your current location, use the button below the search box. In the menu, go to 'Directions' to
@@ -106,7 +106,7 @@
                             <label for='boundary-checkbox'>Grand Teton Park Boundary</label></li>
                     </ul>
                     <h6 style='margin-top: 10px;'>Reset the form and map.</h6>
-                    <button id='reset-filter'>Reset</button>
+                    <button id='reset-filter' class='submit'>Reset</button>
                 </form>
             </div>
         </div>
@@ -119,7 +119,7 @@
                         <option id='default-poi-select' value='default'>Select a Point of Interest</option>
                     </select>
                     <label for='comment'>Comment</label><input type='text' id='comment' name='comment'>
-                    <button id='submit-btn'>Submit</button>
+                    <button id='submit-btn' class='submit'>Submit</button>
                 </form>
             </div>
         </div>

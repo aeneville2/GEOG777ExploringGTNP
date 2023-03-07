@@ -57,6 +57,28 @@ h6 {
     float: right;
 }
 
+#app-info-text {
+    font-size: 12px;
+}
+
+form {
+    font-size: 12px;
+}
+
+.submit {
+    background-color: green;
+    color: white;
+    font-size: 12px;
+    border: 1px solid white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* https://www.w3schools.com/css/css3_buttons.asp */
+}
+
+.submit:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid green;
+}
+
 #ranking-table {
     font-size: 10pt;
 }
