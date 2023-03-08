@@ -24,6 +24,7 @@
                     </button>
                     <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
                         <li><button id='info-btn' class='menu-btn'>App Information</button></li>
+                        <li><button id='legend-btn' class='menu-btn'>Map Legend</button></li>
                         <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
                         <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
                         <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
@@ -32,7 +33,7 @@
                 </div>
             </div>
         </nav>
-        <div class='container-fluid' id='info-container' style='display:none;'>
+        <div class='container-fluid' id='info-container' style='display:block;'>
             <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>App Information</h6>
             <p id="app-info-text">The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
@@ -48,6 +49,38 @@
                 Go to 'Ranking Table' to see a list of all Points of Interest that have been voted on for a favorite with the count of votes.
                 For any menu form that opens, the map will be below (scroll down to see the map).
             </p>
+        </div>
+        <div class='container-fluid' id='legend-container' style='display:none;'>
+            <h6>Points of Interest</h6>
+            <img src='theater-black-22.png' style='width:15px;'><label>Amphitheater</label>
+            <img src='campground-black-22.png' style='width:15px;'><label>Campground</label>
+            <img src='entrance-station-black-22.png' style='width:15px;'><label>Entrance Station</label>
+            <img src='boat-tour-black-22.png' style='width:15px;'><label>Ferry Terminal</label>
+            <img src='lodging-black-22-v2.png' style='width:15px;'><label>Lodging</label>
+            <img src='picnic-area-black-22.png' style='width:15px;'><label>Picnic Area</label>
+            <img src='scenic-viewpoint-black-22.png' style='width:15px;'><label>Overlooks & Turnouts</label>
+            <img src='trailhead-black-22.png' style='width:15px;'><label>Trailhead</label>
+            <img src='visitor-center-black-22.png' style='width:15px;'><label>Visitor Center</label>
+            <img src='beach-access-black-22.png' style='width:15px;'><label>Water Access</label>
+            <br>
+            <h6>Services</h6>
+            <img src='first-aid-black-22.png' style='width:15px;'><label>First Aid Station</label>
+            <img src='food-service-black-22.png' style='width:15px;'><label>Food Service</label>
+            <img src='gas-station-black-22.png' style='width:15px;'><label>Gas Station</label>
+            <img src='parking-black-22.png' style='width:15px;'><label>Parking</label>
+            <img src='telephone-black-22.png' style='width:15px;'><label>Pay Phone</label>
+            <img src='post-office-black-22.png' style='width:15px;'><label>Post Office</label>
+            <img src='ranger-station-black-22.png' style='width:15px;'><label>Ranger Station</label>
+            <img src='restrooms-black-22.png' style='width:15px;'><label>Restrooms</label>
+            <img src='showers-black-22.png' style='width:15px;'><label>Showers</label>
+            <img src='souvenir-shop-black-22.png' style='width:15px;'><label>Shop</label>
+            <img src='beach-access-black-22.png' style='width:15px;'><label>Water Access</label>
+            <br>
+            <h6>Trails</h6>
+            <img src='Trails_v2.png' style='width:100px;'>
+            <br>
+            <h6>Rankings</h6>
+            <img src='Star.png' style='width:15px;'>
         </div>
         <div class='container-fluid' id='directions-container' style='display:none;'>
             <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
@@ -136,7 +169,7 @@
                 </table>
             </div>
         </div>
-        <div class='container-fluid' style='width:100%;height:100vh;'>
+        <div class='container-fluid' id='map-container' style='width:100%;height:100vh;'>
             <div class='row' id='map-row' style='width:100%;height:100vh;'>
                 <div class='col-12' id='map'></div>
             </div>

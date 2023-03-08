@@ -643,12 +643,14 @@ map.on('mouseleave', 'Rankings', () => {
 //  change the button colors to the one currently active (open)
 // Additionally, for the directions control, enable the directions capability only when that form is open
 var infoContainer = document.getElementById('info-container');
+var legendContainer = document.getElementById('legend-container');
 var directionContainer = document.getElementById('directions-container');
 var filterContainer = document.getElementById('filter-container');
 var userContainer = document.getElementById('user-input-container');
 var chartContainer = document.getElementById('chart-container');
 
 var infoBtn = document.getElementById('info-btn');
+var legendBtn = document.getElementById('legend-btn');
 var directionsBtn = document.getElementById('directions-btn');
 var filterBtn = document.getElementById('filter-btn');
 var userInputBtn = document.getElementById('user-input-btn');
@@ -687,7 +689,7 @@ infoBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
-})
+});
 
 document.getElementById('close-info').addEventListener('click',function(){
     infoContainer.style.display = 'none';
@@ -695,11 +697,62 @@ document.getElementById('close-info').addEventListener('click',function(){
     infoBtn.style.color = 'black';
 });
 
+legendBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoContainer.style.display = 'none';
+        infoBtn.style.backgroundColor = 'white';
+        infoBtn.style.color = 'black';
+    }
+    if(directionContainer.style.display === 'block'){
+        directionContainer.style.display = 'none';
+        map.removeControl(directions);
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+    }
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none'
+        userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
+    }
+    if (chartContainer.style.display === 'block'){
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
+    }
+
+    if (filterContainer.style.display === 'block'){
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
+    }
+
+    if(legendContainer.style.display === 'none'){
+        legendContainer.style.display = 'block';
+        legendBtn.style.backgroundColor = 'green';
+        legendBtn.style.color = 'white';
+    } else {
+        legendContainer.style.display = 'none'
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+    }
+});
+
+/*document.getElementById('close-info').addEventListener('click',function(){
+    infoContainer.style.display = 'none';
+    infoBtn.style.backgroundColor = 'white';
+    infoBtn.style.color = 'black';
+});*/
+
 directionsBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
         infoContainer.style.display = 'none';
+    }
+    if(legendContainer.style.display === 'block'){
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+        legendContainer.style.display = 'none';
     }
     if(filterContainer.style.display === 'block'){
         filterBtn.style.backgroundColor = 'white';
@@ -743,6 +796,11 @@ filterBtn.addEventListener('click',function(){
         infoContainer.style.display = 'none';
         infoBtn.style.color = 'black';
     }
+    if(legendContainer.style.display === 'block'){
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+        legendContainer.style.display = 'none';
+    }
     if(directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
@@ -782,6 +840,11 @@ userInputBtn.addEventListener('click',function(){
         infoContainer.style.display = 'none';
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
+    }
+    if(legendContainer.style.display === 'block'){
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+        legendContainer.style.display = 'none';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
@@ -823,6 +886,11 @@ chartBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
+    if(legendContainer.style.display === 'block'){
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+        legendContainer.style.display = 'none';
+    }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
@@ -839,6 +907,7 @@ chartBtn.addEventListener('click',function(){
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
     }
+
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
         chartBtn.style.backgroundColor = 'green';
@@ -949,8 +1018,15 @@ resetFilterBtn.addEventListener('click',function(){
     map.setFilter('POIs',null);
     map.setFilter('Services',null);
     map.setFilter('Trails',null);
-    document.getElementById('filter-form-input').reset();
-
+    //document.getElementById('filter-form-input').reset();
+    poisCheckbox.checked = true;
+    rankingCheckbox.checked = false;
+    servicesCheckbox.checked = true;
+    trailsCheckbox.checked = true;
+    boundaryCheckbox.checked = true;
+    filterPOIs.value = 'Label';
+    filterServices.value = 'Label';
+    filterTrails.value = 'Label';
 })
 
 // DO I USE THESE ANYMORE??
