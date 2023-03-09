@@ -25,7 +25,7 @@
                     <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
                         <li><button id='info-btn' class='menu-btn' style='background-color:green;color:white;'>App Information</button></li>
                         <li><button id='legend-btn' class='menu-btn'>Map Legend</button></li>
-                        <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
+                        <!--<li><button id='directions-btn' class='menu-btn'>Directions</button></li>-->
                         <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
                         <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
                         <li><button id='chart-btn' class='menu-btn'>Ranking Table</button></li>
@@ -51,6 +51,7 @@
             </p>
         </div>
         <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
+            <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Points of Interest</h6>
             <li><img src='theater-black-22.png' style="width:15px;"> Amphitheater</li> 
             <span style='margin:5px;'><img src='theater-black-22.png' style='width:15px;'><label>Amphitheater</label></span>
@@ -82,12 +83,13 @@
             <h6>Rankings</h6>
             <img src='Star.png' style='width:15px;'>
         </div>
-        <div class='container-fluid' id='directions-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
+        <!--<div class='container-fluid' id='directions-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Type in a starting and ending point using the boxes or select starting and ending points by clicking in the map to receive directions.</h6>
             <div id='directions-form'>
             </div>
-        </div>
+            <button id="toggle-map" style="background-color:green;color:white;">View Route on Map</button>
+        </div>-->
         <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='filter-form'>
                 <button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>

@@ -539,13 +539,13 @@ function addTopButton(map){
         onAdd(map) {
             const div = document.createElement('div');
             div.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-            div.innerHTML = `<button style='width:100px;'>Back to Top</button>`;
-            div.addEventListener("click", ()=>{
-                window.scroll({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                });
+            div.innerHTML = `<button style='width:100px;'>Toggle Directions</button>`;
+            div.addEventListener('click', ()=>{
+                if (map.hasControl(directions)){
+                    map.removeControl(directions);
+                } else if (!map.hasControl(directions)){
+                    map.addControl(directions,'bottom-left');
+                }
             })
             return div;
         }
@@ -700,12 +700,12 @@ var userInputBtn = document.getElementById('user-input-btn');
 var chartBtn = document.getElementById('chart-btn');
 
 infoBtn.addEventListener('click',function(){
-    if(directionContainer.style.display === 'block'){
+    /*if(directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-    }
+    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none'
         userInputBtn.style.backgroundColor = 'white';
@@ -746,12 +746,12 @@ legendBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
-    if(directionContainer.style.display === 'block'){
+    /*if(directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-    }
+    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none'
         userInputBtn.style.backgroundColor = 'white';
@@ -780,13 +780,13 @@ legendBtn.addEventListener('click',function(){
     }
 });
 
-/*document.getElementById('close-info').addEventListener('click',function(){
-    infoContainer.style.display = 'none';
-    infoBtn.style.backgroundColor = 'white';
-    infoBtn.style.color = 'black';
-});*/
+document.getElementById('close-legend').addEventListener('click',function(){
+    legendContainer.style.display = 'none';
+    legendBtn.style.backgroundColor = 'white';
+    legendBtn.style.color = 'black';
+});
 
-directionsBtn.addEventListener('click',function(){
+/*directionsBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
@@ -831,7 +831,7 @@ document.getElementById('close-directions').addEventListener('click',function(){
     map.removeControl(directions);
     directionsBtn.style.backgroundColor = 'white';
     directionsBtn.style.color = 'black';
-})
+})*/
 
 filterBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
@@ -844,12 +844,12 @@ filterBtn.addEventListener('click',function(){
         legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
     }
-    if(directionContainer.style.display === 'block'){
+    /*if(directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-    }
+    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
@@ -894,12 +894,12 @@ userInputBtn.addEventListener('click',function(){
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
     }
-    if (directionContainer.style.display === 'block'){
+    /*if (directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-    }
+    }*/
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
@@ -944,12 +944,12 @@ chartBtn.addEventListener('click',function(){
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.style.color = 'black';
     }
-    if (directionContainer.style.display === 'block'){
+    /*if (directionContainer.style.display === 'block'){
         directionContainer.style.display = 'none';
         map.removeControl(directions);
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-    }
+    }*/
 
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
@@ -1162,5 +1162,5 @@ submitBtn.addEventListener('click',async function(event){
 window.addEventListener('load',(function(){
     this.document.getElementById('filter-form-input').reset();
     this.document.getElementById('user-ranking-form').reset();
-    addTopButton(map); // Call function to add the 'Back to Top' button
+    addTopButton(map);
 }));
