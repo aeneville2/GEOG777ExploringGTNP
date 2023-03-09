@@ -309,7 +309,11 @@ map.on('load', ()=>{
         data: {
             type: 'FeatureCollection',
             features: []
-        }
+        },
+        // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+        cluster: true,
+        clusterMaxZoom: 12,
+        clusterRadius: 50
     });
 
     // Add the Rankings layer to the map with the correct image icon
@@ -322,6 +326,20 @@ map.on('load', ()=>{
             'icon-size': 0.15,
             'visibility': 'none',
             'icon-allow-overlap': true
+        }
+    });
+
+    // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+    map.addLayer({
+        id: 'cluster-count',
+        type: 'symbol',
+        source: 'rankingSource',
+        filter: ['has','point_count'],
+        layout: {
+            'text-field': ['get','point_count_abbreviated'],
+            'text-font': ['DIN Offc Pro Medium','Arial Unicode MS Bold'],
+            'text-size': 10,
+            'visibility': 'none'
         }
     });
 
@@ -590,7 +608,7 @@ map.on('click',(event)=>{
 
     for (var i=0; i<features.length; i++){
         const feature = features[i];
-        //console.log('Feature: ',feature)
+        console.log('Feature: ',feature)
     
         const popup = new mapboxgl.Popup({offset: [0,0]})
         //.setLngLat(feature.geometry.coordinates)
@@ -975,8 +993,10 @@ const rankingCheckbox = document.getElementById('ranking-checkbox');
 rankingCheckbox.addEventListener('change',function(){
     if (rankingCheckbox.checked) {
         map.setLayoutProperty('Rankings','visibility','visible');
+        map.setLayoutProperty('cluster-count','visibility','visible');
     } else if (!rankingCheckbox.checked) {
         map.setLayoutProperty('Rankings','visibility','none');
+        map.setLayoutProperty('cluster-count','visibility','none');
     }
 });
 
