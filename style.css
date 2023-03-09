@@ -1,8 +1,6 @@
 body { 
     margin: 0; 
     padding: 0;
-    overflow-y: scroll; 
-    -webkit-overflow-scrolling: touch;
 }
 
 nav {
@@ -35,16 +33,6 @@ nav {
 
 h6 {
     font-weight: bold;
-}
-            
-#map { 
-    /*top: 0; 
-    bottom: 0; */
-    height: 100vh;
-    /*position: absolute;*/
-    width: 100%;
-    margin-left:10px;
-    margin-right:10px;
 }
 
 .mapboxgl-ctrl-geocoder--input {
@@ -94,22 +82,4 @@ form {
 
 tr:nth-child(even){
     background-color: #b6b8ba;
-}
-
-body::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
-
-body::-webkit-scrollbar:vertical {
-    width: 10px;
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: grey;
-    border-radius: 8px;
-}
-
-body::-webkit-scrollbar-track {
-    border-radius: 10px;  
-    background-color: white; 
 }

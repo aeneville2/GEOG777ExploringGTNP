@@ -23,7 +23,7 @@
                         Menu
                     </button>
                     <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
-                        <li><button id='info-btn' class='menu-btn'>App Information</button></li>
+                        <li><button id='info-btn' class='menu-btn' style='background-color:green;color:white;'>App Information</button></li>
                         <li><button id='legend-btn' class='menu-btn'>Map Legend</button></li>
                         <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
                         <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </nav>
-        <div class='container-fluid' id='info-container' style='display:block;'>
+        <div class='container-fluid' id='info-container' style='display:block;position:fixed;z-index:100;background-color:white;'>
             <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>App Information</h6>
             <p id="app-info-text">The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
@@ -50,7 +50,7 @@
                 For any menu form that opens, the map will be below (scroll down to see the map).
             </p>
         </div>
-        <div class='container-fluid' id='legend-container' style='display:none;'>
+        <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <h6>Points of Interest</h6>
             <li><img src='theater-black-22.png' style="width:15px;"> Amphitheater</li> 
             <span style='margin:5px;'><img src='theater-black-22.png' style='width:15px;'><label>Amphitheater</label></span>
@@ -82,13 +82,13 @@
             <h6>Rankings</h6>
             <img src='Star.png' style='width:15px;'>
         </div>
-        <div class='container-fluid' id='directions-container' style='display:none;'>
+        <div class='container-fluid' id='directions-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Type in a starting and ending point using the boxes or select starting and ending points by clicking in the map to receive directions.</h6>
             <div id='directions-form'>
             </div>
         </div>
-        <div class='container-fluid' id='filter-container' style='display:none;'>
+        <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='filter-form'>
                 <button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <form id='filter-form-input'>
@@ -144,7 +144,7 @@
                 </form>
             </div>
         </div>
-        <div class='container-fluid' id='user-input-container' style='display:none;'>
+        <div class='container-fluid' id='user-input-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='user-input-form'>
                 <button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <form id='user-ranking-form'>
@@ -157,7 +157,7 @@
                 </form>
             </div>
         </div>
-        <div class='container-fluid' id='chart-container' style='display:none;'>
+        <div class='container-fluid' id='chart-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='chart-form'>
                 <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>Points of Interest with Number of User Rankings (sorted alphabetically)</h6>
@@ -169,9 +169,9 @@
                 </table>
             </div>
         </div>
-        <div class='container-fluid' id='map-container' style='width:100%;height:100vh;'>
-            <div class='row' id='map-row' style='width:100%;height:100vh;'>
-                <div class='col-12' id='map'></div>
+        <div class='container-fluid' id='map-container' style='width:100vw;height:90vh;position:relative;'>
+            <div class='row' id='map-row'>
+                <div class='col-12' id='map' style='width:100%;height:100%;position:absolute;'></div>
             </div>
         </div>
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>

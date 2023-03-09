@@ -12,6 +12,8 @@ const map = new mapboxgl.Map({
 // Event listener function for when the map loads
 map.on('load', ()=>{
 
+    map.resize();
+
     // Add the Park Boundary layer from the tileset hosted in MapBox
     map.addLayer({
         'id':'Park Boundary',
