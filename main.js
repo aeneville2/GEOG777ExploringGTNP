@@ -1052,8 +1052,10 @@ boundaryCheckbox.addEventListener('change',function(){
 
 // Define an event listener for the reset button in the filter form that will remove filters, reset the form, and reset layer visibility
 const resetFilterBtn = document.getElementById('reset-filter');
-resetFilterBtn.addEventListener('click',function(){
+resetFilterBtn.addEventListener('click',function(event){
+    event.preventDefault();
     map.setLayoutProperty('Rankings','visibility','none');
+    map.setLayoutProperty('cluster-count','visibility','none');
     map.setLayoutProperty('POIs','visibility','visible');
     map.setLayoutProperty('Services','visibility','visible');
     map.setLayoutProperty('Trails','visibility','visible');
@@ -1061,15 +1063,7 @@ resetFilterBtn.addEventListener('click',function(){
     map.setFilter('POIs',null);
     map.setFilter('Services',null);
     map.setFilter('Trails',null);
-    //document.getElementById('filter-form-input').reset();
-    poisCheckbox.checked = true;
-    rankingCheckbox.checked = false;
-    servicesCheckbox.checked = true;
-    trailsCheckbox.checked = true;
-    boundaryCheckbox.checked = true;
-    filterPOIs.value = 'Label';
-    filterServices.value = 'Label';
-    filterTrails.value = 'Label';
+    document.getElementById('filter-form-input').reset();
 })
 
 // DO I USE THESE ANYMORE??
