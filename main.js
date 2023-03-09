@@ -606,7 +606,30 @@ map.on('click',(event)=>{
         return;
     }
 
-    for (var i=0; i<features.length; i++){
+    if(features[0].properties['point_count']){
+        const popup = new mapboxgl.Popup({offset: [0,0]})
+        //.setLngLat(feature.geometry.coordinates)
+        .setLngLat(event.lngLat);
+
+        popup.setHTML(`<p>There are ${features[0].properties['point_count']} rankings in this cluster. Zoom in until the number disappears to see the individual rankings.</p>`)
+        .addTo(map);
+    } else {
+        var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong>Comments:</strong>`; 
+        for (var i=0; i<features.length; i++){
+            const feature = features[i];
+            console.log("Feature: ",feature);
+            popupText += `<li>${feature.properties['Comment']}</li>`
+        }
+        const popup = new mapboxgl.Popup({offset: [0,0]})
+        //.setLngLat(feature.geometry.coordinates)
+        .setLngLat(event.lngLat);
+
+        popup.setHTML(popupText).addTo(map);
+    }
+
+    
+
+    /*for (var i=0; i<features.length; i++){
         const feature = features[i];
         console.log('Feature: ',feature)
     
@@ -618,7 +641,7 @@ map.on('click',(event)=>{
             `<h6>User Ranking For: ${feature.properties['Name']}</h6><p>Comment: ${feature.properties['Comment']}</p>`
         )
         .addTo(map);
-    }
+    }*/
     
 });
 
