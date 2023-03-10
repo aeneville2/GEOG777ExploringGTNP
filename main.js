@@ -336,6 +336,13 @@ async function addRankings(){
         // Call the function to get the counts of number of rankings for each point of interest in the Rankings layer
         var poiCounter = [];
         const waitArray = await counterLoop(features,poiCounter);
+
+        var commentArray = new Object();
+        for (var i=0; i<features.length; i++){
+            var name = features[i].properties['Name'];
+            var comment = features[i].properties['Comment'];
+            commentArray[name] = comment;
+        }
         
         // Once the array has finished then turn the resulting object into an array & sort the array alphabetically
         // Add each key and value in the array to the table with point of interest name in column 1 and count in column 2
@@ -359,8 +366,10 @@ async function addRankings(){
                 selectRanking.addEventListener('change',function(){
                     const rankingCount = document.getElementById('ranking-count');
                     const value = selectRanking.value;
+                    const poiName = selectRanking.innerText;
                     if (value != 'Label'){
-                        rankingCount.innerHTML = value;
+                        rankingCount.innerHTML = value + ' Comment: ' + commentArray[poiName];
+
                     } else {
                         rankingCount.innerHTML = '';
                     }
