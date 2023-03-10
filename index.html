@@ -37,20 +37,22 @@
             <div id='info-splash-screen' style='background-color:white;padding:5px;'>
                 <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>App Information</h6>
-                <p class='app-info-text'>The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
-                    Zoom in and pan around the map through scrolling or pinching fingers and hold to drag the map.
+                <p class='app-info-text'>Welcome to the Exploring Grand Teton National Park Application!
+                    The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
+                    Zoom in and pan around the map directly through interacting with the map either by touchscreen or with a pointing device.
                     Click on any feature in the map to see more information. The trailheads provide extensive information regarding the trails accessed by that trailhead.
                     To search for a location in the map, use the search box.
                     To get your current location in the map, click the button below the search box. Click the button again to remove your location from the map.
-                    To get directions between two locations, click the "Toggle Directions" button and either type in two places or click two places in the map.
-                    To turn off the directions, hit the "Toggle Directions" button again.</p>
-                    <p class='app-info-text'>In the menu: Go to 'App Information' to see this screen again.
+                    To get directions between two locations, click the 'Toggle Directions' button in the map and either type in two places into the search bars that pop open 
+                    or click two places in the map. To turn off the directions, hit the 'Toggle Directions' button again.</p>
+                    <p class='app-info-text'>In the menu: Go to 'App Information' to see this information screen again.
                     Go to 'Map Legend' to view the legend for how the features are styled in the map.
                     Go to 'Filter Features' to filter the Points of Interest, Services, and Trails layers
                     in the map or to turn on/off map layers, including turning on the user top-ranked Points of Interest layer (contains
-                    stars at all of the Points of Interest that users have voted on for their favorite with a comment in the popup of information). 
+                    stars at all of the Points of Interest that users have voted on for their favorite with numbers on the star representing how many
+                    stars are clustered there and user comments in the popup of information displayed after clicking individual stars). 
                     Go to 'Submit Rankings' to vote for your favorite Point of Interest with a comment.
-                    Once you submit your vote, a star in the User Rankings layer will be added to the map with your comment added to the popup of information.
+                    Once you submit your vote, your comment will be added to the popup of information for the star at that Point of Interest in the map.
                     Go to 'Ranking Table' to see a list of all Points of Interest that have been voted on for a favorite with the count of votes.
                     All of the menu forms open on top of the map.
                 </p>
@@ -59,17 +61,17 @@
         <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Points of Interest</h6>
-            <li><img src='theater-black-22.png' style="width:15px;"> Amphitheater</li> 
-            <span style='margin:5px;'><img src='theater-black-22.png' style='width:15px;'><label>Amphitheater</label></span>
-            <span style='margin:5px;'></span><img src='campground-black-22.png' style='width:15px;'><label>Campground</label></span>
-            <span style='margin:5px;'></span><img src='entrance-station-black-22.png' style='width:15px;'><label>Entrance Station</label></span>
-            <span style='margin:5px;'></span><img src='boat-tour-black-22.png' style='width:15px;'><label>Ferry Terminal</label></span>
-            <span style='margin:5px;'></span><img src='lodging-black-22-v2.png' style='width:15px;'><label>Lodging</label></span>
-            <span style='margin:5px;'></span><img src='scenic-viewpoint-black-22.png' style='width:15px;'><label>Overlooks & Turnouts</label></span>
-            <span style='margin:5px;'></span><img src='picnic-area-black-22.png' style='width:15px;'><label>Picnic Area</label></span>
-            <span style='margin:5px;'></span><img src='trailhead-black-22.png' style='width:15px;'><label>Trailhead</label></span>
-            <span style='margin:5px;'></span><img src='visitor-center-black-22.png' style='width:15px;'><label>Visitor Center</label></span>
-            <span style='margin:5px;'></span><img src='beach-access-black-22.png' style='width:15px;'><label>Water Access</label></span>
+            <figure style="display:flex;align-items:center;"><img src='theater-black-22.png' style="width:15px;margin:5px;"><figcaption>Amphitheater</figcaption></figure> 
+            <span style='margin:5px;white-space: nowrap;'><img src='theater-black-22.png' style='width:15px;'><label>Amphitheater</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='campground-black-22.png' style='width:15px;'><label>Campground</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='entrance-station-black-22.png' style='width:15px;'><label>Entrance Station</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='boat-tour-black-22.png' style='width:15px;'><label>Ferry Terminal</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='lodging-black-22-v2.png' style='width:15px;'><label>Lodging</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='scenic-viewpoint-black-22.png' style='width:15px;'><label>Overlooks & Turnouts</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='picnic-area-black-22.png' style='width:15px;'><label>Picnic Area</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='trailhead-black-22.png' style='width:15px;'><label>Trailhead</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='visitor-center-black-22.png' style='width:15px;'><label>Visitor Center</label></span>
+            <span style='margin:5px;white-space: nowrap;'></span><img src='beach-access-black-22.png' style='width:15px;'><label>Water Access</label></span>
             <br>
             <h6>Services</h6>
             <img src='first-aid-black-22.png' style='width:15px;'><label>First Aid Station</label>
