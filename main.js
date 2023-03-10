@@ -12,7 +12,9 @@ const map = new mapboxgl.Map({
 // Event listener function for when the map loads
 map.on('load', ()=>{
 
-    map.resize();
+    map.resize(); // Fit the map to its container
+
+    addTopButton(map); // Add the custom control (the 'Toggle Directions' button) to the map
 
     // Add the Park Boundary layer from the tileset hosted in MapBox
     map.addLayer({
@@ -52,42 +54,6 @@ map.on('load', ()=>{
         }
     });
 
-    /*map.addLayer({
-        'id':'Services',
-        'type':'circle',
-        'source':{
-            'type': 'vector',
-            'url': 'mapbox://aeneville2.cledcz6zz06n723tb7tsrk9n4-6mr32'
-        },
-        'source-layer': 'Services',
-        'paint': {
-            'circle-radius': 10,
-            'circle-opacity': 0.8,
-            'circle-color': 'rgb(171,72,33)'
-        }
-    });*/
-
-    /*map.addLayer({
-        'id':'POIs',
-        'type':'circle',
-        'source':{
-            'type': 'vector',
-            'url': 'mapbox://aeneville2.cledcynu8086025quruopxym2-4x7hl'
-        },
-        'source-layer': 'POIs',
-        'paint': {
-            'circle-radius': 10,
-            'circle-opacity': 0.8,
-            //'circle-color': 'rgb(60,120,30)'
-            'circle-color': [
-                'match',
-                ['get','Point Type'],
-                'Overlook',
-                '#004b8d',
-                '#008000'
-            ]
-        }
-    });*/
 
     // NPS Images came from https://www.nps.gov/maps/tools/symbol-library/index.html 
     // Load the images to use for the symbol layers and add to the map
@@ -285,34 +251,20 @@ map.on('load', ()=>{
         }
     });
 
-    /*map.addLayer({
-        id: 'Rankings',
-        type: 'circle',
-        source: {
-            type: 'vector',
-            url: 'mapbox://aeneville2.clef1oq7p043t2qnyrnlnphqg-6h5ea'
-        },
-        'source-layer': 'User_Rankings',
-        paint: {
-            'circle-radius': 20,
-            'circle-color': '#eff542'
-        }
-    });*/
-
     // Load the image for use in the Rankings layer and add to the map
     map.loadImage('./Star.png',(error,image)=>{
         if (error) throw error;
         map.addImage('star',image)
     });
 
-    // Add an empty geoJSON source for the Rankings layer
+    // Add an empty geoJSON source for the Rankings layer with clustering turned on when zoomed out
     map.addSource('rankingSource',{
         type: 'geojson',
         data: {
             type: 'FeatureCollection',
             features: []
         },
-        // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+        // Used https://docs.mapbox.com/mapbox-gl-js/example/cluster/
         cluster: true,
         clusterMaxZoom: 12,
         clusterRadius: 50
@@ -331,7 +283,8 @@ map.on('load', ()=>{
         }
     });
 
-    // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+    // Used https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+    // Add a text layer on the Rankings clusters illustrating the point count in the cluster
     map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
@@ -345,24 +298,6 @@ map.on('load', ()=>{
         }
     });
 
-    /*map.addSource('single-point',{
-        type: 'geojson',
-        data: {
-            type: 'FeatureCollection',
-            features: []
-        }
-    });
-
-    map.addLayer({
-        id: 'point',
-        source: 'single-point',
-        type: 'symbol',
-        layout: {
-            'icon-image': 'red-icon',
-            'icon-size': 0.15
-        }
-    });*/
-
     // Call the functions to retrieve the Rankings geoJSON source data from the hosted MapBox dataset for use in the Rankings layer
     //  and generating the POI list
     addRankings();
@@ -370,7 +305,7 @@ map.on('load', ()=>{
 
 });
 
-// Define a ranking id variable for definition later
+// Define a ranking id variable for determining the id for a new user ranking added to the Rankings layer
 var rankingId;
 
 async function addRankings(){
@@ -389,24 +324,21 @@ async function addRankings(){
         const rankingSource2 = map.getSource('rankingSource')
         rankingSource2.setData(data);
 
-        // Get the ids of all of the current rankings to determine the highest ranking id for use upon user submission
+        // Get the ids of all of the current rankings to determine the highest ranking id for use upon next user submission
         const features = data.features;
-        console.log('Features',features);
-
         var featureidArray = [];
         for (var i=0; i<features.length; i++){
             var id = features[i].id;
             featureidArray.push(id);
         }
-        console.log('FeatureIDArray: ',featureidArray);
         rankingId = Math.max(...featureidArray);
-        console.log('Ranking ID Type: ',typeof rankingId);
 
         // Call the function to get the counts of number of rankings for each point of interest in the Rankings layer
         var poiCounter = [];
         const waitArray = await counterLoop(features,poiCounter);
         
-        // Once the array has finished then turn the resulting object into an array, sort, and add to the table with point of interest name (column 1) and count (column 2)
+        // Once the array has finished then turn the resulting object into an array & sort the array alphabetically
+        // Add each key and value in the array to the table with point of interest name in column 1 and count in column 2
         Promise.all([waitArray]).then(async()=>{
             //Used https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
             let waitArrayKeys = Object.keys(waitArray);
@@ -424,10 +356,9 @@ async function addRankings(){
     });
 };
 
-// Function to go through the ranking layer and get a count of each time the name appears in the dataset
+// Function to go through the Rankings layer and get a count of each time the name appears in the dataset
 // Returns an object containing Point of Interest name and count
 async function counterLoop(features,poiCounter){
-    //const features = data.features;
 
     const poiArray = [];
     for (var i=0; i<features.length; i++){
@@ -435,8 +366,6 @@ async function counterLoop(features,poiCounter){
 
         poiArray.push(poiName);
     };
-
-    //let poiCounter = {};
 
     //Used https://stackabuse.com/count-number-of-element-occurrences-in-javascript-array for an example
     for (poi of poiArray.flat()){
@@ -453,7 +382,7 @@ async function counterLoop(features,poiCounter){
 
 // Function to use a GET request to get the updated Rankings dataset
 //  With the updated data, it loops through the data and adds the point name and coordinates to an array
-//  Each name value pair in the array is added to the options in the user submission form to that the correct names and associated locations are used
+//  Each name value pair in the array is added to the options in the user submission form so that the correct names and locations are used
 async function getPOIs(){
     const pois = await fetch(
         'https://api.mapbox.com/datasets/v1/aeneville2/cledcynu8086025quruopxym2/features?access_token=sk.eyJ1IjoiYWVuZXZpbGxlMiIsImEiOiJjbGVmcTFtdXowYXAyM3FtcWdrd2phdm1rIn0.xTaxF4yB4KeNuu1OABOLtw',
@@ -461,19 +390,14 @@ async function getPOIs(){
     )
     const data = await pois.json();
     const features = data.features;
-
-    const sortedFeatures = features.sort();
     
     let poiArray = [];
     for (var i=0;i<features.length;i++){
         const name = features[i].properties['Point Name'];
         const geometry = features[i].geometry.coordinates;
         poiArray.push([name,geometry]);
-        /*const selectPoi = document.getElementById('poi-select')
-        let newOption = new Option(name,geometry);
-        selectPoi.add(newOption,undefined);*/
     }
-    //console.log(poiDict);
+
     let poiArraySort = poiArray.sort();
     const selectPoi = document.getElementById('poi-select');
     for (var i=0; i<poiArraySort.length; i++){
@@ -497,12 +421,6 @@ const geocoder = new MapboxGeocoder({
 });
 map.addControl(geocoder);
 
-/*geocoder.on('result',(event)=>{
-    map.getSource('single-point').setData(event.result.geometry);
-    //const end = event.result.geometry.coordinates;
-    //getRoute(end);
-});*/
-
 // Used https://docs.mapbox.com/mapbox-gl-js/example/locate-user
 // Add a geolocate control to the map to allow getting the user's current location
 const geolocate = new mapboxgl.GeolocateControl({
@@ -512,12 +430,10 @@ const geolocate = new mapboxgl.GeolocateControl({
     trackUserLocation: true,
     showUserHeading: true
 })
-map.addControl(
-    geolocate
-);
+map.addControl(geolocate);
 
 // Used https://docs.mapbox.com/help/tutorials/route-finder-with-turf-mapbox-directions/
-// Add a directions control to the directions form to allow the user to get directions between 2 locations
+// Define a directions control that will allow the user to get directions between 2 locations
 const directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken,
     unit: 'imperial',
@@ -528,11 +444,9 @@ const directions = new MapboxDirections({
     flyTo: true,
     interactive: true
 });
-//map.addControl(directions,'top-right');
-//document.getElementById('directions-form').appendChild(directions.onAdd(map));
-map.scrollZoom.enable();
+map.scrollZoom.enable(); // Enable scrolling to zoom in the map
 
-// Function to add a button to the map that will scroll the page back to the top through creation of a custom class for a custom control
+// Function to add a button to the map that will add or remove the directions control in the map
 // Used Steve Bennett's response in https://stackoverflow.com/questions/40162662/mapbox-gl-how-to-create-custom-control 
 function addTopButton(map){
     class TopButton {
@@ -570,7 +484,6 @@ map.on('click',(event)=>{
     console.log('Feature: ',feature)
 
     const popup = new mapboxgl.Popup({offset: [0,0]})
-    //.setLngLat(feature.geometry.coordinates)
     .setLngLat(event.lngLat)
 
     if (feature.sourceLayer == 'Services'){
@@ -598,7 +511,8 @@ map.on('click',(event)=>{
 });
 
 // Add another event listener to the map for when the user clicks on a feature in the Rankings layer, add that popup
-// This function allows adding multiple popups for the features since points of interest can have multiple rankings
+// Define the popup based on whether the user clicked on the clustered point or the individual point
+// If there are multiple points at one Point of Interest then add each comment to one popup the opens there
 map.on('click',(event)=>{
     const features = map.queryRenderedFeatures(event.point, {
         layers: ['Rankings']
@@ -610,7 +524,6 @@ map.on('click',(event)=>{
 
     if(features[0].properties['point_count']){
         const popup = new mapboxgl.Popup({offset: [0,0]})
-        //.setLngLat(feature.geometry.coordinates)
         .setLngLat(event.lngLat);
 
         popup.setHTML(`<p>There are ${features[0].properties['point_count']} rankings in this cluster. Zoom in until the number disappears to see the individual rankings.</p>`)
@@ -623,27 +536,10 @@ map.on('click',(event)=>{
             popupText += `<li>${feature.properties['Comment']}</li>`
         }
         const popup = new mapboxgl.Popup({offset: [0,0]})
-        //.setLngLat(feature.geometry.coordinates)
         .setLngLat(event.lngLat);
 
         popup.setHTML(popupText).addTo(map);
     }
-
-    
-
-    /*for (var i=0; i<features.length; i++){
-        const feature = features[i];
-        console.log('Feature: ',feature)
-    
-        const popup = new mapboxgl.Popup({offset: [0,0]})
-        //.setLngLat(feature.geometry.coordinates)
-        .setLngLat(event.lngLat);
-
-        popup.setHTML(
-            `<h6>User Ranking For: ${feature.properties['Name']}</h6><p>Comment: ${feature.properties['Comment']}</p>`
-        )
-        .addTo(map);
-    }*/
     
 });
 
@@ -684,28 +580,19 @@ map.on('mouseleave', 'Rankings', () => {
 
 // Define event listeners for clicking on the menu buttons that will display the appropriate form, hide other forms, and 
 //  change the button colors to the one currently active (open)
-// Additionally, for the directions control, enable the directions capability only when that form is open
 var infoContainer = document.getElementById('info-container');
 var legendContainer = document.getElementById('legend-container');
-var directionContainer = document.getElementById('directions-container');
 var filterContainer = document.getElementById('filter-container');
 var userContainer = document.getElementById('user-input-container');
 var chartContainer = document.getElementById('chart-container');
 
 var infoBtn = document.getElementById('info-btn');
 var legendBtn = document.getElementById('legend-btn');
-var directionsBtn = document.getElementById('directions-btn');
 var filterBtn = document.getElementById('filter-btn');
 var userInputBtn = document.getElementById('user-input-btn');
 var chartBtn = document.getElementById('chart-btn');
 
 infoBtn.addEventListener('click',function(){
-    /*if(directionContainer.style.display === 'block'){
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none'
         userInputBtn.style.backgroundColor = 'white';
@@ -746,12 +633,6 @@ legendBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
-    /*if(directionContainer.style.display === 'block'){
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none'
         userInputBtn.style.backgroundColor = 'white';
@@ -786,53 +667,6 @@ document.getElementById('close-legend').addEventListener('click',function(){
     legendBtn.style.color = 'black';
 });
 
-/*directionsBtn.addEventListener('click',function(){
-    if(infoContainer.style.display === 'block'){
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-        infoContainer.style.display = 'none';
-    }
-    if(legendContainer.style.display === 'block'){
-        legendBtn.style.backgroundColor = 'white';
-        legendBtn.style.color = 'black';
-        legendContainer.style.display = 'none';
-    }
-    if(filterContainer.style.display === 'block'){
-        filterBtn.style.backgroundColor = 'white';
-        filterContainer.style.display = 'none';
-        filterBtn.style.color = 'black';
-    }
-    if (userContainer.style.display === 'block'){
-        userContainer.style.display = 'none';
-        userInputBtn.style.backgroundColor = 'white';
-        userInputBtn.style.color = 'black';
-    }
-    if (chartContainer.style.display === 'block'){
-        chartBtn.style.backgroundColor = 'white';
-        chartContainer.style.display = 'none';
-        chartBtn.style.color = 'black';
-    }
-
-    if (directionContainer.style.display === 'none'){
-        directionContainer.style.display = 'block';
-        document.getElementById('directions-form').appendChild(directions.onAdd(map));
-        directionsBtn.style.backgroundColor = 'green';
-        directionsBtn.style.color = 'white';
-    } else {
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }
-});
-
-document.getElementById('close-directions').addEventListener('click',function(){
-    directionContainer.style.display = 'none';
-    map.removeControl(directions);
-    directionsBtn.style.backgroundColor = 'white';
-    directionsBtn.style.color = 'black';
-})*/
-
 filterBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoBtn.style.backgroundColor = 'white';
@@ -844,12 +678,6 @@ filterBtn.addEventListener('click',function(){
         legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
     }
-    /*if(directionContainer.style.display === 'block'){
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
@@ -894,12 +722,6 @@ userInputBtn.addEventListener('click',function(){
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
     }
-    /*if (directionContainer.style.display === 'block'){
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }*/
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
@@ -944,12 +766,6 @@ chartBtn.addEventListener('click',function(){
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.style.color = 'black';
     }
-    /*if (directionContainer.style.display === 'block'){
-        directionContainer.style.display = 'none';
-        map.removeControl(directions);
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-    }*/
 
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
@@ -1066,18 +882,10 @@ resetFilterBtn.addEventListener('click',function(event){
     map.setFilter('Services',null);
     map.setFilter('Trails',null);
     document.getElementById('filter-form-input').reset();
-})
-
-// DO I USE THESE ANYMORE??
-/*let featureId = 1;
-
-async function featureIdIncrement(){
-    featureId++;
-    return featureId;
-};*/
+});
 
 // Define an event listener for when the user submits the ranking form
-const submitBtn = document.getElementById('submit-btn')
+const submitBtn = document.getElementById('submit-btn');
 submitBtn.addEventListener('click',async function(event){
     event.preventDefault();
 
@@ -1090,7 +898,7 @@ submitBtn.addEventListener('click',async function(event){
     // If the user did not select a point of interest, then alert the user
     // If the user did select the point of interest, take the coordinates from the point of interest selected (the value for the select option)
     //  and the name of the point of interest selected 
-    // Increment the highest ranking id (determined in an earlier function) by 1
+    // Increment the highest ranking id (determined in an earlier function and set to the rankingId variable) by 1
     // Generate a geoJSON object based on those listed above 
     // Use a PUT method to update the Rankings layer in the dataset 
     if (coord == 'default'){
@@ -1101,7 +909,6 @@ submitBtn.addEventListener('click',async function(event){
         const poiLat = parseFloat(coordSplit[1]);
         const poiName = selectForm.options[selectForm.selectedIndex].textContent;
     
-        //const featureid = await featureIdIncrement();
         const rankingIdUse = rankingId + 1
         const featureid = rankingIdUse.toString();
     
@@ -1135,24 +942,16 @@ submitBtn.addEventListener('click',async function(event){
         const data = await response.json();
     
         Promise.all([data]).then(async ()=>{
-            //const removeLayer = map.removeLayer('Rankings');
-            //const removeSource = await map.removeSource('rankingSource');
-            //const removeImage = await map.removeImage('star');
             alert('Ranking submitted succesfully!');
             const form = document.getElementById('user-ranking-form');
             form.reset();
             const rankingTable = document.getElementById('ranking-table');
-            // https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
+            // Used https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
             var rowCount = rankingTable.rows.length;
             for (var i=rowCount-1; i>0; i--){
                 rankingTable.deleteRow(i);
             }
-            //window.location.reload();
             addRankings();
-            /*Promise.all([form]).then(()=>{    
-                window.location.reload();
-                addRankings();
-            });*/
         })
     }
     
@@ -1162,5 +961,4 @@ submitBtn.addEventListener('click',async function(event){
 window.addEventListener('load',(function(){
     this.document.getElementById('filter-form-input').reset();
     this.document.getElementById('user-ranking-form').reset();
-    addTopButton(map);
 }));
