@@ -1,6 +1,7 @@
 body { 
     margin: 0; 
     padding: 0;
+    overflow-y: auto;
 }
 
 nav {
@@ -46,6 +47,10 @@ h6 {
 }
 
 .app-info-text {
+    font-size: 12px;
+}
+
+figure {
     font-size: 12px;
 }
 
