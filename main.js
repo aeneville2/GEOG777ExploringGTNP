@@ -350,11 +350,27 @@ async function addRankings(){
                 var cell2 = row.insertCell(1);
                 cell1.innerHTML = key;
                 cell2.innerHTML = waitArray[key];
+
+                const selectRanking = document.getElementById('select-poi-rankings');
+                let newOption = new Option(key,waitArray[key]);
+                selectRanking.add(newOption,undefined);
+                
+
+                selectRanking.addEventListener('change',function(){
+                    const rankingCount = document.getElementById('ranking-count');
+                    const value = selectRanking.value;
+                    if (value != 'Label'){
+                        rankingCount.innerHTML = value;
+                    } else {
+                        rankingCount.innerHTML = '';
+                    }
+                })
             })
         })
         
     });
 };
+
 
 // Function to go through the Rankings layer and get a count of each time the name appears in the dataset
 // Returns an object containing Point of Interest name and count

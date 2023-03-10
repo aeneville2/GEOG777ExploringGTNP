@@ -14,8 +14,6 @@ nav {
 #dropdownMenuUl {
     left: 0;
     right: 0;
-    /*position: absolute;
-    display: block;*/
 }
 
 .menu-btn {
@@ -33,10 +31,6 @@ nav {
 
 h6 {
     font-weight: bold;
-}
-
-.mapboxgl-ctrl-geocoder--input {
-    font-size: 500px;
 }
 
 .close-btn {
@@ -86,4 +80,11 @@ form {
 
 tr:nth-child(even){
     background-color: #b6b8ba;
+}
+
+.mapboxgl-ctrl-geocoder {
+    width: 300px !important;
+}
+.mapboxgl-ctrl-geocoder--input {
+    font-size: 12px !important;
 }
