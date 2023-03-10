@@ -336,45 +336,132 @@ async function addRankings(){
         // Call the function to get the counts of number of rankings for each point of interest in the Rankings layer
         var poiCounter = [];
         const waitArray = await counterLoop(features,poiCounter);
-
-        var commentArray = new Object();
-        for (var i=0; i<features.length; i++){
-            var name = features[i].properties['Name'];
-            var comment = features[i].properties['Comment'];
-            commentArray[name] = comment;
-        }
         
-        // Once the array has finished then turn the resulting object into an array & sort the array alphabetically
-        // Add each key and value in the array to the table with point of interest name in column 1 and count in column 2
         Promise.all([waitArray]).then(async()=>{
-            //Used https://www.freecodecamp.org/news/how-to-iterate-over-objects-in-javascript/
-            let waitArrayKeys = Object.keys(waitArray);
-            let sortedArray = waitArrayKeys.sort()
-            sortedArray.forEach((key)=>{
-                var table = document.getElementById('ranking-table');
-                var row = table.insertRow();
-                var cell1 = row.insertCell(0)
-                var cell2 = row.insertCell(1);
-                cell1.innerHTML = key;
-                cell2.innerHTML = waitArray[key];
+            // Once the array has finished then turn the resulting object into an array & sort the array by descending values
+            var dataSorted = [];
+            for (var ranking in waitArray){
+                dataSorted.push([ranking,waitArray[ranking]]);
+            }
+            dataSorted.sort(function(a,b){
+                return b[1] - a[1]
+            });
 
-                const selectRanking = document.getElementById('select-poi-rankings');
-                let newOption = new Option(key,waitArray[key]);
-                selectRanking.add(newOption,undefined);
-                
+            // Take the first 10 values in the array (top 10 ranked POIs) and add to an Object as a name value pair
+            var topTenArray = dataSorted.slice(0,10);
+            var topTen = new Object();
+            for (var i=0; i<topTenArray.length; i++){
+                var key = topTenArray[i][0];
+                var value = topTenArray[i][1]
+                topTen[key] = value;
+            }
 
-                selectRanking.addEventListener('change',function(){
-                    const rankingCount = document.getElementById('ranking-count');
-                    const value = selectRanking.value;
-                    const poiName = selectRanking.innerText;
-                    if (value != 'Label'){
-                        rankingCount.innerHTML = value + ' Comment: ' + commentArray[poiName];
+            var data = topTen;
 
-                    } else {
-                        rankingCount.innerHTML = '';
-                    }
-                })
-            })
+            // Used https://d3-graph-gallery.com/graph/barplot_basic.html 
+            // Set the dimensions and margins of the graph
+            var margin = {top: 30, right: 30, bottom: 70, left: 60},
+            width = 300 - margin.left - margin.right,
+            height = 200 - margin.top - margin.bottom;
+
+            // Create an SVG in the chart-form div and append a g onto it
+            var svg = d3.select("#chart-form")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+            // Used https://d3-graph-gallery.com/graph/barplot_stacked_hover.html 
+            // Append a div to the chart-form div for the tooltip and define the styles of the tooltip with an opacity of 0
+            var tooltip = d3.select("#chart-form")
+            .append("div")
+            .style("opacity",0)
+            .attr("class","tooltip")
+            .style("background-color","green")
+            .style("color","white")
+            .style("border","solid")
+            .style("border-color","white")
+            .style("border-width","1px")
+            .style("border-radius","5px")
+            .style("padding","5px")
+            .style("position","absolute");
+
+            // Function called to show the tooltip with the name (x-value) on mouseover
+            var mouseover = function(d){
+                var name = d;
+                tooltip.html(name)
+                .style("opacity",1)
+            }
+
+            // Function to adjust the placement of the tooltip on mousemove
+            var mousemove = function(d){
+                tooltip.style("left",(d3.mouse(this)[0]+90) + "px")
+                .style("top",(d3.mouse(this)[1]) + "px")
+            }
+
+            // Function to change the opacity of the tooltip to 0 on mouseleave
+            var mouseleave = function(d){
+                tooltip.style("opacity",0)
+            }
+
+            // Array of labels for the x-axis
+            var xLabels = ["a","b","c","d","e","f","g","h","i","j"]
+
+            // Defining the x-axis
+            var x = d3.scaleBand()
+            .range([ 0, width ]) // Determining the width
+            .domain(d3.keys(data)) // Domain determined by the name (keys) of the data
+            .padding(0.2);
+            // Append a g to the SVG defined earlier for the x-axis labels
+            svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x).tickFormat((d,i)=>xLabels[i]))
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+            // Determine the highest value in the data
+            var valueArray = Object.values(data);
+            var highestValue = Math.max(...valueArray);
+
+            // Add y-axis with the highest value in the data and append a g to the SVG for the labels
+            var y = d3.scaleLinear()
+            .domain([0, highestValue])
+            .range([ height, 0]);
+            svg.append("g")
+            .call(d3.axisLeft(y));
+
+            // Used https://d3-graph-gallery.com/graph/custom_axis.html#axislabels 
+            // X-axis Labels
+            svg.append("text")
+            .attr("text-anchor","end")
+            .attr("x",width/2)
+            .attr("y",height + margin.top + 20)
+            .text("Top 10 Points of Interest");
+
+            // Y-axis Labels
+            svg.append("text")
+            .attr("text-anchor","end")
+            .attr("transform","rotate(-90)")
+            .attr("x",-margin.top+30)
+            .attr("y",-margin.left+20)
+            .text("Number of Rankings")
+
+            // Add a bar in the chart for each of the name value pairs in the data
+            svg.selectAll("mybar")
+            .data(d3.keys(data))
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return x(d); }) 
+            .attr("y", function(d) { return y(data[d]); }) 
+            .attr("width", x.bandwidth()) 
+            .attr("height", function(d) { return height - y(data[d]); })
+            .style("fill","#008000")
+            .on("mouseover",mouseover) 
+            .on("mousemove",mousemove)
+            .on("mouseleave",mouseleave);
+            
         })
         
     });

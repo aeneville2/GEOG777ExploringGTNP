@@ -157,17 +157,8 @@
         <div class='container-fluid' id='chart-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='chart-form'>
                 <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
-                <h6>Points of Interest with Number of User Rankings (sorted alphabetically)</h6>
-                <table id='ranking-table'>
-                    <tr>
-                        <th>Point of Interest</th>
-                        <th>Number of Rankings</th>
-                    </tr>
-                </table>
-                <select id='select-poi-rankings'>
-                    <option id='Label'>Select Point of Interest</option>
-                </select>
-                <p id='ranking-count'></p>
+                <h6>Top 10 Points of Interest by Number of User Rankings</h6>
+                <p style="font-style:italic;">Hover over the bars to see the Point of Interest name.</p>
             </div>
         </div>
         <div class='container-fluid' id='map-container' style='width:100vw;height:80vh;position:relative;'>
@@ -179,6 +170,7 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
         <script src=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js></script>
+        <script src="https://d3js.org/d3.v4.js"></script>
         <script src='main.js'></script>
     </body>
 </html>
