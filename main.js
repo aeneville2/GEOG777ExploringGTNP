@@ -308,6 +308,18 @@ map.on('load', ()=>{
 // Define a ranking id variable for determining the id for a new user ranking added to the Rankings layer
 var rankingId;
 
+// Used https://d3-graph-gallery.com/graph/barplot_basic.html 
+// Set the dimensions and margins for the graph
+var margin = {top: 30, right: 30, bottom: 70, left: 60},
+width = 300 - margin.left - margin.right,
+height = 200 - margin.top - margin.bottom;
+
+// Create an SVG in the chart-form div to hold the chart
+var svg = d3.select("#chart-form")
+.append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+
 async function addRankings(){
     // https://stackoverflow.com/questions/57624873/mapbox-api-styles-v1-username-doesnt-reflect-latest-style-data for help with updating the data
     // Use a GET request to access the Rankings dataset from MapBox using the Datasets API with a parameter to use the updated data
@@ -348,6 +360,7 @@ async function addRankings(){
             });
 
             // Take the first 10 values in the array (top 10 ranked POIs) and add to an Object as a name value pair
+            // The new Object will be the data for the chart
             var topTenArray = dataSorted.slice(0,10);
             var topTen = new Object();
             for (var i=0; i<topTenArray.length; i++){
@@ -358,18 +371,8 @@ async function addRankings(){
 
             var data = topTen;
 
-            // Used https://d3-graph-gallery.com/graph/barplot_basic.html 
-            // Set the dimensions and margins of the graph
-            var margin = {top: 30, right: 30, bottom: 70, left: 60},
-            width = 300 - margin.left - margin.right,
-            height = 200 - margin.top - margin.bottom;
-
-            // Create an SVG in the chart-form div and append a g onto it
-            var svg = d3.select("#chart-form")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
+            // Append a g to the SVG for the chart to be added to
+            var svgG = svg.append("g")
             .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
             // Used https://d3-graph-gallery.com/graph/barplot_stacked_hover.html 
@@ -414,9 +417,10 @@ async function addRankings(){
             .domain(d3.keys(data)) // Domain determined by the name (keys) of the data
             .padding(0.2);
             // Append a g to the SVG defined earlier for the x-axis labels
-            svg.append("g")
+            svgG.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x).tickFormat((d,i)=>xLabels[i]))
+            //.call(d3.axisBottom(x).tickFormat((d,i)=>xLabels[i]))
+            .call(d3.axisBottom(x).tickFormat((d)=>""))
             .selectAll("text")
             .attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
@@ -429,19 +433,20 @@ async function addRankings(){
             var y = d3.scaleLinear()
             .domain([0, highestValue])
             .range([ height, 0]);
-            svg.append("g")
+            svgG.append("g")
+            .attr("id","y-axis-d")
             .call(d3.axisLeft(y));
 
             // Used https://d3-graph-gallery.com/graph/custom_axis.html#axislabels 
             // X-axis Labels
-            svg.append("text")
+            svgG.append("text")
             .attr("text-anchor","end")
             .attr("x",width/2)
             .attr("y",height + margin.top + 20)
             .text("Top 10 Points of Interest");
 
             // Y-axis Labels
-            svg.append("text")
+            svgG.append("text")
             .attr("text-anchor","end")
             .attr("transform","rotate(-90)")
             .attr("x",-margin.top+30)
@@ -449,7 +454,7 @@ async function addRankings(){
             .text("Number of Rankings")
 
             // Add a bar in the chart for each of the name value pairs in the data
-            svg.selectAll("mybar")
+            svgG.selectAll("mybar")
             .data(d3.keys(data))
             .enter()
             .append("rect")
@@ -1049,20 +1054,15 @@ submitBtn.addEventListener('click',async function(event){
             requestOptions
         );
     
-        // Once the new object has been added to the dataset, alert the user, reset the form, remove the table, 
-        //  and call the addRankings function to update the map and rankings list with the updated data
+        // Once the new object has been added to the dataset, alert the user, reset the form, remove the chart, 
+        //  and call the addRankings function to update the map and rankings chart with the updated data
         const data = await response.json();
     
         Promise.all([data]).then(async ()=>{
             alert('Ranking submitted succesfully!');
             const form = document.getElementById('user-ranking-form');
             form.reset();
-            const rankingTable = document.getElementById('ranking-table');
-            // Used https://www.aspsnippets.com/Articles/Delete-all-rows-from-Table-except-First-Header-row-using-JavaScript-and-jQuery.aspx
-            var rowCount = rankingTable.rows.length;
-            for (var i=rowCount-1; i>0; i--){
-                rankingTable.deleteRow(i);
-            }
+            svg.selectAll("*").remove();
             addRankings();
         })
     }
