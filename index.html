@@ -3,8 +3,7 @@
     <head>
         <meta charset='utf-8'>
         <title>Exploring Grand Teton National Park</title>
-        <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0">
-        <!--<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>-->
+        <meta name='viewport' content='width=device-width,height=device-height, initial-scale=1.0'>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet'>
         <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
@@ -12,13 +11,13 @@
         <link rel='stylesheet' href='style.css'>
     </head>
     <body>
-        <!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
-        <nav class='navbar navbar-inverse navbar-sticky-top'>
+        <!-- Used https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
+        <nav class='navbar navbar-inverse navbar-sticky-top' style='height:10vh;'>
             <div class='container-fluid' style='background-color:green;'>
                 <div class='navbar-header'>
                     <a class='navbar-brand' href='#'>Exploring GTNP</a>
                 </div>
-                <!-- https://getbootstrap.com/docs/5.0/components/dropdowns/-->
+                <!-- Used https://getbootstrap.com/docs/5.0/components/dropdowns/-->
                 <div class='dropdown'>
                     <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenu' data-bs-toggle='dropdown' aria-expanded='false'>
                         Menu
@@ -28,37 +27,33 @@
                         <li><button id='legend-btn' class='menu-btn'>Map Legend</button></li>
                         <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
                         <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
-                        <li><button id='chart-btn' class='menu-btn'>Ranking Table</button></li>
+                        <li><button id='chart-btn' class='menu-btn'>Ranking Chart</button></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class='container-fluid' id='info-container' style='display:block;position:fixed;z-index:100;background-color:rgba(0,0,0,0.5);width:100%;height:100%;'>
-            <div id='info-splash-screen' style='background-color:white;padding:5px;'>
+            <div id='info-splash-screen' style='background-color:white;padding:5px;overflow-y:scroll;'>
                 <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>App Information</h6>
-                <p class='app-info-text'>Welcome to the Exploring Grand Teton National Park Application!
-                    The map displays Grand Teton National Park Points of Interest, Services, Trails, and the Park Boundary.
-                    Zoom in and pan around the map directly through interacting with the map. Click on any feature in the map to see more information.
-                    To search for a location in the map, use the search box.
-                    To get your current location in the map, click the button below the search box. Click the button again to remove your location from the map.
-                    To get directions between two locations, click the 'Toggle Directions' button in the map and either type in two places into the search bars that pop open 
-                    or click two places in the map. To turn off the directions, hit the 'Toggle Directions' button again.</p>
-                    <p class='app-info-text'>In the menu: Go to 'App Information' to see this information screen again.
-                    Go to 'Map Legend' to view the legend for the map.
-                    Go to 'Filter Features' to filter the Points of Interest, Services, and Trails layers
-                    in the map or to turn on/off map layers, including turning on the user top-ranked Points of Interest layer (contains
-                    stars at all of the Points of Interest that users have voted on for their favorites). 
-                    Go to 'Submit Rankings' to vote for your favorite Point of Interest with a comment.
-                    Once you submit your vote, your comment will be added to the popup of information for the star at that Point of Interest in the map.
-                    Go to 'Ranking Chart' to see the top ten Points of Interest that have been voted on for a favorite.
+                <p class='app-info-text'><strong>Welcome to the Exploring Grand Teton National Park Application!</strong>
+                    The interactive map displays Points of Interest, Services, Trails, and the Park Boundary.
+                    In the map, you can zoom and pan through direct interaction, click on any feature to see more information,
+                    search for locations, get your current location (button below the search bar), and get directions between two locations
+                    (hit the "Toggle Directions" button to turn on/off this capability).
+                    From the menu, you can see this information screen again, view the map legend, filter features in the map and turn on/off layers, and
+                    see the top ten user-voted Points of Interest in a bar chart.</p>
+                    <p class='app-info-text' style='margin-top:5px;'>
+                        <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
+                        You can then turn on the Rankings layer in the "Filter Features" menu option, and 
+                    click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
                 </p>
             </div>
         </div>
         <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
             <h6>Points of Interest</h6>
-            <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style="width:15px;margin:5px;"><figcaption>Amphitheater</figcaption></figure> 
+            <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style='width:15px;margin:5px;'><figcaption>Amphitheater</figcaption></figure> 
             <figure style='display:inline-flex;align-items:center;'><img src='campground-black-22.png' style='width:15px;'><figcaption>Campground</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='entrance-station-black-22.png' style='width:15px;'><figcaption>Entrance Station</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='boat-tour-black-22.png' style='width:15px;'><figcaption>Ferry Terminal</figcaption></figure>
@@ -159,11 +154,11 @@
             <div id='chart-form'>
                 <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>Top 10 Points of Interest by Number of User Rankings</h6>
-                <p style="font-style:italic;">Hover or tap on the bars to see the Point of Interest name.</p>
+                <p style='font-style:italic;'>Hover or tap on the bars to see the Point of Interest name.</p>
             </div>
         </div>
-        <div class='container-fluid' id='map-container' style='width:100vw;height:80vh;position:relative;'>
-            <div class='row' id='map-row'>
+        <div class='container-fluid' id='map-container' style='width:100vw;height:90vh;position:relative;'>
+            <div class='row' id='map-row' style='height:100%;'>
                 <div class='col-12' id='map' style='width:98%;height:100%;position:absolute;margin-left:1%;margin-right:1%;'></div>
             </div>
         </div>
@@ -171,7 +166,7 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js'></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
         <script src=https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js></script>
-        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src='https://d3js.org/d3.v4.js'></script>
         <script src='main.js'></script>
     </body>
 </html>

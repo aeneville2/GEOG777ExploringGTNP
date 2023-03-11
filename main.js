@@ -257,7 +257,7 @@ map.on('load', ()=>{
         map.addImage('star',image)
     });
 
-    // Add an empty geoJSON source for the Rankings layer with clustering turned on when zoomed out
+    // Add an empty geoJSON source for the Rankings layer with clustering turned on
     map.addSource('rankingSource',{
         type: 'geojson',
         data: {
@@ -309,16 +309,16 @@ map.on('load', ()=>{
 var rankingId;
 
 // Used https://d3-graph-gallery.com/graph/barplot_basic.html 
-// Set the dimensions and margins for the graph
+// Set the dimensions and margins for the rankings bar chart
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
 width = 300 - margin.left - margin.right,
 height = 200 - margin.top - margin.bottom;
 
 // Create an SVG in the chart-form div to hold the chart
-var svg = d3.select("#chart-form")
-.append("svg")
-.attr("width", width + margin.left + margin.right)
-.attr("height", height + margin.top + margin.bottom)
+var svg = d3.select('#chart-form')
+.append('svg')
+.attr('width', width + margin.left + margin.right)
+.attr('height', height + margin.top + margin.bottom)
 
 async function addRankings(){
     // https://stackoverflow.com/questions/57624873/mapbox-api-styles-v1-username-doesnt-reflect-latest-style-data for help with updating the data
@@ -328,7 +328,7 @@ async function addRankings(){
         { method: 'GET'}
     );
     
-    // Get the returned data in json format from the get request
+    // Get the returned data in JSON format from the GET request
     const data = await rankings.json();
 
     // Once the data is returned then update the Rankings layer source with the data
@@ -372,101 +372,79 @@ async function addRankings(){
             var data = topTen;
 
             // Append a g to the SVG for the chart to be added to
-            var svgG = svg.append("g")
-            .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+            // Used https://d3-graph-gallery.com/graph/barplot_basic.html 
+            var svgG = svg.append('g')
+            .attr('transform','translate(' + margin.left + ',' + margin.top + ')');
 
             // Used https://d3-graph-gallery.com/graph/barplot_stacked_hover.html 
             // Append a div to the chart-form div for the tooltip and define the styles of the tooltip with an opacity of 0
-            var tooltip = d3.select("#chart-form")
-            .append("div")
-            .style("opacity",0)
-            .attr("class","tooltip")
-            .style("background-color","green")
-            .style("color","white")
-            .style("border","solid")
-            .style("border-color","white")
-            .style("border-width","1px")
-            .style("border-radius","5px")
-            .style("padding","5px")
-            .style("position","absolute");
+            var tooltip = d3.select('#chart-form')
+            .append('div')
+            .style('opacity',0)
+            .attr('class','tooltip')
+            .style('background-color','green')
+            .style('color','white')
+            .style('border','solid')
+            .style('border-color','white')
+            .style('border-width','1px')
+            .style('border-radius','5px')
+            .style('padding','5px')
+            .style('position','absolute');
 
-            // Function called to show the tooltip with the name (x-value) on mouseover
+            // Function called to show the tooltip with the name and value on mouseover
             var mouseover = function(d){
                 var name = d;
                 var value = data[d];
-                tooltip.html(name + ": " + value)
-                .style("opacity",1)
+                tooltip.html(name + ': ' + value)
+                .style('opacity',1)
             }
 
             // Function to adjust the placement of the tooltip on mousemove
             var mousemove = function(d){
-                tooltip.style("left",(d3.mouse(this)[0]+90) + "px")
-                .style("top",(d3.mouse(this)[1]) + "px")
+                tooltip.style('left',(d3.mouse(this)[0]+10) + 'px')
+                .style('top',(d3.mouse(this)[1]) + 'px')
             }
 
             // Function to change the opacity of the tooltip to 0 on mouseleave
             var mouseleave = function(d){
-                tooltip.style("opacity",0)
+                tooltip.style('opacity',0)
             }
-
-            // Array of labels for the x-axis
-            var xLabels = ["a","b","c","d","e","f","g","h","i","j"]
 
             // Defining the x-axis
             var x = d3.scaleBand()
-            .range([ 0, width ]) // Determining the width
+            .range([ 0, width ])
             .domain(d3.keys(data)) // Domain determined by the name (keys) of the data
             .padding(0.2);
-            // Append a g to the SVG defined earlier for the x-axis labels
-            svgG.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            //.call(d3.axisBottom(x).tickFormat((d,i)=>xLabels[i]))
-            .call(d3.axisBottom(x).tickFormat((d)=>""))
-            .selectAll("text")
-            .attr("transform", "translate(-10,0)rotate(-45)")
-            .style("text-anchor", "end");
+            // Append a g to the SVG g defined earlier for the x-axis ticks
+            svgG.append('g')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(d3.axisBottom(x).tickFormat((d)=>''))
 
             // Determine the highest value in the data
             var valueArray = Object.values(data);
             var highestValue = Math.max(...valueArray);
 
-            // Add y-axis with the highest value in the data and append a g to the SVG for the labels
+            // Add y-axis with the highest value in the data and append a g to the SVG g for the labels
             var y = d3.scaleLinear()
             .domain([0, highestValue])
             .range([ height, 0]);
-            svgG.append("g")
-            .attr("id","y-axis-d")
+            svgG.append('g')
+            .attr('id','y-axis-d')
             .call(d3.axisLeft(y).ticks(5));
 
-            // Used https://d3-graph-gallery.com/graph/custom_axis.html#axislabels 
-            // X-axis Labels
-            svgG.append("text")
-            .attr("text-anchor","end")
-            .attr("x",width/2)
-            .attr("y",height + margin.top + 20)
-            .text("Top 10 Points of Interest");
-
-            // Y-axis Labels
-            svgG.append("text")
-            .attr("text-anchor","end")
-            .attr("transform","rotate(-90)")
-            .attr("x",-margin.top+30)
-            .attr("y",-margin.left+20)
-            .text("Number of Rankings")
-
             // Add a bar in the chart for each of the name value pairs in the data
-            svgG.selectAll("mybar")
+            svgG.selectAll('mybar')
             .data(d3.keys(data))
             .enter()
-            .append("rect")
-            .attr("x", function(d) { return x(d); }) 
-            .attr("y", function(d) { return y(data[d]); }) 
-            .attr("width", x.bandwidth()) 
-            .attr("height", function(d) { return height - y(data[d]); })
-            .style("fill","#008000")
-            .on("mouseover",mouseover) 
-            .on("mousemove",mousemove)
-            .on("mouseleave",mouseleave);
+            .append('rect')
+            .attr('x', function(d) { return x(d); }) 
+            .attr('y', function(d) { return y(data[d]); }) 
+            .attr('width', x.bandwidth()) 
+            .attr('height', function(d) { return height - y(data[d]); })
+            .style('fill','#008000')
+            .on('mouseover',mouseover) 
+            .on('mousemove',mousemove)
+            .on('mouseleave',mouseleave);
             
         })
         
@@ -560,7 +538,7 @@ const directions = new MapboxDirections({
     geometries: 'geojson',
     controls: {instructions: true},
     flyTo: true,
-    interactive: true
+    interactive: false
 });
 map.scrollZoom.enable(); // Enable scrolling to zoom in the map
 
@@ -578,16 +556,17 @@ function addTopButton(map){
                     closePopup();
                 } else if (!map.hasControl(directions)){
                     map.addControl(directions,'bottom-left');
+                    closePopup();
                 }
             })
             return div;
         }
     }
     const topButton = new TopButton();
-    map.addControl(topButton,"bottom-right");
+    map.addControl(topButton,'bottom-right');
 }
 
-// Used the "Add points to a map part 3: interactivity" tutorial on MapBox
+// Used the 'Add points to a map part 3: interactivity' tutorial on MapBox
 // Add an event listener for when the user clicks on the map
 // If the click was on a feature in the Services, Points of Interest, or Trails layer then add an popup based on layer type
 map.on('click',(event)=>{
@@ -600,10 +579,9 @@ map.on('click',(event)=>{
     }
     
     const feature = features[0];
-    console.log('Feature: ',feature)
 
     const popup = new mapboxgl.Popup({offset: [0,0]})
-    .setLngLat(event.lngLat)
+    .setLngLat(feature.geometry.coordinates);
 
     if (feature.sourceLayer == 'Services'){
         popup.setHTML(
@@ -631,7 +609,7 @@ map.on('click',(event)=>{
 
 // Add another event listener to the map for when the user clicks on a feature in the Rankings layer, add that popup
 // Define the popup based on whether the user clicked on the clustered point or the individual point
-// If there are multiple points at one Point of Interest then add each comment to one popup the opens there
+// If there are multiple points at one Point of Interest then add each comment to the one popup the opens there
 map.on('click',(event)=>{
     const features = map.queryRenderedFeatures(event.point, {
         layers: ['Rankings']
@@ -651,11 +629,11 @@ map.on('click',(event)=>{
         var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong>Comments:</strong>`; 
         for (var i=0; i<features.length; i++){
             const feature = features[i];
-            console.log("Feature: ",feature);
             popupText += `<li>${feature.properties['Comment']}</li>`
         }
+        const feature1 = features[0];
         const popup = new mapboxgl.Popup({offset: [0,0]})
-        .setLngLat(event.lngLat);
+        .setLngLat(feature1.geometry.coordinates);
 
         popup.setHTML(popupText).addTo(map);
     }
@@ -754,6 +732,7 @@ document.getElementById('close-info').addEventListener('click',function(){
     infoContainer.style.display = 'none';
     infoBtn.style.backgroundColor = 'white';
     infoBtn.style.color = 'black';
+    closePopup();
 });
 
 legendBtn.addEventListener('click',function(){
@@ -795,6 +774,7 @@ document.getElementById('close-legend').addEventListener('click',function(){
     legendContainer.style.display = 'none';
     legendBtn.style.backgroundColor = 'white';
     legendBtn.style.color = 'black';
+    closePopup();
 });
 
 filterBtn.addEventListener('click',function(){
@@ -835,6 +815,7 @@ document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
     filterBtn.style.backgroundColor = 'white';
     filterBtn.style.color = 'black';
+    closePopup();
 });
 
 userInputBtn.addEventListener('click',function(){
@@ -875,6 +856,7 @@ document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
     userInputBtn.style.backgroundColor = 'white';
     userInputBtn.style.color = 'black';
+    closePopup();
 });
 
 chartBtn.addEventListener('click',function(){
@@ -915,6 +897,7 @@ document.getElementById('close-ranking-list').addEventListener('click',function(
     chartContainer.style.display = 'none';
     chartBtn.style.backgroundColor = 'white';
     chartBtn.style.color = 'black';
+    closePopup();
 });
 
 // Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select
@@ -1040,9 +1023,6 @@ submitBtn.addEventListener('click',async function(event){
     // If the user did not select a point of interest, then alert the user
     // If the user did select the point of interest, take the coordinates from the point of interest selected (the value for the select option)
     //  and the name of the point of interest selected 
-    // Increment the highest ranking id (determined in an earlier function and set to the rankingId variable) by 1
-    // Generate a geoJSON object based on those listed above 
-    // Use a PUT method to update the Rankings layer in the dataset 
     if (coord == 'default'){
         alert('Please select a point of interest')
     } else {
@@ -1051,9 +1031,12 @@ submitBtn.addEventListener('click',async function(event){
         const poiLat = parseFloat(coordSplit[1]);
         const poiName = selectForm.options[selectForm.selectedIndex].textContent;
     
+        // Increment the highest ranking id (determined in an earlier function and set to the rankingId variable) by 1
         const rankingIdUse = rankingId + 1
         const featureid = rankingIdUse.toString();
     
+         // Generate a geoJSON object based on those listed above 
+        // Use a PUT method to update the Rankings layer in the dataset 
         const feature = {
             'id': `${featureid}`,
             'type': 'Feature',
@@ -1087,7 +1070,7 @@ submitBtn.addEventListener('click',async function(event){
             alert('Ranking submitted succesfully!');
             const form = document.getElementById('user-ranking-form');
             form.reset();
-            svg.selectAll("*").remove();
+            svg.selectAll('*').remove();
             addRankings();
             closePopup();
         })

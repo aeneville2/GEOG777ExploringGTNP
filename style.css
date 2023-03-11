@@ -1,6 +1,7 @@
 body { 
     margin: 0; 
     padding: 0;
+    overflow-y: scroll;
 }
 
 nav {
@@ -31,6 +32,11 @@ nav {
 
 h6 {
     font-weight: bold;
+    font-size: 14px;
+}
+
+p {
+    font-size: 12px;
 }
 
 .close-btn {
@@ -63,23 +69,6 @@ form {
     background-color: white;
     color: black;
     border: 1px solid green;
-}
-
-#ranking-table {
-    font-size: 10pt;
-}
-
-#ranking-table tr,td,th {
-    border-collapse: collapse;
-    border: 1px solid;
-}
-
-#ranking-table>tr>:nth-child(1) {
-    text-align: center;
-}
-
-tr:nth-child(even){
-    background-color: #b6b8ba;
 }
 
 .mapboxgl-ctrl-geocoder {
