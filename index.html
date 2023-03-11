@@ -3,7 +3,8 @@
     <head>
         <meta charset='utf-8'>
         <title>Exploring Grand Teton National Park</title>
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>
+        <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0">
+        <!--<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'>-->
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css' rel='stylesheet'>
         <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
@@ -12,7 +13,7 @@
     </head>
     <body>
         <!-- https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
-        <nav class='navbar navbar-inverse'>
+        <nav class='navbar navbar-inverse navbar-sticky-top'>
             <div class='container-fluid' style='background-color:green;'>
                 <div class='navbar-header'>
                     <a class='navbar-brand' href='#'>Exploring GTNP</a>
@@ -50,7 +51,7 @@
                     stars at all of the Points of Interest that users have voted on for their favorites). 
                     Go to 'Submit Rankings' to vote for your favorite Point of Interest with a comment.
                     Once you submit your vote, your comment will be added to the popup of information for the star at that Point of Interest in the map.
-                    Go to 'Ranking Table' to see a list of all Points of Interest that have been voted on for a favorite with the count of votes.
+                    Go to 'Ranking Chart' to see the top ten Points of Interest that have been voted on for a favorite.
                 </p>
             </div>
         </div>
@@ -158,7 +159,7 @@
             <div id='chart-form'>
                 <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>Top 10 Points of Interest by Number of User Rankings</h6>
-                <p style="font-style:italic;">Hover over the bars to see the Point of Interest name.</p>
+                <p style="font-style:italic;">Hover or tap on the bars to see the Point of Interest name.</p>
             </div>
         </div>
         <div class='container-fluid' id='map-container' style='width:100vw;height:80vh;position:relative;'>

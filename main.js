@@ -393,7 +393,8 @@ async function addRankings(){
             // Function called to show the tooltip with the name (x-value) on mouseover
             var mouseover = function(d){
                 var name = d;
-                tooltip.html(name)
+                var value = data[d];
+                tooltip.html(name + ": " + value)
                 .style("opacity",1)
             }
 
@@ -435,7 +436,7 @@ async function addRankings(){
             .range([ height, 0]);
             svgG.append("g")
             .attr("id","y-axis-d")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y).ticks(5));
 
             // Used https://d3-graph-gallery.com/graph/custom_axis.html#axislabels 
             // X-axis Labels
@@ -574,6 +575,7 @@ function addTopButton(map){
             div.addEventListener('click', ()=>{
                 if (map.hasControl(directions)){
                     map.removeControl(directions);
+                    closePopup();
                 } else if (!map.hasControl(directions)){
                     map.addControl(directions,'bottom-left');
                 }
@@ -660,6 +662,15 @@ map.on('click',(event)=>{
     
 });
 
+// Used https://stackoverflow.com/questions/40859195/how-to-close-all-popups-programmatically-in-mapbox-gl/63006609#63006609
+// Function to close any open popups in the map
+function closePopup(){
+    const popupOpen = document.getElementsByClassName('mapboxgl-popup'); 
+    if ( popupOpen.length ) {
+        popupOpen[0].remove();
+    }
+}
+
 // https://stackoverflow.com/questions/55560489/mapbox-gl-on-mouse-hover-on-layers-change-cursor-pointer-style
 // Add event listeners for the map when the user goes over the features to turn the cursor to a pointer to indicate to the user to click on the feature
 // When the cursor leaves the map feature, return the cursor to the grab to indicate the panning/zooming in the map
@@ -736,6 +747,7 @@ infoBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
+    closePopup();
 });
 
 document.getElementById('close-info').addEventListener('click',function(){
@@ -776,6 +788,7 @@ legendBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendBtn.style.color = 'black';
     }
+    closePopup();
 });
 
 document.getElementById('close-legend').addEventListener('click',function(){
@@ -815,6 +828,7 @@ filterBtn.addEventListener('click',function(){
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
     }
+    closePopup();
 })
 
 document.getElementById('close-filter').addEventListener('click',function(){
@@ -854,6 +868,7 @@ userInputBtn.addEventListener('click',function(){
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.style.color = 'black';
     }
+    closePopup();
 });
 
 document.getElementById('close-user-input').addEventListener('click',function(){
@@ -893,6 +908,7 @@ chartBtn.addEventListener('click',function(){
         chartBtn.style.backgroundColor = 'white';
         chartBtn.style.color = 'black';
     }
+    closePopup();
 });
 
 document.getElementById('close-ranking-list').addEventListener('click',function(){
@@ -911,6 +927,7 @@ filterPOIs.addEventListener('change',function(){
     } else if (val == 'Label'){
         map.setFilter('POIs',null);
     }
+    closePopup();
 });
 
 const filterServices = document.getElementById('filter-select-services');
@@ -923,6 +940,7 @@ filterServices.addEventListener('change',function(){
     } else if (val == 'Label'){
         map.setFilter('Services',null);
     }
+    closePopup();
 });
 
 const filterTrails = document.getElementById('filter-select-trails-use');
@@ -935,6 +953,7 @@ filterTrails.addEventListener('change',function(){
     } else if (val == 'Label'){
         map.setFilter('Trails',null)
     }
+    closePopup();
 });
 
 // Define event listeners for the layer checkboxes that will set the visibility on the layers in the map based on whether or not the checkbox is checked
@@ -945,6 +964,7 @@ poisCheckbox.addEventListener('change',function(){
     } else if (!poisCheckbox.checked) {
         map.setLayoutProperty('POIs','visibility','none');
     }
+    closePopup();
 });
 
 const rankingCheckbox = document.getElementById('ranking-checkbox');
@@ -956,6 +976,7 @@ rankingCheckbox.addEventListener('change',function(){
         map.setLayoutProperty('Rankings','visibility','none');
         map.setLayoutProperty('cluster-count','visibility','none');
     }
+    closePopup();
 });
 
 const servicesCheckbox = document.getElementById('services-checkbox');
@@ -965,6 +986,7 @@ servicesCheckbox.addEventListener('change',function(){
     } else if (!servicesCheckbox.checked) {
         map.setLayoutProperty('Services','visibility','none');
     }
+    closePopup();
 });
 
 const trailsCheckbox = document.getElementById('trails-checkbox');
@@ -974,6 +996,7 @@ trailsCheckbox.addEventListener('change',function(){
     } else if (!trailsCheckbox.checked) {
         map.setLayoutProperty('Trails','visibility','none');
     }
+    closePopup();
 });
 
 const boundaryCheckbox = document.getElementById('boundary-checkbox');
@@ -983,6 +1006,7 @@ boundaryCheckbox.addEventListener('change',function(){
     } else if (!boundaryCheckbox.checked) {
         map.setLayoutProperty('Park Boundary','visibility','none');
     }
+    closePopup();
 });
 
 // Define an event listener for the reset button in the filter form that will remove filters, reset the form, and reset layer visibility
@@ -999,6 +1023,7 @@ resetFilterBtn.addEventListener('click',function(event){
     map.setFilter('Services',null);
     map.setFilter('Trails',null);
     document.getElementById('filter-form-input').reset();
+    closePopup();
 });
 
 // Define an event listener for when the user submits the ranking form
@@ -1064,6 +1089,7 @@ submitBtn.addEventListener('click',async function(event){
             form.reset();
             svg.selectAll("*").remove();
             addRankings();
+            closePopup();
         })
     }
     
