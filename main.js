@@ -710,6 +710,11 @@ infoBtn.addEventListener('click',function(){
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.style.color = 'black';
     }
+    if (legendContainer.style.display === 'block'){
+        legendContainer.style.display = 'none';
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+    }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
@@ -725,7 +730,7 @@ infoBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
+        //directions.onRemove(map);
     }
 
     if(infoContainer.style.display === 'none'){
@@ -773,7 +778,7 @@ legendBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
+        //directions.onRemove(map);
     }
 
     if(legendContainer.style.display === 'none'){
@@ -820,7 +825,7 @@ filterBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
+        //directions.onRemove(map);
     }
 
     if (filterContainer.style.display === 'none'){
@@ -873,15 +878,25 @@ directionsBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'block';
         directionsBtn.style.backgroundColor = 'green';
         directionsBtn.style.color = 'white';
-        directionsContainer.appendChild(directions.onAdd(map));
+        //directionsContainer.appendChild(directions.onAdd(map));
     } else {
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
-        //map.removeControl(directions);
+        //directions.onRemove(map);
     }
     closePopup();
+});
+
+var toggleDirections = document.getElementById('directions-toggle');
+toggleDirections.addEventListener('click',function(){
+    if (toggleDirections.innerText === 'Turn on Directions'){
+        directionsContainer.appendChild(directions.onAdd(map));
+        toggleDirections.innerText = 'Turn off Directions';
+    } else if (toggleDirections.innerText === 'Turn off Directions'){
+        directions.onRemove(map);
+        toggleDirections.innerText = 'Turn on Directions';
+    }
 });
 
 document.getElementById('view-on-map').addEventListener('click',function(){
@@ -896,7 +911,7 @@ document.getElementById('close-directions').addEventListener('click',function(){
     directionsContainer.style.display = 'none';
     directionsBtn.style.backgroundColor = 'white';
     directionsBtn.style.color = 'black';
-    directions.onRemove(map);
+    //directions.onRemove(map);
     closePopup();
 });
 
@@ -920,7 +935,7 @@ userInputBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
+        //directions.onRemove(map);
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
@@ -967,7 +982,7 @@ chartBtn.addEventListener('click',function(){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.style.color = 'black';
-        directions.onRemove(map);
+        //directions.onRemove(map);
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
