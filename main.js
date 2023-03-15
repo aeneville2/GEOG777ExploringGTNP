@@ -743,14 +743,14 @@ infoBtn.addEventListener('click',function(){
         infoBtn.style.backgroundColor = 'white';
         infoBtn.style.color = 'black';
     }
-    closePopup();
+    //closePopup();
 });
 
 document.getElementById('close-info').addEventListener('click',function(){
     infoContainer.style.display = 'none';
     infoBtn.style.backgroundColor = 'white';
     infoBtn.style.color = 'black';
-    closePopup();
+    //closePopup();
 });
 
 legendBtn.addEventListener('click',function(){
@@ -791,14 +791,14 @@ legendBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendBtn.style.color = 'black';
     }
-    closePopup();
+    //closePopup();
 });
 
 document.getElementById('close-legend').addEventListener('click',function(){
     legendContainer.style.display = 'none';
     legendBtn.style.backgroundColor = 'white';
     legendBtn.style.color = 'black';
-    closePopup();
+    //closePopup();
 });
 
 filterBtn.addEventListener('click',function(){
@@ -838,14 +838,14 @@ filterBtn.addEventListener('click',function(){
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
     }
-    closePopup();
+    //closePopup();
 })
 
 document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
     filterBtn.style.backgroundColor = 'white';
     filterBtn.style.color = 'black';
-    closePopup();
+    //closePopup();
 });
 
 directionsBtn.addEventListener('click',function(){
@@ -886,7 +886,7 @@ directionsBtn.addEventListener('click',function(){
         directionsBtn.style.color = 'black';
         //directions.onRemove(map);
     }
-    closePopup();
+    //closePopup();
 });
 
 var toggleDirections = document.getElementById('directions-toggle');
@@ -900,20 +900,12 @@ toggleDirections.addEventListener('click',function(){
     }
 });
 
-document.getElementById('view-on-map').addEventListener('click',function(){
-    directionsContainer.style.display = 'none';
-});
-
-document.getElementById('print-directions').addEventListener('click',function(){
-    window.print();
-});
-
 document.getElementById('close-directions').addEventListener('click',function(){
     directionsContainer.style.display = 'none';
     directionsBtn.style.backgroundColor = 'white';
     directionsBtn.style.color = 'black';
     //directions.onRemove(map);
-    closePopup();
+    //closePopup();
 });
 
 userInputBtn.addEventListener('click',function(){
@@ -953,14 +945,14 @@ userInputBtn.addEventListener('click',function(){
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.style.color = 'black';
     }
-    closePopup();
+    //closePopup();
 });
 
 document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
     userInputBtn.style.backgroundColor = 'white';
     userInputBtn.style.color = 'black';
-    closePopup();
+    //closePopup();
 });
 
 chartBtn.addEventListener('click',function(){
@@ -1000,14 +992,14 @@ chartBtn.addEventListener('click',function(){
         chartBtn.style.backgroundColor = 'white';
         chartBtn.style.color = 'black';
     }
-    closePopup();
+    //closePopup();
 });
 
 document.getElementById('close-ranking-list').addEventListener('click',function(){
     chartContainer.style.display = 'none';
     chartBtn.style.backgroundColor = 'white';
     chartBtn.style.color = 'black';
-    closePopup();
+    //closePopup();
 });
 
 // Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select
