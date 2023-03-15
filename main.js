@@ -513,7 +513,8 @@ const geocoder = new MapboxGeocoder({
     proximity: {
         longitude: -110.6818,
         latitude: 43.7904
-    }
+    },
+    collapsed: true
 });
 map.addControl(geocoder);
 

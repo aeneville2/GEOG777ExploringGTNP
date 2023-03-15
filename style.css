@@ -31,8 +31,12 @@ nav {
     color: white;
 }
 
+.dropdown {
+    width: fit-content;
+}
+
 #dropdownMenuUl {
-    left: 0;
+    left: auto;
     right: 0;
 }
 
@@ -40,8 +44,8 @@ nav {
     background-color: white;
     font-size: 16px;
     border: 1px solid green;
-    display: block;
-    width: 100px;
+    display: inline-block;
+    width: 100%;
 }
 
 .menu-btn:hover{
@@ -97,3 +101,9 @@ form {
     font-size: 14px !important;
     margin-left: 20px !important;
 }
+
+/*@media print{
+    body{
+        display:none;
+    }
+}*/
