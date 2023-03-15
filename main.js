@@ -14,7 +14,7 @@ map.on('load', ()=>{
 
     map.resize(); // Fit the map to its container
 
-    addTopButton(map); // Add the custom control (the 'Toggle Directions' button) to the map
+    //addTopButton(map); // Add the custom control (the 'Toggle Directions' button) to the map
 
     // Add the Park Boundary layer from the tileset hosted in MapBox
     map.addLayer({
@@ -506,7 +506,7 @@ async function getPOIs(){
 // Add a new geocoder control (search bar) to the map that only returns results within the proximity of Grand Teton National Park
 const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    placeholder: 'Search for places in Grand Teton National Park',
+    placeholder: 'Search',
     mapboxgl: mapboxgl,
     marker: false,
     bbox: [-111.00480, 43.41594, -110.32914, 44.18901],
@@ -536,15 +536,19 @@ const directions = new MapboxDirections({
     profile: 'mapbox/driving',
     alternatives: false,
     geometries: 'geojson',
-    controls: {instructions: true},
+    controls: {
+        instructions: true
+    },
     flyTo: true,
-    interactive: false
+    interactive: false,
+    placeholderOrigin: 'Type in Origin',
+    placeholderDestination: 'Type in Destination'
 });
 map.scrollZoom.enable(); // Enable scrolling to zoom in the map
 
 // Function to add a button to the map that will add or remove the directions control in the map
 // Used Steve Bennett's response in https://stackoverflow.com/questions/40162662/mapbox-gl-how-to-create-custom-control 
-function addTopButton(map){
+/*function addTopButton(map){
     class TopButton {
         onAdd(map) {
             const div = document.createElement('div');
@@ -564,7 +568,7 @@ function addTopButton(map){
     }
     const topButton = new TopButton();
     map.addControl(topButton,'bottom-right');
-}
+}*/
 
 // Used the 'Add points to a map part 3: interactivity' tutorial on MapBox
 // Add an event listener for when the user clicks on the map
@@ -689,12 +693,14 @@ map.on('mouseleave', 'Rankings', () => {
 var infoContainer = document.getElementById('info-container');
 var legendContainer = document.getElementById('legend-container');
 var filterContainer = document.getElementById('filter-container');
+var directionsContainer = document.getElementById('directions-container');
 var userContainer = document.getElementById('user-input-container');
 var chartContainer = document.getElementById('chart-container');
 
 var infoBtn = document.getElementById('info-btn');
 var legendBtn = document.getElementById('legend-btn');
 var filterBtn = document.getElementById('filter-btn');
+var directionsBtn = document.getElementById('directions-btn');
 var userInputBtn = document.getElementById('user-input-btn');
 var chartBtn = document.getElementById('chart-btn');
 
@@ -714,6 +720,12 @@ infoBtn.addEventListener('click',function(){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
+    }
+    if (directionsContainer.style.display === 'block'){
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
     }
 
     if(infoContainer.style.display === 'none'){
@@ -757,6 +769,12 @@ legendBtn.addEventListener('click',function(){
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
     }
+    if (directionsContainer.style.display === 'block'){
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
+    }
 
     if(legendContainer.style.display === 'none'){
         legendContainer.style.display = 'block';
@@ -798,6 +816,12 @@ filterBtn.addEventListener('click',function(){
         chartBtn.style.backgroundColor = 'white';
         chartBtn.style.color = 'black';
     }
+    if (directionsContainer.style.display === 'block'){
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
+    }
 
     if (filterContainer.style.display === 'none'){
         filterContainer.style.display = 'block';
@@ -818,6 +842,64 @@ document.getElementById('close-filter').addEventListener('click',function(){
     closePopup();
 });
 
+directionsBtn.addEventListener('click',function(){
+    if(infoContainer.style.display === 'block'){
+        infoContainer.style.display = 'none';
+        infoBtn.style.backgroundColor = 'white';
+        infoBtn.style.color = 'black';
+    }
+    if(legendContainer.style.display === 'block'){
+        legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.color = 'black';
+        legendContainer.style.display = 'none';
+    }
+    if(filterContainer.style.display === 'block'){
+        filterContainer.style.display = 'none';
+        filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
+    }
+    if (userContainer.style.display === 'block'){
+        userContainer.style.display = 'none';
+        userBtn.style.backgroundColor = 'white';
+        userBtn.style.color = 'black';
+    }
+    if (chartContainer.style.display === 'block'){
+        chartContainer.style.display = 'none';
+        chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
+    }
+
+    if (directionsContainer.style.display === 'none'){
+        directionsContainer.style.display = 'block';
+        directionsBtn.style.backgroundColor = 'green';
+        directionsBtn.style.color = 'white';
+        directionsContainer.appendChild(directions.onAdd(map));
+    } else {
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
+        //map.removeControl(directions);
+    }
+    closePopup();
+});
+
+document.getElementById('view-on-map').addEventListener('click',function(){
+    directionsContainer.style.display = 'none';
+});
+
+document.getElementById('print-directions').addEventListener('click',function(){
+    window.print();
+});
+
+document.getElementById('close-directions').addEventListener('click',function(){
+    directionsContainer.style.display = 'none';
+    directionsBtn.style.backgroundColor = 'white';
+    directionsBtn.style.color = 'black';
+    directions.onRemove(map);
+    closePopup();
+});
+
 userInputBtn.addEventListener('click',function(){
     if(infoContainer.style.display === 'block'){
         infoContainer.style.display = 'none';
@@ -833,6 +915,12 @@ userInputBtn.addEventListener('click',function(){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
+    }
+    if (directionsContainer.style.display === 'block'){
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
@@ -874,6 +962,12 @@ chartBtn.addEventListener('click',function(){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.style.color = 'black';
+    }
+    if (directionsContainer.style.display === 'block'){
+        directionsContainer.style.display = 'none';
+        directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
+        directions.onRemove(map);
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
