@@ -382,7 +382,7 @@ async function addRankings(){
             .append('div')
             .style('opacity',0)
             .attr('class','tooltip')
-            .style('background-color','green')
+            .style('background-color','#57410f')
             .style('color','white')
             .style('border','solid')
             .style('border-color','white')
@@ -441,7 +441,7 @@ async function addRankings(){
             .attr('y', function(d) { return y(data[d]); }) 
             .attr('width', x.bandwidth()) 
             .attr('height', function(d) { return height - y(data[d]); })
-            .style('fill','#008000')
+            .style('fill','#57410f')
             .on('mouseover',mouseover) 
             .on('mousemove',mousemove)
             .on('mouseleave',mouseleave);
@@ -770,25 +770,25 @@ legendBtn.addEventListener('click',function(){
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userBtn.classList.remove("active");
-        //userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.backgroundColor = 'white';
         //userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
-        //chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.backgroundColor = 'white';
         //chartBtn.style.color = 'black';
         chartBtn.classList.remove("active");
     }
 
     if (filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
-        //filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.backgroundColor = 'white';
         //filterBtn.style.color = 'black';
         filterBtn.classList.remove("active");
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
-        //directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.backgroundColor = 'white';
         //directionsBtn.style.color = 'black';
         //directions.onRemove(map);
         directionsBtn.classList.remove("active");
@@ -799,9 +799,10 @@ legendBtn.addEventListener('click',function(){
         //legendBtn.style.backgroundColor = 'green';
         //legendBtn.style.color = 'white';
         legendBtn.classList.add("active");
+        legendBtn.style.backgroundColor = '#57410f';
     } else {
         legendContainer.style.display = 'none'
-        //legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.backgroundColor = 'white';
         //legendBtn.style.color = 'black';
         legendBtn.classList.remove("active");
     }
@@ -811,7 +812,7 @@ legendBtn.addEventListener('click',function(){
 document.getElementById('close-legend').addEventListener('click',function(){
     legendContainer.style.display = 'none';
     legendBtn.classList.remove("active");
-    //legendBtn.style.backgroundColor = 'white';
+    legendBtn.style.backgroundColor = 'white';
     //legendBtn.style.color = 'black';
     //closePopup();
 });
@@ -823,7 +824,7 @@ filterBtn.addEventListener('click',function(){
         infoBtn.style.color = 'black';
     }*/
     if(legendContainer.style.display === 'block'){
-        //legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.backgroundColor = 'white';
         //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove("active");
@@ -831,19 +832,19 @@ filterBtn.addEventListener('click',function(){
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.classList.remove("active");
-        //userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.backgroundColor = 'white';
         //userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove("active");
-        //chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.backgroundColor = 'white';
         //chartBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove("active");
-        //directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.backgroundColor = 'white';
         //directionsBtn.style.color = 'black';
         //directions.onRemove(map);
     }
@@ -851,12 +852,13 @@ filterBtn.addEventListener('click',function(){
     if (filterContainer.style.display === 'none'){
         filterContainer.style.display = 'block';
         filterBtn.classList.add("active");
+        filterBtn.style.backgroundColor = '#57410f';
         //filterBtn.style.backgroundColor = 'green';
         //filterBtn.style.color = 'white';
     } else {
         filterContainer.style.display = 'none';
         filterBtn.classList.remove("active");
-        //filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.backgroundColor = 'white';
         //filterBtn.style.color = 'black';
     }
     //closePopup();
@@ -865,7 +867,7 @@ filterBtn.addEventListener('click',function(){
 document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
     filterBtn.classList.remove("active");
-    //filterBtn.style.backgroundColor = 'white';
+    filterBtn.style.backgroundColor = 'white';
     //filterBtn.style.color = 'black';
     //closePopup();
 });
@@ -877,40 +879,41 @@ directionsBtn.addEventListener('click',function(){
         infoBtn.style.color = 'black';
     }*/
     if(legendContainer.style.display === 'block'){
-        //legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.backgroundColor = 'white';
         //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove("active");
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
-        //filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.backgroundColor = 'white';
         //filterBtn.style.color = 'black';
         filterBtn.classList.remove("active");
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
-        //userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.backgroundColor = 'white';
         //userInputBtn.style.color = 'black';
         userInputBtn.classList.remove("active");
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove("active");
-        //chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.backgroundColor = 'white';
         //chartBtn.style.color = 'black';
     }
 
     if (directionsContainer.style.display === 'none'){
         directionsContainer.style.display = 'block';
         directionsBtn.classList.add("active");
+        directionsBtn.style.backgroundColor = '#57410f';
         //directionsBtn.style.backgroundColor = 'green';
         //directionsBtn.style.color = 'white';
         //directionsContainer.appendChild(directions.onAdd(map));
     } else {
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove("active");
-        //directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.backgroundColor = 'white';
         //directionsBtn.style.color = 'black';
         //directions.onRemove(map);
     }
@@ -931,7 +934,8 @@ toggleDirections.addEventListener('click',function(){
 document.getElementById('close-directions').addEventListener('click',function(){
     directionsContainer.style.display = 'none';
     directionsBtn.classList.remove("active");
-    //directionsBtn.style.backgroundColor = 'white';
+    
+    directionsBtn.style.backgroundColor = 'white';
     //directionsBtn.style.color = 'black';
     //directions.onRemove(map);
     //closePopup();
@@ -944,40 +948,41 @@ userInputBtn.addEventListener('click',function(){
         infoBtn.style.color = 'black';
     }*/
     if(legendContainer.style.display === 'block'){
-        //legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.backgroundColor = 'white';
         //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove("active");
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
-        //filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.backgroundColor = 'white';
         //filterBtn.style.color = 'black';
         filterBtn.classList.remove("active");
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove("active");
-        //directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.backgroundColor = 'white';
         //directionsBtn.style.color = 'black';
         //directions.onRemove(map);
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove("active");
-        //chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.backgroundColor = 'white';
         //chartBtn.style.color = 'black';
     }
 
     if (userContainer.style.display === 'none'){
         userContainer.style.display = 'block';
         userInputBtn.classList.add("active");
+        userInputBtn.style.backgroundColor = '#57410f';
         //userInputBtn.style.backgroundColor = 'green';
         //userInputBtn.style.color = 'white';
     } else {
         userContainer.style.display = 'none';
         userInputBtn.classList.remove("active");
-        //userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.backgroundColor = 'white';
         //userInputBtn.style.color = 'black';
     }
     //closePopup();
@@ -986,7 +991,7 @@ userInputBtn.addEventListener('click',function(){
 document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
     userInputBtn.classList.remove("active");
-    //userInputBtn.style.backgroundColor = 'white';
+    userInputBtn.style.backgroundColor = 'white';
     //userInputBtn.style.color = 'black';
     //closePopup();
 });
@@ -998,7 +1003,7 @@ chartBtn.addEventListener('click',function(){
         infoBtn.style.color = 'black';
     }*/
     if(legendContainer.style.display === 'block'){
-        //legendBtn.style.backgroundColor = 'white';
+        legendBtn.style.backgroundColor = 'white';
         //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove("active");
@@ -1006,32 +1011,33 @@ chartBtn.addEventListener('click',function(){
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.classList.remove("active");
-        //filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.backgroundColor = 'white';
         //filterBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove("active");
-        //directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.backgroundColor = 'white';
         //directionsBtn.style.color = 'black';
         //directions.onRemove(map);
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.classList.remove("active");
-        //userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.backgroundColor = 'white';
         //userInputBtn.style.color = 'black';
     }
 
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
         chartBtn.classList.add("active");
+        chartBtn.style.backgroundColor = '#57410f';
         //chartBtn.style.backgroundColor = 'green';
         //chartBtn.style.color = 'white';
     } else {
         chartContainer.style.display = 'none';
         chartBtn.classList.remove("active");
-        //chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.backgroundColor = 'white';
         //chartBtn.style.color = 'black';
     }
     //closePopup();
@@ -1040,7 +1046,7 @@ chartBtn.addEventListener('click',function(){
 document.getElementById('close-ranking-list').addEventListener('click',function(){
     chartContainer.style.display = 'none';
     chartBtn.classList.remove("active");
-    //chartBtn.style.backgroundColor = 'white';
+    chartBtn.style.backgroundColor = 'white';
     //chartBtn.style.color = 'black';
     //closePopup();
 });

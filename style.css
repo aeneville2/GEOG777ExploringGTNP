@@ -68,19 +68,22 @@ p {
     float: right;
 }
 
-.btn-secondary {
+.btn-success {
     font-size: 12px;
     padding: 5px; 
+}
+
+.btn-success:hover {
+    background-color: grey;
 }
 
 .dropdown-item {
     font-size: 12px;
 }
 
-.dropdown-item > .active > a,
-.dropdown-item > .active > a:hover,
-.dropdown-item > .active > a:focus {
-    background-color:#4c72ad;
+.dropdown-item:hover {
+    background-color: #57410f;
+    color: white;
 }
 
 .app-info-text {
