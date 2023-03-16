@@ -74,7 +74,8 @@ p {
 }
 
 .btn-success:hover {
-    background-color: grey;
+    background-color: white;
+    color: #146c43;
 }
 
 .dropdown-item {
