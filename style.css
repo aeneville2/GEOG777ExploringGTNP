@@ -99,6 +99,17 @@ form {
     font-size: 12px;
 }
 
+select {
+    background-color:white;
+    border-color:#146c43;
+    color:#146c43;
+    border-radius:5px;
+}
+
+input:checked {
+    background-color:#57410f;
+}
+
 .submit {
     background-color: green;
     color: white;
@@ -119,6 +130,12 @@ form {
 .mapboxgl-ctrl-geocoder--input {
     font-size: 12px !important;
     margin-left: 20px !important;
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    width: 200px;
+    margin:0;
 }
 
 /*@media print{

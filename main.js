@@ -594,23 +594,25 @@ map.on('click',(event)=>{
 
     if (feature.sourceLayer == 'Services'){
         popup.setHTML(
-            `<h6 style='font-family:woodlist;'>${feature.properties['Point Name']}</h6>`
+            `<h6>${feature.properties['Point Name']}</h6>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL != null){
         popup.setHTML(
-            `<h6 style='font-family:woodlist;'>${feature.properties['Point Name']}</h6><a href='${feature.properties.URL}' target='_blank' style='font-family:woodlist;'>More Info</a>`
+            `<h6>${feature.properties['Point Name']}</h6>
+            <button class='btn btn-success' style='padding:0;'>
+            <a href='${feature.properties.URL}' target='_blank' style='color:white;text-decoration:none;' onMouseOver="this.style.color='#146c43'"  onMouseOut="this.style.color='#fff'">More Info</a></button>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL == null){
         popup.setHTML(
-            `<h6 style='font-family:woodlist;'>${feature.properties['Point Name']}</h6>`
+            `<h6>${feature.properties['Point Name']}</h6>`
         )
         .addTo(map);
     }
     else if (feature.sourceLayer == 'Trails_FeaturesToJSON_v3-1c2nmj'){
         popup.setHTML(
-            `<h6 style='font-family:woodlist;'>Trail: ${feature.properties['Name']}</h6>`
+            `<h6>Trail: ${feature.properties['Name']}</h6>`
         )
         .addTo(map);
     }
@@ -632,13 +634,13 @@ map.on('click',(event)=>{
         const popup = new mapboxgl.Popup({offset: [0,0]})
         .setLngLat(event.lngLat);
 
-        popup.setHTML(`<p style='font-family:woodlist;'>There are ${features[0].properties['point_count']} rankings in this cluster. Zoom in until the number disappears to see the individual rankings.</p>`)
+        popup.setHTML(`<p>There are ${features[0].properties['point_count']} rankings in this cluster. Zoom in until the number disappears to see the individual rankings.</p>`)
         .addTo(map);
     } else {
-        var popupText = `<h6 style='font-family:woodlist;'>User Rankings For: ${features[0].properties['Name']}</h6><strong style='font-family:woodlist;'>Comments:</strong>`; 
+        var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong style='font-family:woodlist;'>Comments:</strong>`; 
         for (var i=0; i<features.length; i++){
             const feature = features[i];
-            popupText += `<li style='font-family:woodlist;'>${feature.properties['Comment']}</li>`
+            popupText += `<li>${feature.properties['Comment']}</li>`
         }
         const feature1 = features[0];
         const popup = new mapboxgl.Popup({offset: [0,0]})
