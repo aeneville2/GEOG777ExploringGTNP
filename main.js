@@ -516,9 +516,9 @@ const geocoder = new MapboxGeocoder({
     },
     collapsed: true,
     // https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder-custom-render 
-    render: function(item){
+    /*render: function(item){
         return `<div><span style='font-family:woodlist;font-size:14px;'>${item.place_name}</span></div>`;
-    }
+    }*/
 });
 map.addControl(geocoder);
 
@@ -756,6 +756,10 @@ document.getElementById('close-info').addEventListener('click',function(){
     //infoBtn.style.color = 'black';
     //closePopup();
 });
+
+document.getElementById('close-info-ok').addEventListener('click',function(){
+    infoContainer.style.display = 'none';
+})
 
 legendBtn.addEventListener('click',function(){
     /*if(infoContainer.style.display === 'block'){
@@ -1208,7 +1212,7 @@ submitBtn.addEventListener('click',async function(event){
         const data = await response.json();
     
         Promise.all([data]).then(async ()=>{
-            alert('Ranking submitted succesfully!');
+            document.getElementById('submit-alert').style.display = 'block';
             const form = document.getElementById('user-ranking-form');
             form.reset();
             svg.selectAll('*').remove();
@@ -1217,6 +1221,14 @@ submitBtn.addEventListener('click',async function(event){
         })
     }
     
+});
+
+document.getElementById('close-success-a').addEventListener('click',function(){
+    document.getElementById('submit-alert').style.display = 'none';
+});
+
+document.getElementById('close-success-b').addEventListener('click',function(){
+    document.getElementById('submit-alert').style.display = 'none';
 });
 
 // Add an event listener so that when the window loads, reset the filter features and submit rankings forms

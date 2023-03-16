@@ -20,11 +20,7 @@ body {
     margin: 0; 
     padding: 0;
     overflow-y: scroll;
-    font-family: woodlist;
-}
-
-nav {
-    background-color: green;
+    /*font-family: woodlist;*/
 }
 
 .navbar-brand {
@@ -40,7 +36,7 @@ nav {
     right: 0;
 }
 
-.menu-btn {
+/*.menu-btn {
     background-color: white;
     font-size: 16px;
     border: 1px solid green;
@@ -51,15 +47,15 @@ nav {
 .menu-btn:hover{
     background-color: green;
     border: 1px solid white;
-}
+}*/
 
 h6 {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 p {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /*.close-btn {
@@ -72,22 +68,37 @@ p {
     float: right;
 }
 
+.btn-secondary {
+    font-size: 12px;
+    padding: 5px; 
+}
+
+.dropdown-item {
+    font-size: 12px;
+}
+
+.dropdown-item > .active > a,
+.dropdown-item > .active > a:hover,
+.dropdown-item > .active > a:focus {
+    background-color:#4c72ad;
+}
+
 .app-info-text {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 figure {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 form {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .submit {
     background-color: green;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     border: 1px solid white;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* https://www.w3schools.com/css/css3_buttons.asp */
 }
@@ -102,9 +113,8 @@ form {
     width: 300px !important;
 }
 .mapboxgl-ctrl-geocoder--input {
-    font-size: 14px !important;
+    font-size: 12px !important;
     margin-left: 20px !important;
-    font-family: woodlist !important;
 }
 
 /*@media print{
