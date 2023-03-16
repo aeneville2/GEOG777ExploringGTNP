@@ -12,29 +12,65 @@
     </head>
     <body>
         <!-- Used https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
-        <nav class='navbar navbar-inverse navbar-sticky-top' style='height:10vh;'>
-            <div class='container-fluid' style='background-color:green;'>
+        <nav class='navbar navbar-light navbar-inverse navbar-sticky-top' style="height:10vh;background-color: #495d4e;">
+            <div class='container-fluid'>
                 <div class='navbar-header'>
-                    <img src='Compass.jpg' style='width:25px;margin:10px;'>
+                    <img src='Compass.jpg' alt="" width="30" class="d-inline-block align-text-center">
                     <a class='navbar-brand' href='#'>Exploring GTNP</a>
                 </div>
                 <!-- Used https://getbootstrap.com/docs/5.0/components/dropdowns/-->
-                <div class='dropdown'>
-                    <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenu' data-bs-toggle='dropdown' aria-expanded='false'>
+                <!--<div class='dropdown'>
+                    <button class='btn btn-light dropdown-toggle' type='button' id='dropdownMenu' data-bs-toggle='dropdown' aria-expanded='false'>
                         Menu
                     </button>
                     <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
                         <li><button id='info-btn' class='menu-btn' style='background-color:green;color:white;'>App Information</button></li>
-                        <li><button id='legend-btn' class='menu-btn'>Map Legend</button></li>
+                        <li><button id='legend-btn' class='btn btn-info'>Map Legend</button></li>
                         <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
                         <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
                         <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
                         <li><button id='chart-btn' class='menu-btn'>Ranking Chart</button></li>
                     </ul>
-                </div>
+                </div>-->
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                      Menu
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" style="text-align:center;">
+                      <li><a class="dropdown-item" href="#" id="legend-btn">Map Legend</a></li>
+                      <li><a class="dropdown-item" href="#" id="filter-btn">Filter Features</a></li>
+                      <li><a class="dropdown-item" href="#" id="directions-btn">Directions</a></li>
+                      <li><a class="dropdown-item" href="#" id="user-input-btn">Submit Ranking</a></li>
+                      <li><a class="dropdown-item" href="#" id="chart-btn">Ranking Chart</a></li>
+                    </ul>
+                </div> 
             </div>
         </nav>
-        <div class='container-fluid' id='info-container' style='display:block;position:fixed;z-index:100;background-color:rgba(0,0,0,0.5);width:100%;height:100%;'>
+        <div class="modal" tabindex="-1" id="info-container" style="display:block;position:fixed;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">App Information</h5>
+                    <button type="button" class="btn-close" id="close-info" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class='app-info-text'><strong>Welcome to the Exploring Grand Teton National Park Application!</strong>
+                            The interactive map displays Points of Interest, Services, Trails, and the Park Boundary.
+                            In the map, you can zoom and pan through direct interaction, click on any feature to see more information,
+                            search for locations, get your current location (button below the search bar), and get directions between two locations
+                            (hit the "Toggle Directions" button to turn on/off this capability).
+                            From the menu, you can see this information screen again, view the map legend, filter features in the map and turn on/off layers, and
+                            see the top ten user-voted Points of Interest in a bar chart.</p>
+                            <p class='app-info-text' style='margin-top:5px;'>
+                                <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
+                                You can then turn on the Rankings layer in the "Filter Features" menu option, and 
+                            click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
+                        </p>
+                    </div>
+                </div>
+            </div>
+          </div>          
+        <!--<div class='container-fluid' id='info-container' style='display:block;position:fixed;z-index:100;background-color:rgba(0,0,0,0.5);width:100%;height:100%;'>
             <div id='info-splash-screen' style='background-color:white;padding:5px;overflow-y:scroll;'>
                 <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
                 <h6>App Information</h6>
@@ -51,9 +87,10 @@
                     click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
                 </p>
             </div>
-        </div>
+        </div>-->
         <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
-            <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
+            <!--<button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+            <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
             <h6>Points of Interest</h6>
             <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style='width:15px;margin:5px;'><figcaption>Amphitheater</figcaption></figure> 
             <figure style='display:inline-flex;align-items:center;'><img src='campground-black-22.png' style='width:15px;'><figcaption>Campground</figcaption></figure>
@@ -86,7 +123,8 @@
         </div>
         <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='filter-form'>
-                <button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>
+                <!--<button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+                <button type="button" class="btn-close" id="close-filter" aria-label="Close"></button>
                 <form id='filter-form-input'>
                     <h6>Filter Features on the Map</h6>
                     <select id='filter-select-poi' style='font-family:woodlist;'>
@@ -135,21 +173,24 @@
                         <li><input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' checked>
                             <label for='boundary-checkbox'>Grand Teton Park Boundary</label></li>
                     </ul>
-                    <button id='reset-filter' class='submit' style='display:block;margin:5px auto;'>Reset</button>
+                    <!--<button id='reset-filter' class='submit' style='display:block;margin:5px auto;'>Reset</button>-->
+                    <button id='reset-filter' class='btn btn-outline-secondary' style='display:block;margin:5px auto;'>Reset</button>
                 </form>
             </div>
         </div>
         <div class='container-fluid' id='directions-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='directions-form' style='justify-content: center;'>
-                <button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>
-                <button class='submit' id='directions-toggle' style='display:block;margin:15px auto;'>Turn on Directions</button>
+                <!--<button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+                <button type="button" class="btn-close" id="close-directions" aria-label="Close"></button>
+                <button class='btn btn-secondary' id='directions-toggle' style='display:block;margin:15px auto;'>Turn on Directions</button>
                 <!--<button class='submit' id='view-on-map'>View Route on Map</button>
                 <button class='submit' id='print-directions'>Print Directions</button>-->
             </div>
         </div>
         <div class='container-fluid' id='user-input-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='user-input-form'>
-                <button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>
+                <!--<button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+                <button type="button" class="btn-close" id="close-user-input" aria-label="Close"></button>
                 <form id='user-ranking-form'>
                     <h6>Select your favorite Point of Interest and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
                     <select id='poi-select' style='font-family:woodlist;'>
@@ -162,7 +203,8 @@
         </div>
         <div class='container-fluid' id='chart-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='chart-form'>
-                <button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>
+                <!--<button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+                <button type="button" class="btn-close" id="close-ranking-list" aria-label="Close"></button>
                 <h6>Top 10 Points of Interest by Number of User Rankings</h6>
                 <p style='font-style:italic;'>Hover or tap on the bars to see the Point of Interest name.</p>
             </div>

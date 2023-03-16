@@ -62,9 +62,13 @@ p {
     font-size: 14px;
 }
 
-.close-btn {
+/*.close-btn {
     background-color: #fff;
     border: 0px;
+    float: right;
+}*/
+
+.btn-close {
     float: right;
 }
 
