@@ -46,11 +46,11 @@
                 </div> 
             </div>
         </nav>
-        <div class="modal" tabindex="-1" id="info-container" style="display:block;position:fixed;margin-top:10vh;height:90vh;">
+        <div class="modal" tabindex="-1" id="info-container" style="display:block;position:fixed;">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title">App Information</h5>
+                    <h5 class="modal-title" style="font-size:14px;font-weight:bold;">App Information</h5>
                     <button type="button" class="btn-close" id="close-info" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -61,14 +61,14 @@
                             (hit the "Toggle Directions" button to turn on/off this capability).
                             From the menu, you can see this information screen again, view the map legend, filter features in the map and turn on/off layers, and
                             see the top ten user-voted Points of Interest in a bar chart.</p>
-                            <p id='app-info-text' style='margin-top:5px;'>
+                            <p id='app-info-text' style='margin-top:2px;'>
                                 <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
                                 You can then turn on the Rankings layer in the "Filter Features" menu option, and 
                             click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
                         </p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="close-info-ok">OK</button>
+                    <div class="modal-footer" style="text-align:center;">
+                        <button type="button" class="btn btn-success" id="close-info-ok" style="width:10%;margin-right:45%;">OK</button>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
         <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <!--<button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>-->
             <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
-            <h6>Points of Interest</h6>
+            <p style="font-weight:bold;">Points of Interest</p>
             <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style='width:15px;margin:5px;'><figcaption>Amphitheater</figcaption></figure> 
             <figure style='display:inline-flex;align-items:center;'><img src='campground-black-22.png' style='width:15px;'><figcaption>Campground</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='entrance-station-black-22.png' style='width:15px;'><figcaption>Entrance Station</figcaption></figure>
@@ -106,7 +106,7 @@
             <figure style='display:inline-flex;align-items:center;'><img src='visitor-center-black-22.png' style='width:15px;'><figcaption>Visitor Center</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='beach-access-black-22.png' style='width:15px;'><figcaption>Water Access</figcaption></figure>
             <br>
-            <h6>Services</h6>
+            <p style="font-weight:bold;">Services</p>
             <figure style='display:inline-flex;align-items:center;'><img src='first-aid-black-22.png' style='width:15px;'><figcaption>First Aid Station</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='food-service-black-22.png' style='width:15px;'><figcaption>Food Service</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='gas-station-black-22.png' style='width:15px;'><figcaption>Gas Station</figcaption></figure>
@@ -118,10 +118,10 @@
             <figure style='display:inline-flex;align-items:center;'><img src='showers-black-22.png' style='width:15px;'><figcaption>Showers</figcaption></figure>
             <figure style='display:inline-flex;align-items:center;'><img src='souvenir-shop-black-22.png' style='width:15px;'><figcaption>Store</figcaption></figure>
             <br>
-            <h6>Trails</h6>
+            <p style="font-weight:bold;">Trails</p>
             <img src='Trails_v2.png' style='width:100px;display:inline-flex;'>
             <br>
-            <h6>Rankings</h6>
+            <p style="font-weight:bold;">Rankings</p>
             <img src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
         </div>
         <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
@@ -129,8 +129,8 @@
                 <!--<button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>-->
                 <button type="button" class="btn-close" id="close-filter" aria-label="Close"></button>
                 <form id='filter-form-input'>
-                    <h6>Filter Features on the Map</h6>
-                    <select id='filter-select-poi'>
+                    <p style="font-weight:bold;">Filter Features on the Map</h6>
+                    <select id='filter-select-poi' class='form-select'>
                         <option value='Label'>Select a Point of Interest Type</option>
                         <option value='Amphitheater'>Amphitheater</option>
                         <option value='Campground'>Campground</option>
@@ -144,7 +144,7 @@
                         <option value='Visitor Center'>Visitor Center</option>
                         <option value='Water Access'>Water Access</option>
                     </select>
-                    <select id='filter-select-services'>
+                    <select id='filter-select-services' class="form-select">
                         <option value='Label'>Select a Services Type</option>
                         <option value='First Aid Station'>First Aid Station</option>
                         <option value='Food Service'>Food Service</option>
@@ -157,14 +157,34 @@
                         <option value='Showers'>Showers</option>
                         <option value='Store'>Store</option>
                     </select>
-                    <select id='filter-select-trails-use'>
+                    <select id='filter-select-trails-use' class="form-select">
                         <option value='Label'>Select a Trail Use</option>
                         <option value='Hiker/Pedestrian | Pack and Saddle'>Hikers & Equestrian</option>
                         <option value='Hiker/Pedestrian'>Hikers Only</option>
                         <option value='Hiker/Pedestrian|Bicycle'>Hikers & Bikers</option>
                     </select>
-                    <h6 style='margin-top:10px;'>Turn Layers On/Off</h6>
-                    <ul style='list-style-type: none;' id='checkbox-list'>
+                    <p style='margin-top:10px;font-weight:bold;'>Turn Layers On/Off</h6>
+                    <div class="form-check">
+                        <input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' class="form-check-input">
+                        <label for='ranking-checkbox' class="form-check-label">User Rankings</label>
+                    </div>
+                    <div class="form-check">
+                        <input type='checkbox' id='pois-checkbox' name='pois-checkbox' class="form-check-input" checked>
+                        <label for='pois-checkbox' class="form-check-label">Points of Interest</label>
+                    </div>
+                    <div class="form-check">
+                        <input type='checkbox' id='services-checkbox' name='services-checkbox' class="form-check-input" checked>
+                        <label for='services-checkbox' class="form-check-label">Services</label>
+                    </div>
+                    <div class="form-check">
+                        <input type='checkbox' id='trails-checkbox' name='trails-checkbox' class="form-check-input" checked>
+                        <label for='trails-checkbox' class="form-check-label">Trails</label>
+                    </div>
+                    <div class="form-check">
+                        <input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' class="form-check-input" checked>
+                        <label for='boundary-checkbox' class="form-check-label">Grand Teton Park Boundary</label>
+                    </div>
+                    <!--<ul style='list-style-type: none;' id='checkbox-list'>
                         <li><input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' >
                             <label for='ranking-checkbox'>User Rankings</label></li>
                         <li><input type='checkbox' id='pois-checkbox' name='pois-checkbox' checked>
@@ -175,7 +195,7 @@
                             <label for='trails-checkbox'>Trails</label></li>
                         <li><input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' checked>
                             <label for='boundary-checkbox'>Grand Teton Park Boundary</label></li>
-                    </ul>
+                    </ul>-->
                     <!--<button id='reset-filter' class='submit' style='display:block;margin:5px auto;'>Reset</button>-->
                     <button id='reset-filter' class='btn btn-success' style='display:block;margin:5px auto;'>Reset</button>
                 </form>
@@ -195,11 +215,21 @@
                 <!--<button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>-->
                 <button type="button" class="btn-close" id="close-user-input" aria-label="Close"></button>
                 <form id='user-ranking-form'>
-                    <h6>Select your favorite Point of Interest and provide an appropriate comment about why it is your favorite to help other visitors.</h6>
-                    <select id='poi-select'>
-                        <option id='default-poi-select' value='default'>Select a Point of Interest</option>
-                    </select>
-                    <label for='comment'>Comment</label><input type='text' id='comment' name='comment'>
+                    <p style="font-weight:bold;">Select your favorite Point of Interest and provide an 
+                        appropriate comment about why it is your favorite to help other visitors.</p>
+                    <div class="row mb-3">
+                        <select id='poi-select' class="form-select">
+                            <option id='default-poi-select' value='default'>Select a Point of Interest</option>
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <!--<label for='comment' class="form-label">Comment</label>-->
+                        <div class="col">
+                            <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment">
+                        </div>
+                        
+                    </div>
+                    
                     <!--<button id='submit-btn' class='submit'>Submit</button>-->
                     <button id='submit-btn' class='btn btn-success' style='display:block;margin:5px auto;'>Submit</button>
                 </form>
@@ -225,7 +255,7 @@
             <div id='chart-form'>
                 <!--<button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>-->
                 <button type="button" class="btn-close" id="close-ranking-list" aria-label="Close"></button>
-                <h6>Top 10 Points of Interest by Number of User Rankings</h6>
+                <p style="font-weight:bold;">Top 10 Points of Interest by Number of User Rankings</p>
                 <p style='font-style:italic;'>Hover or tap on the bars to see the Point of Interest name.</p>
             </div>
         </div>
