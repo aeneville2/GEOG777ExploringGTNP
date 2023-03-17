@@ -103,7 +103,18 @@ p {
 
 figure {
     font-size: 12px;
+    margin:10px;
 }
+
+.accordion-button:not(.collapsed) {
+    background-color:rgba(20,108,67,0.1);
+    border-color:#146c43;
+    color:#146c43;
+}
+
+.accordion-button.collapsed::after {
+    background-image: url("Accordion-icon.png");
+  }
 
 form {
     font-size: 12px;

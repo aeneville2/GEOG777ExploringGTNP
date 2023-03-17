@@ -91,8 +91,77 @@
                 </p>
             </div>
         </div>-->
-        <div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
-            <!--<button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>-->
+        <div class="accordion" id="legend-container" style='display:none;position:fixed;z-index:100;background-color:white;width:100%;'>
+            <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Points of Interest
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#legend-container" style="text-align:center;align-items:center;">
+                    <div class="accordion-body">
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='theater-black-22.png' style='width:25px'><figcaption class="figure-caption">Amphitheater</figcaption></figure> 
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='campground-black-22.png' style='width:25px'><figcaption class="figure-caption">Campground</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='entrance-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Entrance Station</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='boat-tour-black-22.png' style='width:25px'><figcaption class="figure-caption">Ferry Terminal</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='lodging-black-22-v2.png' style='width:25px'><figcaption class="figure-caption">Lodging</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='scenic-viewpoint-black-22.png' style='width:25px'><figcaption class="figure-caption">Overlooks & Turnouts</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='picnic-area-black-22.png' style='width:25px'><figcaption class="figure-caption">Picnic Area</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='trailhead-black-22.png' style='width:25px'><figcaption class="figure-caption">Trailhead</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='visitor-center-black-22.png' style='width:25px'><figcaption class="figure-caption">Visitor Center</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='beach-access-black-22.png' style='width:25px'><figcaption class="figure-caption">Water Access</figcaption></figure>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Services
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#legend-container" style="text-align:center;align-items:center;">
+                    <div class="accordion-body">
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='first-aid-black-22.png' style='width:25px'><figcaption class="figure-caption">First Aid Station</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='food-service-black-22.png' style='width:25px'><figcaption class="figure-caption">Food Service</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='gas-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Gas Station</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='parking-black-22.png' style='width:25px'><figcaption class="figure-caption">Parking</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='telephone-black-22.png' style='width:25px'><figcaption class="figure-caption">Pay Phone</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='post-office-black-22.png' style='width:25px'><figcaption class="figure-caption">Post Office</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='ranger-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Ranger Station</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='restrooms-black-22.png' style='width:25px'><figcaption class="figure-caption">Restrooms</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='showers-black-22.png' style='width:25px'><figcaption class="figure-caption">Showers</figcaption></figure>
+                        <figure class="figure"><img class="figure-img img-fluid rounded" src='souvenir-shop-black-22.png' style='width:25px'><figcaption class="figure-caption">Store</figcaption></figure>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Trails
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#legend-container">
+                    <div class="accordion-body">
+                        <img class="figure-img img-fluid rounded" src='Trails_v2.png' style='width:100px;display:inline-flex;'>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    User Rankings
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#legend-container">
+                    <div class="accordion-body">
+                        <img class="figure-img img-fluid rounded" src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
+            <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
             <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
             <p style="font-weight:bold;">Points of Interest</p>
             <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style='width:15px;margin:5px;'><figcaption>Amphitheater</figcaption></figure> 
@@ -123,7 +192,7 @@
             <br>
             <p style="font-weight:bold;">Rankings</p>
             <img src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
-        </div>
+        </div>-->
         <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='filter-form'>
                 <!--<button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>-->
