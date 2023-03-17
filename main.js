@@ -637,10 +637,10 @@ map.on('click',(event)=>{
         popup.setHTML(`<p>There are ${features[0].properties['point_count']} rankings in this cluster. Zoom in until the number disappears to see the individual rankings.</p>`)
         .addTo(map);
     } else {
-        var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong style='font-family:woodlist;'>Comments:</strong>`; 
+        var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong>Comments:</strong>`; 
         for (var i=0; i<features.length; i++){
             const feature = features[i];
-            popupText += `<li>${feature.properties['Comment']}</li>`
+            popupText += `<li style='text-align:left;'>${feature.properties['Comment']}</li>`
         }
         const feature1 = features[0];
         const popup = new mapboxgl.Popup({offset: [0,0]})
@@ -927,9 +927,13 @@ toggleDirections.addEventListener('click',function(){
     if (toggleDirections.innerText === 'Turn on Directions'){
         directionsContainer.appendChild(directions.onAdd(map));
         toggleDirections.innerText = 'Turn off Directions';
+        toggleDirections.classList.remove('btn-success');
+        toggleDirections.classList.add('btn-danger');
     } else if (toggleDirections.innerText === 'Turn off Directions'){
         directions.onRemove(map);
         toggleDirections.innerText = 'Turn on Directions';
+        toggleDirections.classList.remove('btn-danger');
+        toggleDirections.classList.add('btn-success');
     }
 });
 

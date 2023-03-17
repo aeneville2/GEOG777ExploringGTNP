@@ -73,9 +73,19 @@ p {
     padding: 5px; 
 }
 
+.btn-danger {
+    font-size: 12px;
+    padding: 5px;
+}
+
 .btn-success:hover {
     background-color: white;
     color: #146c43;
+}
+
+.btn-danger:hover {
+    background-color:white;
+    color:#dc3545;
 }
 
 .dropdown-item {
@@ -110,11 +120,14 @@ form {
     font-size: 12px;
     padding: 0;
     max-width: 500px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .form-control {
     font-size: 12px;
     max-width: 500px;
+    margin-top: 5px;
 }
 
 input:checked {
@@ -139,8 +152,8 @@ input:checked {
     width: 300px !important;
 }
 .mapboxgl-ctrl-geocoder--input {
-    font-size: 12px !important;
-    margin-left: 20px !important;
+    /*font-size: 12px !important;*/
+    margin-left: 30px !important;
 }
 
 .mapboxgl-popup-content {

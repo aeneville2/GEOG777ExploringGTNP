@@ -46,7 +46,7 @@
                 </div> 
             </div>
         </nav>
-        <div class="modal" tabindex="-1" id="info-container" style="display:block;position:fixed;">
+        <div class="modal" tabindex="-1" id="info-container" data-bs-backdrop="static" data-bs-focus="true" style="display:block;position:fixed;">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -217,18 +217,10 @@
                 <form id='user-ranking-form'>
                     <p style="font-weight:bold;">Select your favorite Point of Interest and provide an 
                         appropriate comment about why it is your favorite to help other visitors.</p>
-                    <div class="row mb-3">
-                        <select id='poi-select' class="form-select">
-                            <option id='default-poi-select' value='default'>Select a Point of Interest</option>
-                        </select>
-                    </div>
-                    <div class="row mb-3">
-                        <!--<label for='comment' class="form-label">Comment</label>-->
-                        <div class="col">
-                            <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment">
-                        </div>
-                        
-                    </div>
+                    <select id='poi-select' class="form-select">
+                        <option id='default-poi-select' value='default'>Select a Point of Interest</option>
+                    </select>
+                    <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment">
                     
                     <!--<button id='submit-btn' class='submit'>Submit</button>-->
                     <button id='submit-btn' class='btn btn-success' style='display:block;margin:5px auto;'>Submit</button>
@@ -237,16 +229,19 @@
         </div>
         <div class="modal" tabindex="-1" id="submit-alert" style="display:none;position:fixed;">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="text-align:center;">
                     <div class="modal-header">
-                    <h5 class="modal-title">Success!</h5>
+                        <div class="alert alert-success" role="alert" style="padding:5px;">
+                            <h5 class="modal-title">Success!</h5>
+                        </div>
                     <button type="button" class="btn-close" id="close-success-a" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p id="alert-text">Ranking successfully added!</p>
+                        <p id="alert-text" style="font-weight:bold;">Ranking successfully added! Turn on "User Rankings" in the Filter Features menu 
+                            and go to the Point of Interest you selected in the map to see your comment added there!</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="close-success-b" data-bs-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-success" id="close-success-b" data-bs-dismiss="modal" style="width:10%;margin-right:45%;">OK</button>
                     </div>
                 </div>
             </div>
