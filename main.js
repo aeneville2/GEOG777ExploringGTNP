@@ -594,7 +594,7 @@ map.on('click',(event)=>{
         popup.setHTML(
             `<h6>${feature.properties['Point Name']}</h6>
             <button class='btn btn-success' style='padding:0;'>
-            <a href='${feature.properties.URL}' target='_blank' style='color:white;text-decoration:none;' onMouseOver='this.style.color='#146c43''  onMouseOut='this.style.color='#fff''>More Info</a></button>`
+            <a href='${feature.properties.URL}' target='_blank' style='color:white;text-decoration:none;' onMouseOver='this.style.color='#146c43' onMouseOut='this.style.color='#fff''>More Info</a></button>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL == null){
@@ -717,31 +717,37 @@ legendBtn.addEventListener('click',function(){
         userContainer.style.display = 'none';
         userBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
         chartBtn.classList.remove('active');
+        chartBtn.style.color = 'black';
     }
     if (filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.classList.remove('active');
+        filterBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
         directionsBtn.classList.remove('active');
+        directionsBtn.style.color = 'black';
     }
 
     if(legendContainer.style.display === 'none'){
         legendContainer.style.display = 'block';
         legendBtn.classList.add('active');
-        legendBtn.style.backgroundColor = '#57410f';
+        legendBtn.style.backgroundColor = 'rgba(20,108,67,0.5)';
+        legendBtn.style.color = 'rgba(20,108,67,1)';
     } else {
         legendContainer.style.display = 'none'
         legendBtn.style.backgroundColor = 'white';
         legendBtn.classList.remove('active');
+        legendBtn.style.color = 'black';
     }
 });
 
@@ -749,6 +755,7 @@ document.getElementById('close-legend').addEventListener('click',function(){
     legendContainer.style.display = 'none';
     legendBtn.classList.remove('active');
     legendBtn.style.backgroundColor = 'white';
+    legendBtn.style.color = 'black';
 });
 
 filterBtn.addEventListener('click',function(){
@@ -756,31 +763,37 @@ filterBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove('active');
+        legendBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
 
     if (filterContainer.style.display === 'none'){
         filterContainer.style.display = 'block';
         filterBtn.classList.add('active');
-        filterBtn.style.backgroundColor = '#57410f';
+        filterBtn.style.backgroundColor = 'rgba(20,108,67,0.5)';
+        filterBtn.style.color = 'rgba(20,108,67,1)';
     } else {
         filterContainer.style.display = 'none';
         filterBtn.classList.remove('active');
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
 })
 
@@ -788,6 +801,7 @@ document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
     filterBtn.classList.remove('active');
     filterBtn.style.backgroundColor = 'white';
+    filterBtn.style.color = 'black';
 });
 
 directionsBtn.addEventListener('click',function(){
@@ -795,31 +809,37 @@ directionsBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove('active');
+        legendBtn.style.color = 'black';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.classList.remove('active');
+        filterBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
         userInputBtn.classList.remove('active');
+        userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 
     if (directionsContainer.style.display === 'none'){
         directionsContainer.style.display = 'block';
         directionsBtn.classList.add('active');
-        directionsBtn.style.backgroundColor = '#57410f';
+        directionsBtn.style.backgroundColor = 'rgba(20,108,67,0.5)';
+        directionsBtn.style.color = 'rgba(20,108,67,1)';
     } else {
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
 });
 
@@ -845,6 +865,7 @@ document.getElementById('close-directions').addEventListener('click',function(){
     directionsContainer.style.display = 'none';
     directionsBtn.classList.remove('active');
     directionsBtn.style.backgroundColor = 'white';
+    directionsBtn.style.color = 'black';
 });
 
 userInputBtn.addEventListener('click',function(){
@@ -852,30 +873,36 @@ userInputBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove('active');
+        legendBtn.style.color = 'black';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
         filterBtn.classList.remove('active');
+        filterBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'none'){
         userContainer.style.display = 'block';
         userInputBtn.classList.add('active');
-        userInputBtn.style.backgroundColor = '#57410f';
+        userInputBtn.style.backgroundColor = 'rgba(20,108,67,0.5)';
+        userInputBtn.style.color = 'rgba(20,108,67,1)';
     } else {
         userContainer.style.display = 'none';
         userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
 });
 
@@ -883,6 +910,7 @@ document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
     userInputBtn.classList.remove('active');
     userInputBtn.style.backgroundColor = 'white';
+    userInputBtn.style.color = 'black';
 });
 
 chartBtn.addEventListener('click',function(){
@@ -890,31 +918,37 @@ chartBtn.addEventListener('click',function(){
         legendBtn.style.backgroundColor = 'white';
         legendContainer.style.display = 'none';
         legendBtn.classList.remove('active');
+        legendBtn.style.color = 'black';
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.classList.remove('active');
         filterBtn.style.backgroundColor = 'white';
+        filterBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
+        directionsBtn.style.color = 'black';
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
+        userInputBtn.style.color = 'black';
     }
 
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
         chartBtn.classList.add('active');
-        chartBtn.style.backgroundColor = '#57410f';
+        chartBtn.style.backgroundColor = 'rgba(20,108,67,0.5)';
+        chartBtn.style.color = 'rgba(20,108,67,1)';
     } else {
         chartContainer.style.display = 'none';
         chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
+        chartBtn.style.color = 'black';
     }
 });
 
@@ -922,6 +956,7 @@ document.getElementById('close-ranking-list').addEventListener('click',function(
     chartContainer.style.display = 'none';
     chartBtn.classList.remove('active');
     chartBtn.style.backgroundColor = 'white';
+    chartBtn.style.color = 'black';
 });
 
 // Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select

@@ -54,13 +54,14 @@ p {
 }
 
 .btn-success:hover {
-    background-color: white;
-    color: #146c43;
+    background-color:rgba(20,108,67,0.5);
+    border-color:#146c43;
+    /*color:#146c43;*/
 }
 
 .btn-danger:hover {
-    background-color:white;
-    color:#dc3545;
+    background-color:rgba(220,53,69,0.5);
+    /*color:#dc3545;*/
 }
 
 .dropdown-item {
@@ -68,8 +69,8 @@ p {
 }
 
 .dropdown-item:hover {
-    background-color: #57410f;
-    color: white;
+    background-color: rgba(20,108,67,0.5);
+    color: #146c43;
 }
 
 .app-info-text {
@@ -113,6 +114,11 @@ form {
     max-width: 500px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.form-select > option:hover {
+    background-color: rgba(20,108,67,0.5);
+    color: #146c43;
 }
 
 .form-select:focus {
