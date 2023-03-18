@@ -57,13 +57,12 @@
                         <p id='app-info-text'><strong>Welcome to the Exploring Grand Teton National Park Application!</strong>
                             The interactive map displays Points of Interest, Services, Trails, and the Park Boundary.
                             In the map, you can zoom and pan through direct interaction, click on any feature to see more information,
-                            search for locations, get your current location (button below the search bar), and get directions between two locations
-                            (hit the "Toggle Directions" button to turn on/off this capability).
-                            From the menu, you can see this information screen again, view the map legend, filter features in the map and turn on/off layers, and
+                            search for locations, and get your current location (button below the search bar).
+                            From the menu, you can view the map legend, filter features in the map and turn on/off layers, get directions between two places, and
                             see the top ten user-voted Points of Interest in a bar chart.</p>
                             <p id='app-info-text' style='margin-top:2px;'>
                                 <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
-                                You can then turn on the Rankings layer in the "Filter Features" menu option, and 
+                                You can then turn on the User Rankings layer in the "Filter Features" menu option, and 
                             click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
                         </p>
                     </div>
@@ -275,6 +274,7 @@
                 <!--<button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>-->
                 <button type="button" class="btn-close" id="close-directions" aria-label="Close"></button>
                 <button class='btn btn-success' id='directions-toggle' style='display:block;margin:15px auto;'>Turn on Directions</button>
+                <p id='directions-info' style="font-style:italic;display:none;">*Note: close this pane to see the route in the map.</p>
                 <!--<button class='submit' id='view-on-map'>View Route on Map</button>
                 <button class='submit' id='print-directions'>Print Directions</button>-->
             </div>

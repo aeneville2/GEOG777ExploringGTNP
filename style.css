@@ -116,10 +116,20 @@ form {
     margin-bottom: 5px;
 }
 
+.form-select:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
 .form-control {
     font-size: 12px;
     max-width: 500px;
     margin-top: 5px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
 }
 
 .mapboxgl-ctrl-geocoder {

@@ -929,11 +929,13 @@ toggleDirections.addEventListener('click',function(){
         toggleDirections.innerText = 'Turn off Directions';
         toggleDirections.classList.remove('btn-success');
         toggleDirections.classList.add('btn-danger');
+        document.getElementById('directions-info').style.display = 'block';
     } else if (toggleDirections.innerText === 'Turn off Directions'){
         directions.onRemove(map);
         toggleDirections.innerText = 'Turn on Directions';
         toggleDirections.classList.remove('btn-danger');
         toggleDirections.classList.add('btn-success');
+        document.getElementById('directions-info').style.display = 'none';
     }
 });
 
