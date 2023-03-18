@@ -1,26 +1,25 @@
 /* Graceland font from 1001fonts.com by neaturevisual */
-@font-face {
+/*@font-face {
     font-family: graceland;
     src: url(Graceland.otf)
-}
+}*/
 
 /* Pine Forest by DikasStudio on 1001fonts.com */
-@font-face {
+/*@font-face {
     font-family: pine-forest;
     src: url(Pine\ Forest\ Personal\ Use\ Only.otf)
-}
+}*/
 
 /* Woodlist by Nur Aisyah Amalia on 1001fonts.com */
-@font-face {
+/*@font-face {
     font-family: woodlist;
     src: url(Woodlist-Regular.ttf)
-}
+}*/
 
 body { 
     margin: 0; 
     padding: 0;
     overflow-y: scroll;
-    /*font-family: woodlist;*/
 }
 
 .navbar-brand {
@@ -143,4 +142,7 @@ form {
     text-align: center;
     width: 200px;
     margin:0;
+    padding:10px;
+    max-height:200px;
+    overflow-y:scroll;
 }

@@ -14,8 +14,6 @@ map.on('load', ()=>{
 
     map.resize(); // Fit the map to its container
 
-    //addTopButton(map); // Add the custom control (the 'Toggle Directions' button) to the map
-
     // Add the Park Boundary layer from the tileset hosted in MapBox
     map.addLayer({
         'id':'Park Boundary',
@@ -513,12 +511,7 @@ const geocoder = new MapboxGeocoder({
     proximity: {
         longitude: -110.6818,
         latitude: 43.7904
-    },
-    collapsed: true,
-    // https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-geocoder-custom-render 
-    /*render: function(item){
-        return `<div><span style='font-family:woodlist;font-size:14px;'>${item.place_name}</span></div>`;
-    }*/
+    }
 });
 map.addControl(geocoder);
 
@@ -601,7 +594,7 @@ map.on('click',(event)=>{
         popup.setHTML(
             `<h6>${feature.properties['Point Name']}</h6>
             <button class='btn btn-success' style='padding:0;'>
-            <a href='${feature.properties.URL}' target='_blank' style='color:white;text-decoration:none;' onMouseOver="this.style.color='#146c43'"  onMouseOut="this.style.color='#fff'">More Info</a></button>`
+            <a href='${feature.properties.URL}' target='_blank' style='color:white;text-decoration:none;' onMouseOver='this.style.color='#146c43''  onMouseOut='this.style.color='#fff''>More Info</a></button>`
         )
         .addTo(map);
     } else if (feature.sourceLayer == 'POIs' && feature.properties.URL == null){
@@ -640,7 +633,7 @@ map.on('click',(event)=>{
         var popupText = `<h6>User Rankings For: ${features[0].properties['Name']}</h6><strong>Comments:</strong>`; 
         for (var i=0; i<features.length; i++){
             const feature = features[i];
-            popupText += `<li style='text-align:left;'>${feature.properties['Comment']}</li>`
+            popupText += `<li style='text-align:left;margin:5px;'>${feature.properties['Comment']}</li>`
         }
         const feature1 = features[0];
         const popup = new mapboxgl.Popup({offset: [0,0]})
@@ -711,52 +704,8 @@ var directionsBtn = document.getElementById('directions-btn');
 var userInputBtn = document.getElementById('user-input-btn');
 var chartBtn = document.getElementById('chart-btn');
 
-/*infoBtn.addEventListener('click',function(){
-    if (userContainer.style.display === 'block'){
-        userContainer.style.display = 'none'
-        userInputBtn.style.backgroundColor = 'white';
-        userInputBtn.style.color = 'black';
-    }
-    if (legendContainer.style.display === 'block'){
-        legendContainer.style.display = 'none';
-        legendBtn.style.backgroundColor = 'white';
-        legendBtn.style.color = 'black';
-    }
-    if (chartContainer.style.display === 'block'){
-        chartContainer.style.display = 'none';
-        chartBtn.style.backgroundColor = 'white';
-        chartBtn.style.color = 'black';
-    }
-
-    if (filterContainer.style.display === 'block'){
-        filterContainer.style.display = 'none';
-        filterBtn.style.backgroundColor = 'white';
-        filterBtn.style.color = 'black';
-    }
-    if (directionsContainer.style.display === 'block'){
-        directionsContainer.style.display = 'none';
-        directionsBtn.style.backgroundColor = 'white';
-        directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
-    }
-
-    if(infoContainer.style.display === 'none'){
-        infoContainer.style.display = 'block';
-        infoBtn.style.backgroundColor = 'green';
-        infoBtn.style.color = 'white';
-    } else {
-        infoContainer.style.display = 'none'
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-    }
-    //closePopup();
-});*/
-
 document.getElementById('close-info').addEventListener('click',function(){
     infoContainer.style.display = 'none';
-    //infoBtn.style.backgroundColor = 'white';
-    //infoBtn.style.color = 'black';
-    //closePopup();
 });
 
 document.getElementById('close-info-ok').addEventListener('click',function(){
@@ -764,164 +713,117 @@ document.getElementById('close-info-ok').addEventListener('click',function(){
 })
 
 legendBtn.addEventListener('click',function(){
-    /*if(infoContainer.style.display === 'block'){
-        infoContainer.style.display = 'none';
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-    }*/
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
-        userBtn.classList.remove("active");
+        userBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
-        //userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
         chartBtn.style.backgroundColor = 'white';
-        //chartBtn.style.color = 'black';
-        chartBtn.classList.remove("active");
+        chartBtn.classList.remove('active');
     }
-
     if (filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
-        //filterBtn.style.color = 'black';
-        filterBtn.classList.remove("active");
+        filterBtn.classList.remove('active');
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
         directionsBtn.style.backgroundColor = 'white';
-        //directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
-        directionsBtn.classList.remove("active");
+        directionsBtn.classList.remove('active');
     }
 
     if(legendContainer.style.display === 'none'){
         legendContainer.style.display = 'block';
-        //legendBtn.style.backgroundColor = 'green';
-        //legendBtn.style.color = 'white';
-        legendBtn.classList.add("active");
+        legendBtn.classList.add('active');
         legendBtn.style.backgroundColor = '#57410f';
     } else {
         legendContainer.style.display = 'none'
         legendBtn.style.backgroundColor = 'white';
-        //legendBtn.style.color = 'black';
-        legendBtn.classList.remove("active");
+        legendBtn.classList.remove('active');
     }
-    //closePopup();
 });
 
 document.getElementById('close-legend').addEventListener('click',function(){
     legendContainer.style.display = 'none';
-    legendBtn.classList.remove("active");
+    legendBtn.classList.remove('active');
     legendBtn.style.backgroundColor = 'white';
-    //legendBtn.style.color = 'black';
-    //closePopup();
 });
 
 filterBtn.addEventListener('click',function(){
-    /*if(infoContainer.style.display === 'block'){
-        infoBtn.style.backgroundColor = 'white';
-        infoContainer.style.display = 'none';
-        infoBtn.style.color = 'black';
-    }*/
     if(legendContainer.style.display === 'block'){
         legendBtn.style.backgroundColor = 'white';
-        //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
-        legendBtn.classList.remove("active");
+        legendBtn.classList.remove('active');
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
-        userInputBtn.classList.remove("active");
+        userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
-        //userInputBtn.style.color = 'black';
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
-        chartBtn.classList.remove("active");
+        chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
-        //chartBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
-        directionsBtn.classList.remove("active");
+        directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
-        //directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
     }
 
     if (filterContainer.style.display === 'none'){
         filterContainer.style.display = 'block';
-        filterBtn.classList.add("active");
+        filterBtn.classList.add('active');
         filterBtn.style.backgroundColor = '#57410f';
-        //filterBtn.style.backgroundColor = 'green';
-        //filterBtn.style.color = 'white';
     } else {
         filterContainer.style.display = 'none';
-        filterBtn.classList.remove("active");
+        filterBtn.classList.remove('active');
         filterBtn.style.backgroundColor = 'white';
-        //filterBtn.style.color = 'black';
     }
-    //closePopup();
 })
 
 document.getElementById('close-filter').addEventListener('click',function(){
     filterContainer.style.display = 'none';
-    filterBtn.classList.remove("active");
+    filterBtn.classList.remove('active');
     filterBtn.style.backgroundColor = 'white';
-    //filterBtn.style.color = 'black';
-    //closePopup();
 });
 
 directionsBtn.addEventListener('click',function(){
-    /*if(infoContainer.style.display === 'block'){
-        infoContainer.style.display = 'none';
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-    }*/
     if(legendContainer.style.display === 'block'){
         legendBtn.style.backgroundColor = 'white';
-        //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
-        legendBtn.classList.remove("active");
+        legendBtn.classList.remove('active');
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
-        //filterBtn.style.color = 'black';
-        filterBtn.classList.remove("active");
+        filterBtn.classList.remove('active');
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
         userInputBtn.style.backgroundColor = 'white';
-        //userInputBtn.style.color = 'black';
-        userInputBtn.classList.remove("active");
+        userInputBtn.classList.remove('active');
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
-        chartBtn.classList.remove("active");
+        chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
-        //chartBtn.style.color = 'black';
     }
 
     if (directionsContainer.style.display === 'none'){
         directionsContainer.style.display = 'block';
-        directionsBtn.classList.add("active");
+        directionsBtn.classList.add('active');
         directionsBtn.style.backgroundColor = '#57410f';
-        //directionsBtn.style.backgroundColor = 'green';
-        //directionsBtn.style.color = 'white';
-        //directionsContainer.appendChild(directions.onAdd(map));
     } else {
         directionsContainer.style.display = 'none';
-        directionsBtn.classList.remove("active");
+        directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
-        //directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
     }
-    //closePopup();
 });
 
+// Event listener to add or remove the directions control and change the button accordingly
 var toggleDirections = document.getElementById('directions-toggle');
 toggleDirections.addEventListener('click',function(){
     if (toggleDirections.innerText === 'Turn on Directions'){
@@ -941,122 +843,85 @@ toggleDirections.addEventListener('click',function(){
 
 document.getElementById('close-directions').addEventListener('click',function(){
     directionsContainer.style.display = 'none';
-    directionsBtn.classList.remove("active");
-    
+    directionsBtn.classList.remove('active');
     directionsBtn.style.backgroundColor = 'white';
-    //directionsBtn.style.color = 'black';
-    //directions.onRemove(map);
-    //closePopup();
 });
 
 userInputBtn.addEventListener('click',function(){
-    /*if(infoContainer.style.display === 'block'){
-        infoContainer.style.display = 'none';
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-    }*/
     if(legendContainer.style.display === 'block'){
         legendBtn.style.backgroundColor = 'white';
-        //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
-        legendBtn.classList.remove("active");
+        legendBtn.classList.remove('active');
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
         filterBtn.style.backgroundColor = 'white';
-        //filterBtn.style.color = 'black';
-        filterBtn.classList.remove("active");
+        filterBtn.classList.remove('active');
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
-        directionsBtn.classList.remove("active");
+        directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
-        //directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
     }
     if (chartContainer.style.display === 'block'){
         chartContainer.style.display = 'none';
-        chartBtn.classList.remove("active");
+        chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
-        //chartBtn.style.color = 'black';
     }
-
     if (userContainer.style.display === 'none'){
         userContainer.style.display = 'block';
-        userInputBtn.classList.add("active");
+        userInputBtn.classList.add('active');
         userInputBtn.style.backgroundColor = '#57410f';
-        //userInputBtn.style.backgroundColor = 'green';
-        //userInputBtn.style.color = 'white';
     } else {
         userContainer.style.display = 'none';
-        userInputBtn.classList.remove("active");
+        userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
-        //userInputBtn.style.color = 'black';
     }
-    //closePopup();
 });
 
 document.getElementById('close-user-input').addEventListener('click',function(){
     userContainer.style.display = 'none';
-    userInputBtn.classList.remove("active");
+    userInputBtn.classList.remove('active');
     userInputBtn.style.backgroundColor = 'white';
-    //userInputBtn.style.color = 'black';
-    //closePopup();
 });
 
 chartBtn.addEventListener('click',function(){
-    /*if(infoContainer.style.display === 'block'){
-        infoContainer.style.display = 'none';
-        infoBtn.style.backgroundColor = 'white';
-        infoBtn.style.color = 'black';
-    }*/
     if(legendContainer.style.display === 'block'){
         legendBtn.style.backgroundColor = 'white';
-        //legendBtn.style.color = 'black';
         legendContainer.style.display = 'none';
-        legendBtn.classList.remove("active");
+        legendBtn.classList.remove('active');
     }
     if(filterContainer.style.display === 'block'){
         filterContainer.style.display = 'none';
-        filterBtn.classList.remove("active");
+        filterBtn.classList.remove('active');
         filterBtn.style.backgroundColor = 'white';
-        //filterBtn.style.color = 'black';
     }
     if (directionsContainer.style.display === 'block'){
         directionsContainer.style.display = 'none';
-        directionsBtn.classList.remove("active");
+        directionsBtn.classList.remove('active');
         directionsBtn.style.backgroundColor = 'white';
-        //directionsBtn.style.color = 'black';
-        //directions.onRemove(map);
     }
     if (userContainer.style.display === 'block'){
         userContainer.style.display = 'none';
-        userInputBtn.classList.remove("active");
+        userInputBtn.classList.remove('active');
         userInputBtn.style.backgroundColor = 'white';
-        //userInputBtn.style.color = 'black';
     }
 
     if (chartContainer.style.display === 'none'){
         chartContainer.style.display = 'block';
-        chartBtn.classList.add("active");
+        chartBtn.classList.add('active');
         chartBtn.style.backgroundColor = '#57410f';
-        //chartBtn.style.backgroundColor = 'green';
-        //chartBtn.style.color = 'white';
     } else {
         chartContainer.style.display = 'none';
-        chartBtn.classList.remove("active");
+        chartBtn.classList.remove('active');
         chartBtn.style.backgroundColor = 'white';
-        //chartBtn.style.color = 'black';
     }
-    //closePopup();
 });
 
 document.getElementById('close-ranking-list').addEventListener('click',function(){
     chartContainer.style.display = 'none';
-    chartBtn.classList.remove("active");
+    chartBtn.classList.remove('active');
     chartBtn.style.backgroundColor = 'white';
-    //chartBtn.style.color = 'black';
-    //closePopup();
 });
 
 // Define filters for the Points of Interest, Services, and Trails layers based on which option is selected using a change event listener on the select
@@ -1183,7 +1048,7 @@ submitBtn.addEventListener('click',async function(event){
     // If the user did select the point of interest, take the coordinates from the point of interest selected (the value for the select option)
     //  and the name of the point of interest selected 
     if (coord == 'default'){
-        alert('Please select a point of interest')
+        document.getElementById('submit-alert-noPOI').style.display = 'block';
     } else {
         const coordSplit = coord.split(',');
         const poiLon = parseFloat(coordSplit[0]);
@@ -1237,6 +1102,16 @@ submitBtn.addEventListener('click',async function(event){
     
 });
 
+// Event listeners to close the alert window for needing to select a POI
+document.getElementById('close-alert').addEventListener('click',function(){
+    document.getElementById('submit-alert-noPOI').style.display = 'none';
+});
+
+document.getElementById('close-alert-2').addEventListener('click',function(){
+    document.getElementById('submit-alert-noPOI').style.display = 'none';
+});
+
+// Event listeners to close the successful alert window
 document.getElementById('close-success-a').addEventListener('click',function(){
     document.getElementById('submit-alert').style.display = 'none';
 });

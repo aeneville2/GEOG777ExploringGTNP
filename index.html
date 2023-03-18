@@ -11,49 +11,34 @@
         <link rel='stylesheet' href='style.css'>
     </head>
     <body>
-        <!-- Used https://www.w3schools.com/bootstrap/bootstrap_navbar.asp -->
-        <nav class='navbar navbar-light navbar-inverse navbar-sticky-top' style="height:10vh;background-color: #57410f;">
+        <nav class='navbar navbar-light navbar-inverse navbar-sticky-top' style='height:10vh;background-color: #57410f;'>
             <div class='container-fluid'>
                 <div class='navbar-header'>
-                    <img src='Compass.jpg' alt="" width="30" class="d-inline-block align-text-center">
+                    <img src='Compass.jpg' alt='' width='30' class='d-inline-block align-text-center'>
                     <a class='navbar-brand' href='#'>Exploring GTNP</a>
                 </div>
-                <!-- Used https://getbootstrap.com/docs/5.0/components/dropdowns/-->
-                <!--<div class='dropdown'>
-                    <button class='btn btn-light dropdown-toggle' type='button' id='dropdownMenu' data-bs-toggle='dropdown' aria-expanded='false'>
-                        Menu
-                    </button>
-                    <ul class='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenu' id='dropdownMenuUl'>
-                        <li><button id='info-btn' class='menu-btn' style='background-color:green;color:white;'>App Information</button></li>
-                        <li><button id='legend-btn' class='btn btn-info'>Map Legend</button></li>
-                        <li><button id='filter-btn' class='menu-btn'>Filter Features</button></li>
-                        <li><button id='directions-btn' class='menu-btn'>Directions</button></li>
-                        <li><button id='user-input-btn' class='menu-btn'>Submit Ranking</button></li>
-                        <li><button id='chart-btn' class='menu-btn'>Ranking Chart</button></li>
-                    </ul>
-                </div>-->
-                <div class="dropdown">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                <div class='dropdown'>
+                    <button type='button' class='btn btn-success dropdown-toggle' data-bs-toggle='dropdown'>
                       Menu
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" style="text-align:center;">
-                      <li><a class="dropdown-item" href="#" id="legend-btn">Map Legend</a></li>
-                      <li><a class="dropdown-item" href="#" id="filter-btn">Filter Features</a></li>
-                      <li><a class="dropdown-item" href="#" id="directions-btn">Directions</a></li>
-                      <li><a class="dropdown-item" href="#" id="user-input-btn">Submit Ranking</a></li>
-                      <li><a class="dropdown-item" href="#" id="chart-btn">Ranking Chart</a></li>
+                    <ul class='dropdown-menu dropdown-menu-end' style='text-align:center;'>
+                      <li><a class='dropdown-item' href='#' id='legend-btn'>Map Legend</a></li>
+                      <li><a class='dropdown-item' href='#' id='filter-btn'>Filter Features</a></li>
+                      <li><a class='dropdown-item' href='#' id='directions-btn'>Directions</a></li>
+                      <li><a class='dropdown-item' href='#' id='user-input-btn'>Submit Ranking</a></li>
+                      <li><a class='dropdown-item' href='#' id='chart-btn'>Ranking Chart</a></li>
                     </ul>
                 </div> 
             </div>
         </nav>
-        <div class="modal" tabindex="-1" id="info-container" data-bs-backdrop="static" data-bs-focus="true" style="display:block;position:fixed;">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" style="font-size:14px;font-weight:bold;">App Information</h5>
-                    <button type="button" class="btn-close" id="close-info" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class='modal' tabindex='-1' id='info-container' data-bs-backdrop='static' data-bs-focus='true' style='display:block;position:fixed;'>
+            <div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                    <h5 class='modal-title' style='font-size:14px;font-weight:bold;'>App Information</h5>
+                    <button type='button' class='btn-close' id='close-info' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
-                    <div class="modal-body">
+                    <div class='modal-body'>
                         <p id='app-info-text'><strong>Welcome to the Exploring Grand Teton National Park Application!</strong>
                             The interactive map displays Points of Interest, Services, Trails, and the Park Boundary.
                             In the map, you can zoom and pan through direct interaction, click on any feature to see more information,
@@ -61,143 +46,91 @@
                             From the menu, you can view the map legend, filter features in the map and turn on/off layers, get directions between two places, and
                             see the top ten user-voted Points of Interest in a bar chart.</p>
                             <p id='app-info-text' style='margin-top:2px;'>
-                                <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
-                                You can then turn on the User Rankings layer in the "Filter Features" menu option, and 
+                                <strong>Additionally, you can contribute to this app!</strong> Go to 'Submit Rankings' menu option to vote for your favorite Point of Interest with a comment.
+                                You can then turn on the User Rankings layer in the 'Filter Features' menu option, and 
                             click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
                         </p>
                     </div>
-                    <div class="modal-footer" style="text-align:center;">
-                        <button type="button" class="btn btn-success" id="close-info-ok" style="width:10%;margin-right:45%;">OK</button>
+                    <div class='modal-footer' style='text-align:center;'>
+                        <button type='button' class='btn btn-success' id='close-info-ok' style='width:10%;margin-right:45%;'>OK</button>
                     </div>
                 </div>
             </div>
         </div>          
-        <!--<div class='container-fluid' id='info-container' style='display:block;position:fixed;z-index:100;background-color:rgba(0,0,0,0.5);width:100%;height:100%;'>
-            <div id='info-splash-screen' style='background-color:white;padding:5px;overflow-y:scroll;'>
-                <button class='close-btn' id='close-info'><img src='Close_v2.png' style='width:15px;'></a></button>
-                <h6>App Information</h6>
-                <p class='app-info-text'><strong>Welcome to the Exploring Grand Teton National Park Application!</strong>
-                    The interactive map displays Points of Interest, Services, Trails, and the Park Boundary.
-                    In the map, you can zoom and pan through direct interaction, click on any feature to see more information,
-                    search for locations, get your current location (button below the search bar), and get directions between two locations
-                    (hit the "Toggle Directions" button to turn on/off this capability).
-                    From the menu, you can see this information screen again, view the map legend, filter features in the map and turn on/off layers, and
-                    see the top ten user-voted Points of Interest in a bar chart.</p>
-                    <p class='app-info-text' style='margin-top:5px;'>
-                        <strong>Additionally, you can contribute to this app!</strong> Go to "Submit Rankings" menu option to vote for your favorite Point of Interest with a comment.
-                        You can then turn on the Rankings layer in the "Filter Features" menu option, and 
-                    click on the star in the map at the Point of Interest you voted on to see your comment with the other user comments for that Point of Interest.
-                </p>
-            </div>
-        </div>-->
-        <div class="accordion" id="legend-container" style='display:none;position:fixed;z-index:100;background-color:white;width:100%;overflow-y:scroll;max-height:480px;'>
-            <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div class='accordion' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;width:100%;overflow-y:scroll;max-height:480px;'>
+            <button type='button' class='btn-close' aria-label='Close' id='close-legend'></button>
+            <div class='accordion-item'>
+                <h2 class='accordion-header' id='headingOne'>
+                    <button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>
                         Points of Interest
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#legend-container" style="text-align:center;align-items:center;">
-                    <div class="accordion-body">
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='theater-black-22.png' style='width:25px'><figcaption class="figure-caption">Amphitheater</figcaption></figure> 
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='campground-black-22.png' style='width:25px'><figcaption class="figure-caption">Campground</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='entrance-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Entrance Station</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='boat-tour-black-22.png' style='width:25px'><figcaption class="figure-caption">Ferry Terminal</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='lodging-black-22-v2.png' style='width:25px'><figcaption class="figure-caption">Lodging</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='scenic-viewpoint-black-22.png' style='width:25px'><figcaption class="figure-caption">Overlooks & Turnouts</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='picnic-area-black-22.png' style='width:25px'><figcaption class="figure-caption">Picnic Area</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='trailhead-black-22.png' style='width:25px'><figcaption class="figure-caption">Trailhead</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='visitor-center-black-22.png' style='width:25px'><figcaption class="figure-caption">Visitor Center</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='beach-access-black-22.png' style='width:25px'><figcaption class="figure-caption">Water Access</figcaption></figure>
+                <div id='collapseOne' class='accordion-collapse collapse show' aria-labelledby='headingOne' data-bs-parent='#legend-container' style='text-align:center;align-items:center;'>
+                    <div class='accordion-body'>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='theater-black-22.png' style='width:25px'><figcaption class='figure-caption'>Amphitheater</figcaption></figure> 
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='campground-black-22.png' style='width:25px'><figcaption class='figure-caption'>Campground</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='entrance-station-black-22.png' style='width:25px'><figcaption class='figure-caption'>Entrance Station</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='boat-tour-black-22.png' style='width:25px'><figcaption class='figure-caption'>Ferry Terminal</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='lodging-black-22-v2.png' style='width:25px'><figcaption class='figure-caption'>Lodging</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='scenic-viewpoint-black-22.png' style='width:25px'><figcaption class='figure-caption'>Overlooks & Turnouts</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='picnic-area-black-22.png' style='width:25px'><figcaption class='figure-caption'>Picnic Area</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='trailhead-black-22.png' style='width:25px'><figcaption class='figure-caption'>Trailhead</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='visitor-center-black-22.png' style='width:25px'><figcaption class='figure-caption'>Visitor Center</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='beach-access-black-22.png' style='width:25px'><figcaption class='figure-caption'>Water Access</figcaption></figure>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <div class='accordion-item'>
+                <h2 class='accordion-header' id='headingTwo'>
+                    <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo'>
                     Services
                     </button>
                 </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#legend-container" style="text-align:center;align-items:center;">
-                    <div class="accordion-body">
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='first-aid-black-22.png' style='width:25px'><figcaption class="figure-caption">First Aid Station</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='food-service-black-22.png' style='width:25px'><figcaption class="figure-caption">Food Service</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='gas-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Gas Station</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='parking-black-22.png' style='width:25px'><figcaption class="figure-caption">Parking</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='telephone-black-22.png' style='width:25px'><figcaption class="figure-caption">Pay Phone</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='post-office-black-22.png' style='width:25px'><figcaption class="figure-caption">Post Office</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='ranger-station-black-22.png' style='width:25px'><figcaption class="figure-caption">Ranger Station</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='restrooms-black-22.png' style='width:25px'><figcaption class="figure-caption">Restrooms</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='showers-black-22.png' style='width:25px'><figcaption class="figure-caption">Showers</figcaption></figure>
-                        <figure class="figure"><img class="figure-img img-fluid rounded" src='souvenir-shop-black-22.png' style='width:25px'><figcaption class="figure-caption">Store</figcaption></figure>
+                <div id='collapseTwo' class='accordion-collapse collapse' aria-labelledby='headingTwo' data-bs-parent='#legend-container' style='text-align:center;align-items:center;'>
+                    <div class='accordion-body'>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='first-aid-black-22.png' style='width:25px'><figcaption class='figure-caption'>First Aid Station</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='food-service-black-22.png' style='width:25px'><figcaption class='figure-caption'>Food Service</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='gas-station-black-22.png' style='width:25px'><figcaption class='figure-caption'>Gas Station</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='parking-black-22.png' style='width:25px'><figcaption class='figure-caption'>Parking</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='telephone-black-22.png' style='width:25px'><figcaption class='figure-caption'>Pay Phone</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='post-office-black-22.png' style='width:25px'><figcaption class='figure-caption'>Post Office</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='ranger-station-black-22.png' style='width:25px'><figcaption class='figure-caption'>Ranger Station</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='restrooms-black-22.png' style='width:25px'><figcaption class='figure-caption'>Restrooms</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='showers-black-22.png' style='width:25px'><figcaption class='figure-caption'>Showers</figcaption></figure>
+                        <figure class='figure'><img class='figure-img img-fluid rounded' src='souvenir-shop-black-22.png' style='width:25px'><figcaption class='figure-caption'>Store</figcaption></figure>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class='accordion-item'>
+                <h2 class='accordion-header' id='headingThree'>
+                    <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded='false' aria-controls='collapseThree'>
                     Trails
                     </button>
                 </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#legend-container">
-                    <div class="accordion-body">
-                        <img class="figure-img img-fluid rounded" src='Trails_v2.png' style='width:100px;display:inline-flex;'>
+                <div id='collapseThree' class='accordion-collapse collapse' aria-labelledby='headingThree' data-bs-parent='#legend-container'>
+                    <div class='accordion-body'>
+                        <img class='figure-img img-fluid rounded' src='Trails_v2.png' style='width:100px;display:inline-flex;'>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingFour">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <div class='accordion-item'>
+                <h2 class='accordion-header' id='headingFour'>
+                    <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapseFour' aria-expanded='false' aria-controls='collapseFour'>
                     User Rankings
                     </button>
                 </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#legend-container">
-                    <div class="accordion-body">
-                        <img class="figure-img img-fluid rounded" src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
+                <div id='collapseFour' class='accordion-collapse collapse' aria-labelledby='headingFour' data-bs-parent='#legend-container'>
+                    <div class='accordion-body'>
+                        <img class='figure-img img-fluid rounded' src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
                     </div>
                 </div>
             </div>
         </div>
-        <!--<div class='container-fluid' id='legend-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
-            <button class='close-btn' id='close-legend'><img src='Close_v2.png' style='width:15px;'></a></button>
-            <button type="button" class="btn-close" aria-label="Close" id="close-legend"></button>
-            <p style="font-weight:bold;">Points of Interest</p>
-            <figure style='display:inline-flex;align-items:center;'><img src='theater-black-22.png' style='width:15px;margin:5px;'><figcaption>Amphitheater</figcaption></figure> 
-            <figure style='display:inline-flex;align-items:center;'><img src='campground-black-22.png' style='width:15px;'><figcaption>Campground</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='entrance-station-black-22.png' style='width:15px;'><figcaption>Entrance Station</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='boat-tour-black-22.png' style='width:15px;'><figcaption>Ferry Terminal</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='lodging-black-22-v2.png' style='width:15px;'><figcaption>Lodging</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='scenic-viewpoint-black-22.png' style='width:15px;'><figcaption>Overlooks & Turnouts</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='picnic-area-black-22.png' style='width:15px;'><figcaption>Picnic Area</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='trailhead-black-22.png' style='width:15px;'><figcaption>Trailhead</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='visitor-center-black-22.png' style='width:15px;'><figcaption>Visitor Center</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='beach-access-black-22.png' style='width:15px;'><figcaption>Water Access</figcaption></figure>
-            <br>
-            <p style="font-weight:bold;">Services</p>
-            <figure style='display:inline-flex;align-items:center;'><img src='first-aid-black-22.png' style='width:15px;'><figcaption>First Aid Station</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='food-service-black-22.png' style='width:15px;'><figcaption>Food Service</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='gas-station-black-22.png' style='width:15px;'><figcaption>Gas Station</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='parking-black-22.png' style='width:15px;'><figcaption>Parking</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='telephone-black-22.png' style='width:15px;'><figcaption>Pay Phone</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='post-office-black-22.png' style='width:15px;'><figcaption>Post Office</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='ranger-station-black-22.png' style='width:15px;'><figcaption>Ranger Station</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='restrooms-black-22.png' style='width:15px;'><figcaption>Restrooms</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='showers-black-22.png' style='width:15px;'><figcaption>Showers</figcaption></figure>
-            <figure style='display:inline-flex;align-items:center;'><img src='souvenir-shop-black-22.png' style='width:15px;'><figcaption>Store</figcaption></figure>
-            <br>
-            <p style="font-weight:bold;">Trails</p>
-            <img src='Trails_v2.png' style='width:100px;display:inline-flex;'>
-            <br>
-            <p style="font-weight:bold;">Rankings</p>
-            <img src='Star.png' style='width:25px;display:inline-flex;padding-bottom:5px;'>
-        </div>-->
         <div class='container-fluid' id='filter-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='filter-form'>
-                <!--<button class='close-btn' id='close-filter'><img src='Close_v2.png' style='width:15px;'></a></button>-->
-                <button type="button" class="btn-close" id="close-filter" aria-label="Close"></button>
+                <button type='button' class='btn-close' id='close-filter' aria-label='Close'></button>
                 <form id='filter-form-input'>
-                    <p style="font-weight:bold;">Filter Features on the Map</h6>
+                    <p style='font-weight:bold;'>Filter Features on the Map</h6>
                     <select id='filter-select-poi' class='form-select'>
                         <option value='Label'>Select a Point of Interest Type</option>
                         <option value='Amphitheater'>Amphitheater</option>
@@ -212,7 +145,7 @@
                         <option value='Visitor Center'>Visitor Center</option>
                         <option value='Water Access'>Water Access</option>
                     </select>
-                    <select id='filter-select-services' class="form-select">
+                    <select id='filter-select-services' class='form-select'>
                         <option value='Label'>Select a Services Type</option>
                         <option value='First Aid Station'>First Aid Station</option>
                         <option value='Food Service'>Food Service</option>
@@ -225,101 +158,99 @@
                         <option value='Showers'>Showers</option>
                         <option value='Store'>Store</option>
                     </select>
-                    <select id='filter-select-trails-use' class="form-select">
+                    <select id='filter-select-trails-use' class='form-select'>
                         <option value='Label'>Select a Trail Use</option>
                         <option value='Hiker/Pedestrian | Pack and Saddle'>Hikers & Equestrian</option>
                         <option value='Hiker/Pedestrian'>Hikers Only</option>
                         <option value='Hiker/Pedestrian|Bicycle'>Hikers & Bikers</option>
                     </select>
                     <p style='margin-top:10px;font-weight:bold;'>Turn Layers On/Off</h6>
-                    <div class="form-check">
-                        <input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' class="form-check-input">
-                        <label for='ranking-checkbox' class="form-check-label">User Rankings</label>
+                    <div class='form-check'>
+                        <input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' class='form-check-input'>
+                        <label for='ranking-checkbox' class='form-check-label'>User Rankings</label>
                     </div>
-                    <div class="form-check">
-                        <input type='checkbox' id='pois-checkbox' name='pois-checkbox' class="form-check-input" checked>
-                        <label for='pois-checkbox' class="form-check-label">Points of Interest</label>
+                    <div class='form-check'>
+                        <input type='checkbox' id='pois-checkbox' name='pois-checkbox' class='form-check-input' checked>
+                        <label for='pois-checkbox' class='form-check-label'>Points of Interest</label>
                     </div>
-                    <div class="form-check">
-                        <input type='checkbox' id='services-checkbox' name='services-checkbox' class="form-check-input" checked>
-                        <label for='services-checkbox' class="form-check-label">Services</label>
+                    <div class='form-check'>
+                        <input type='checkbox' id='services-checkbox' name='services-checkbox' class='form-check-input' checked>
+                        <label for='services-checkbox' class='form-check-label'>Services</label>
                     </div>
-                    <div class="form-check">
-                        <input type='checkbox' id='trails-checkbox' name='trails-checkbox' class="form-check-input" checked>
-                        <label for='trails-checkbox' class="form-check-label">Trails</label>
+                    <div class='form-check'>
+                        <input type='checkbox' id='trails-checkbox' name='trails-checkbox' class='form-check-input' checked>
+                        <label for='trails-checkbox' class='form-check-label'>Trails</label>
                     </div>
-                    <div class="form-check">
-                        <input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' class="form-check-input" checked>
-                        <label for='boundary-checkbox' class="form-check-label">Grand Teton Park Boundary</label>
+                    <div class='form-check'>
+                        <input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' class='form-check-input' checked>
+                        <label for='boundary-checkbox' class='form-check-label'>Grand Teton Park Boundary</label>
                     </div>
-                    <!--<ul style='list-style-type: none;' id='checkbox-list'>
-                        <li><input type='checkbox' id='ranking-checkbox' name='ranking-checkbox' >
-                            <label for='ranking-checkbox'>User Rankings</label></li>
-                        <li><input type='checkbox' id='pois-checkbox' name='pois-checkbox' checked>
-                            <label for='pois-checkbox'>Points of Interest</label></li>
-                        <li><input type='checkbox' id='services-checkbox' name='services-checkbox' checked>
-                            <label for='services-checkbox'>Services</label></li>
-                        <li><input type='checkbox' id='trails-checkbox' name='trails-checkbox' checked>
-                            <label for='trails-checkbox'>Trails</label></li>
-                        <li><input type='checkbox' id='boundary-checkbox' name='boundary-checkbox' checked>
-                            <label for='boundary-checkbox'>Grand Teton Park Boundary</label></li>
-                    </ul>-->
-                    <!--<button id='reset-filter' class='submit' style='display:block;margin:5px auto;'>Reset</button>-->
                     <button id='reset-filter' class='btn btn-success' style='display:block;margin:5px auto;'>Reset</button>
                 </form>
             </div>
         </div>
         <div class='container-fluid' id='directions-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='directions-form' style='justify-content: center;'>
-                <!--<button class='close-btn' id='close-directions'><img src='Close_v2.png' style='width:15px;'></a></button>-->
-                <button type="button" class="btn-close" id="close-directions" aria-label="Close"></button>
+                <button type='button' class='btn-close' id='close-directions' aria-label='Close'></button>
                 <button class='btn btn-success' id='directions-toggle' style='display:block;margin:15px auto;'>Turn on Directions</button>
-                <p id='directions-info' style="font-style:italic;display:none;">*Note: close this pane to see the route in the map.</p>
-                <!--<button class='submit' id='view-on-map'>View Route on Map</button>
-                <button class='submit' id='print-directions'>Print Directions</button>-->
+                <p id='directions-info' style='font-style:italic;display:none;'>*Note: close this pane to see the route in the map.</p>
             </div>
         </div>
         <div class='container-fluid' id='user-input-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='user-input-form'>
-                <!--<button class='close-btn' id='close-user-input'><img src='Close_v2.png' style='width:15px;'></a></button>-->
-                <button type="button" class="btn-close" id="close-user-input" aria-label="Close"></button>
+                <button type='button' class='btn-close' id='close-user-input' aria-label='Close'></button>
                 <form id='user-ranking-form'>
-                    <p style="font-weight:bold;">Select your favorite Point of Interest and provide an 
+                    <p style='font-weight:bold;'>Select your favorite Point of Interest and provide an 
                         appropriate comment about why it is your favorite to help other visitors.</p>
-                    <select id='poi-select' class="form-select">
+                    <select id='poi-select' class='form-select'>
                         <option id='default-poi-select' value='default'>Select a Point of Interest</option>
                     </select>
-                    <input type="text" id="comment" name="comment" class="form-control" placeholder="Comment">
-                    
-                    <!--<button id='submit-btn' class='submit'>Submit</button>-->
+                    <input type='text' id='comment' name='comment' class='form-control' placeholder='Comment'>
                     <button id='submit-btn' class='btn btn-success' style='display:block;margin:5px auto;'>Submit</button>
                 </form>
             </div>
         </div>
-        <div class="modal" tabindex="-1" id="submit-alert" style="display:none;position:fixed;">
-            <div class="modal-dialog">
-                <div class="modal-content" style="text-align:center;">
-                    <div class="modal-header">
-                        <div class="alert alert-success" role="alert" style="padding:5px;">
-                            <h5 class="modal-title">Success!</h5>
+        <div class='modal' tabindex='-1' id='submit-alert' style='display:none;position:fixed;'>
+            <div class='modal-dialog'>
+                <div class='modal-content' style='text-align:center;'>
+                    <div class='modal-header'>
+                        <div class='alert alert-success' role='alert' style='padding:5px;'>
+                            <h5 class='modal-title' style='font-size:14px;font-weight:bold;'>Success!</h5>
                         </div>
-                    <button type="button" class="btn-close" id="close-success-a" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type='button' class='btn-close' id='close-success-a' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
-                    <div class="modal-body">
-                        <p id="alert-text" style="font-weight:bold;">Ranking successfully added! Turn on "User Rankings" in the Filter Features menu 
+                    <div class='modal-body'>
+                        <p id='alert-text' style='font-weight:bold;'>Ranking successfully added! Turn on 'User Rankings' in the Filter Features menu 
                             and go to the Point of Interest you selected in the map to see your comment added there!</p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="close-success-b" data-bs-dismiss="modal" style="width:10%;margin-right:45%;">OK</button>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-success' id='close-success-b' data-bs-dismiss='modal' style='width:10%;margin-right:45%;'>OK</button>
                     </div>
                 </div>
             </div>
         </div>  
+        <div class='modal' tabindex='-1' id='submit-alert-noPOI' style='display:none;position:fixed;'>
+            <div class='modal-dialog'>
+                <div class='modal-content' style='text-align:center;'>
+                    <div class='modal-header'>
+                        <div class='alert alert-danger' role='alert' style='padding:5px;'>
+                            <h5 class='modal-title' style='font-size:14px;font-weight:bold;'>Alert!</h5>
+                        </div>
+                    <button type='button' class='btn-close' id='close-alert' data-bs-dismiss='modal' aria-label='Close'></button>
+                    </div>
+                    <div class='modal-body'>
+                        <p id='alert-text-noPOI' style='font-weight:bold;'>Please select a Point of Interest</p>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-danger' id='close-alert-2' data-bs-dismiss='modal' style='width:10%;margin-right:45%;'>OK</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
         <div class='container-fluid' id='chart-container' style='display:none;position:fixed;z-index:100;background-color:white;'>
             <div id='chart-form'>
-                <!--<button class='close-btn' id='close-ranking-list'><img src='Close_v2.png' style='width:15px;'></a></button>-->
-                <button type="button" class="btn-close" id="close-ranking-list" aria-label="Close"></button>
-                <p style="font-weight:bold;">Top 10 Points of Interest by Number of User Rankings</p>
+                <button type='button' class='btn-close' id='close-ranking-list' aria-label='Close'></button>
+                <p style='font-weight:bold;'>Top 10 Points of Interest by Number of User Rankings</p>
                 <p style='font-style:italic;'>Hover or tap on the bars to see the Point of Interest name.</p>
             </div>
         </div>
